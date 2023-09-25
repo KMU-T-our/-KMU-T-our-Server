@@ -9,14 +9,21 @@ import com.example.tour.dto.user.request.UserCreateRequest;
 
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Service
 public class UserServicev1 {
     
-    private final UserRepository UserRepository;
+    private final UserRepository userRepository;
     
     @Transactional
     public void saveUser(UserCreateRequest request){
-        User u = UserRepository.save(new User(request.getId(), request.getName()));
+        User u = userRepository.save(new User(request));
+    }
+
+    @Transactional
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 }
