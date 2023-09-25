@@ -1,5 +1,6 @@
 package com.example.tour.domain.user;
 
+import com.example.tour.dto.user.request.UserCreateRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +22,19 @@ public class User {
 
     @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String email;
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    public User(UserCreateRequest request) {
+        this.name = request.getName();
+        this.email = request.getEmail();
+    }
 
     public User() {
 
