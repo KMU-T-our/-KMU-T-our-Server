@@ -9,11 +9,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
 @Table(name = "user")
 @Entity
+@NoArgsConstructor
 public class User {
     
     @Id
@@ -36,7 +38,10 @@ public class User {
         this.email = request.getEmail();
     }
 
-    public User() {
-
+    // update
+    public void updateDB(String name, String email){
+        this.name = name;
+        this.email = email;
     }
+
 }
