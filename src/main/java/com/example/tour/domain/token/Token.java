@@ -1,4 +1,4 @@
-package com.example.tour.dto.token;
+package com.example.tour.domain.token;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
