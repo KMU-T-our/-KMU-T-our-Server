@@ -1,12 +1,12 @@
 package com.example.tour.controller.user;
 
 import com.example.tour.domain.user.User;
-import com.example.tour.dto.user.request.UserUpdateRequest;
+import com.example.tour.dto.user.UserUpdateRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.tour.dto.user.request.UserCreateRequest;
-import com.example.tour.service.user.UserServicev1;
+import com.example.tour.dto.user.UserCreateRequest;
+import com.example.tour.service.user.UserServiceImpl;
 
 import lombok.AllArgsConstructor;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 public class UserController {
     
-    private final UserServicev1 userService;
+    private final UserServiceImpl userService;
 
     @PostMapping("/api/user") // Post /api/user
     public void saveUsers(@RequestBody UserCreateRequest request){
@@ -25,6 +25,7 @@ public class UserController {
 
     @GetMapping("/api/user") // Get /api/user
     public ResponseEntity<List<User>> getUsers() {
+//        userService.findKakaoProfile("pn0CId8rdBNaCZAF4YSmmViGg9cqMW2MShRN66BJCj102wAAAYr6yV-W");
         return ResponseEntity.ok()
                 .body(userService.getUsers());
     }
