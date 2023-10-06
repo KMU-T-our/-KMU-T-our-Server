@@ -1,4 +1,4 @@
-package com.example.tour.domain.token;
+package com.example.tour.token;
 
 import lombok.Getter;
 import lombok.Setter;

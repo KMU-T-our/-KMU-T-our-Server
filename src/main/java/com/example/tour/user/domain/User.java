@@ -1,6 +1,6 @@
-package com.example.tour.domain.user;
+package com.example.tour.user.domain;
 
-import com.example.tour.dto.user.UserCreateRequest;
+import com.example.tour.user.dto.UserCreateRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +26,7 @@ public class User {
     private Long id;
 
     @Column(name = "social_id", nullable = false)
-    private Long socialId;
+    private String socialId;
 
     @Column(name = "is_kakao_user")
     private boolean isKakaoUser;
