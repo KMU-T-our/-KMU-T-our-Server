@@ -30,7 +30,6 @@ public class UserController {
 
     @GetMapping("/api/user") // Get /api/user
     public ResponseEntity<List<User>> getUsers() {
-//        userService.findKakaoProfile("pn0CId8rdBNaCZAF4YSmmViGg9cqMW2MShRN66BJCj102wAAAYr6yV-W");
         return ResponseEntity.ok()
                 .body(userService.getUsers());
     }

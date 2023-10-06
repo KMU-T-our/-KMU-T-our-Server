@@ -63,7 +63,7 @@ public class UserServiceImpl {
     public String saveUserKakaoAndGetToken(String token) {
         KakaoProfile profile = findKakaoProfile(token);
 
-        User user = userRepository.findBySocialIdAndKakaoUser(profile.getId());
+        User user = userRepository.findBySocialIdAndIsKakaoUser(profile.getId(), true);
 
         if(user == null) {
             user = User.builder()
@@ -122,7 +122,7 @@ public class UserServiceImpl {
     public String saveUserNaverAndGetToken(String token) {
         NaverProfile profile = findNaverProfile(token);
 
-        User user = userRepository.findBySocialIdAndNaverUser(profile.getId());
+        User user = userRepository.findBySocialIdAndIsNaverUser(profile.getId(), true);
 
         if(user == null) {
             user = User.builder()
