@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,14 +15,17 @@ public class TokenController {
     private final UserServiceImpl userService;
 
     @GetMapping("/api/token")
-    public ResponseEntity<String> token(@RequestBody Token token) { //
+    public ResponseEntity<String> token(Token token) {
         String jwtToken = null;
-        if (token.isKakao()) { // 카카오 로그인
-            jwtToken = userService.saveUserKakaoAndGetToken(token.getToken());
-        } else { // 네이버 로그인
-            jwtToken = userService.saveUserNaverAndGetToken(token.getToken());
 
+        if (token.getType().equals("kakao")) { // 카카오 로그인
+            jwtToken = userService.saveUserKakaoAndGetToken(token.getToken());
         }
+
+        if (token.getType().equals("naver")) { // 네이버 로그인
+            jwtToken = userService.saveUserNaverAndGetToken(token.getToken());
+        }
+
         HttpHeaders headers = new HttpHeaders();
         headers.add(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + jwtToken);
 

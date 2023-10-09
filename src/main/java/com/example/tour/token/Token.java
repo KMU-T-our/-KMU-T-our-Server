@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class Token {
     String token;
-    boolean isKakao;
+    String type;
 }

@@ -69,6 +69,7 @@ public class UserServiceImpl {
             user = User.builder()
                     .isKakaoUser(true)
                     .isNaverUser(false)
+                    .name(profile.getName())
                     .socialId(profile.getId())
                     .build();
             userRepository.save(user);
@@ -93,7 +94,7 @@ public class UserServiceImpl {
                 String.class
         );
 
-        System.out.println("kakaoProfileResponse.getBody() = " + kakaoProfileResponse.getBody());  // 썡 Json 테스트용 출력
+//        System.out.println("kakaoProfileResponse.getBody() = " + kakaoProfileResponse.getBody());  // 썡 Json 테스트용 출력
 
         ObjectMapper objectMapper = new ObjectMapper();
         KakaoProfile kakaoProfile = null;
