@@ -1,5 +1,7 @@
 package com.example.tour.user;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.example.tour.token.jwt.JwtProperties;
 import com.example.tour.user.domain.User;
 import com.example.tour.user.dto.KakaoProfile;
@@ -8,9 +10,6 @@ import com.example.tour.user.dto.UserCreateRequest;
 import com.example.tour.user.dto.UserUpdateRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -109,15 +108,10 @@ public class UserServiceImpl {
 
 
     public String createJwtToken(User user) {
-
-        Claims claims = Jwts.claims().setIssuedAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME));
-        claims.put("id", user.getId());
-
-        String token = Jwts.builder()
-                .setClaims(claims)
-                .signWith(SignatureAlgorithm.HS256, JwtProperties.SECRET)
-                .compact();
-        return token;
+        return JWT.create()
+                .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
+                .withClaim("id", user.getId())
+                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
     }
 
     public String saveUserNaverAndGetToken(String token) {
