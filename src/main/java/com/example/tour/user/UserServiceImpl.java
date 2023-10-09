@@ -47,9 +47,6 @@ public class UserServiceImpl {
         user.updateDB(request.getName(), request.getEmail());
     }
 
-    // email 로 지우기 : emainl,id 는 1대1로 매핑되는 고유정보임
-    // kakao, naver 에서 email 정보 받아올거임
-    // kakao 랑 naver 랑 email 정보 같으면 어떡하지? (이건 갑자기 생긴 의문)
     @Transactional
     public void deleteUser(String email) {
         User user = userRepository.findByEmail(email)
@@ -59,11 +56,18 @@ public class UserServiceImpl {
     }
 
 
+    /**
+     * 카카오 액세스 토큰을 이용해서 유저정보를 가져오고
+     * 디비에 해당 유저가 없다면 새로 만들고 있다면 그 유저를 이용해 jwt를 만들어 리턴하는 함수
+     */
     public String saveUserKakaoAndGetToken(String token) {
+        // 액세스토큰을 이용하여 카카오에서 회원 Json을 받아오고 필요한 정보만 KakaoProfile에 매핑해준다.
         KakaoProfile profile = findKakaoProfile(token);
 
+        // KakaoProfile의 소셜아이디로 디비에서 유저를 찾는다.
         User user = userRepository.findBySocialIdAndIsKakaoUser(profile.getId(), true);
 
+        // 만약 해당 소셜아이디를 가진 유저가 없다면 새로 만든다.
         if (user == null) {
             user = User.builder()
                     .isKakaoUser(true)
@@ -73,32 +77,44 @@ public class UserServiceImpl {
                     .build();
             userRepository.save(user);
         }
+
+        // 디비에서 찾았거나 새로 만든 유저로 토큰을만들어 반환한다.
         return createJwtToken(user);
     }
 
 
+    // 토큰을 이용하여 카카오 회원 서버에서 정보를 가져온 후, KakaoProfile에 매핑해주는 함수.
     public KakaoProfile findKakaoProfile(String token) {
-        RestTemplate rt = new RestTemplate();
+        RestTemplate rt = new RestTemplate(); // http요청을 위한 템플릿 ? 뭔지 잘 모름
 
+
+        // HTTP 요청 헤더
+        // 기본적인 헤더에 인증 헤더를 추가하여 헤더를 만든다.
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + token);
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
+
+
         HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest = new HttpEntity<>(headers);
 
+        //실제 HTTP 요청 부분
         ResponseEntity<String> kakaoProfileResponse = rt.exchange(
-                "https://kapi.kakao.com/v2/user/me",
-                HttpMethod.POST,
-                kakaoProfileRequest,
-                String.class
+                "https://kapi.kakao.com/v2/user/me", // 요청 URL
+                HttpMethod.POST, // HTTP 메서드
+                kakaoProfileRequest, // HTTP 헤더
+                String.class // response받을 타입
         );
+
 
 //        System.out.println("kakaoProfileResponse.getBody() = " + kakaoProfileResponse.getBody());  // 썡 Json 테스트용 출력
 
+
+        // Json을 kakaoProfile에 매핑해주기 위한 오브젝트 매퍼
         ObjectMapper objectMapper = new ObjectMapper();
         KakaoProfile kakaoProfile = null;
         try {
-            kakaoProfile = objectMapper.readValue(kakaoProfileResponse.getBody(), KakaoProfile.class);
+            kakaoProfile = objectMapper.readValue(kakaoProfileResponse.getBody(), KakaoProfile.class); // 매핑
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -107,6 +123,8 @@ public class UserServiceImpl {
     }
 
 
+    // user 와 java-jwt를 이용하여 jwt생성
+    // 클레임에 id만 넣었다.
     public String createJwtToken(User user) {
         return JWT.create()
                 .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
@@ -114,6 +132,8 @@ public class UserServiceImpl {
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
     }
 
+
+    // 네이버도 위쪽을 카카오 로직과 똑같다.
     public String saveUserNaverAndGetToken(String token) {
         NaverProfile profile = findNaverProfile(token);
 
@@ -147,7 +167,6 @@ public class UserServiceImpl {
                 naverProfileRequest,
                 String.class
         );
-
 
         ObjectMapper objectMapper = new ObjectMapper();
         NaverProfile naverProfile = null;

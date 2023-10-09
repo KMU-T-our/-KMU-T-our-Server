@@ -3,7 +3,6 @@ package com.example.tour.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,5 +19,4 @@ public class KakaoProfile {
     public void unpackNested(Map<String, Object> response) {
         this.name = (String) response.get("nickname");
     }
-
 }
