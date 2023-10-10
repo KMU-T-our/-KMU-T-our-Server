@@ -1,7 +1,7 @@
 package com.example.tour.wallet.exchange;
 
-import lombok.Value;
-import org.springframework.core.SpringVersion;
+import com.example.tour.wallet.exchange.dto.ExchangeResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +15,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/exchange")
 public class ExchangeController {
     /* configuration 값 : 외부로 유출되면 안 되는 값, 고정된 값은 property로 관리
     // authKey : 발급 받은 api key, 보안 필요
@@ -34,10 +35,10 @@ public class ExchangeController {
     */
     private final String authKey = "w1rFjNClOwszKPrkvE1yKayBxOauuN6L";
     private final String requestUrl = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON";
-    private final String dataType = "APO1";
+    private final String dataType = "AP01";
 
     @GetMapping("/api/exchange")
-    public ResponseEntity<String> callExchangeApi(
+    public List<ExchangeResponse> callExchangeApi(
             // searchDate : 검색 요청 날짜, 요청에 따라 변하는 값
             // DEFAULT는 현재일 -> 처리 하는 방법 추가하기
             @RequestParam(value="searchDate") String searchDate
@@ -46,10 +47,10 @@ public class ExchangeController {
         HttpsURLConnection urlConnection = null;
         // input 받는 거 수정해야 함
         InputStream inputStream = null;
-        String result = null;
-
+        String resultString = null;
+        List<ExchangeResponse> result = null;
         String urlStr = requestUrl + "?authkey=" + authKey +
-                        "&serchdate=" + searchDate + "&data=" + dataType;
+                        "&searchdate=" + searchDate + "&data=" + dataType;
 
         try{
             // URL 형식이 잘못된 경우 MalformedURLException(IOExeption의 하위 클래스)을 throw
@@ -58,8 +59,13 @@ public class ExchangeController {
             // I/O 오류 발생시 IOEXception 발생시킴
             urlConnection = (HttpsURLConnection) url.openConnection();
             inputStream = getNetworkConnection(urlConnection);
-            result = readStreamToString(inputStream);
+            resultString = readStreamToString(inputStream);
+            ObjectMapper objectMapper = new ObjectMapper();
+            result = Arrays.asList(objectMapper.readValue(resultString, ExchangeResponse[].class));
+
+
             System.out.println("result = " + result);
+
             if(inputStream != null) inputStream.close();
 
         } catch(IOException e){
@@ -69,7 +75,7 @@ public class ExchangeController {
                 urlConnection.disconnect();
             }
         }
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return result;
     }
 
     /* URLConnection을 전달받아 연결정보 설정 후 연결, 연결 후 수신한 InputStream 반환 */
