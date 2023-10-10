@@ -11,5 +11,5 @@ spring:
   datasource:
     url: "jdbc:mysql://localhost/Tour" 
     username: "root"
-    password: "aornsxla" # MySQL 비밀번호 설정
+    password: "alstjs109!" # MySQL 비밀번호 설정
     driver-class-name: com.mysql.cj.jdbc.Driver
