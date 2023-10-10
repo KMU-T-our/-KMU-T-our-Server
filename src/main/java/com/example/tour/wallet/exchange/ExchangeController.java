@@ -41,16 +41,19 @@ public class ExchangeController {
     public List<ExchangeResponse> callExchangeApi(
             // searchDate : 검색 요청 날짜, 요청에 따라 변하는 값
             // DEFAULT는 현재일 -> 처리 하는 방법 추가하기
-            @RequestParam(value="searchDate") String searchDate
+            @RequestParam(value="searchDate", required = false) String searchDate
     ){
+
         // HttpsURLConnection : Java 애플리케이션과 URL 간의 연결에 대한 API 제공
         HttpsURLConnection urlConnection = null;
         // input 받는 거 수정해야 함
         InputStream inputStream = null;
         String resultString = null;
         List<ExchangeResponse> result = null;
-        String urlStr = requestUrl + "?authkey=" + authKey +
-                        "&searchdate=" + searchDate + "&data=" + dataType;
+        String urlStr = requestUrl + "?authkey=" + authKey + "&data=" + dataType;;
+        if(searchDate != null) {
+            urlStr += "&searchdate=" + searchDate;
+        }
 
         try{
             // URL 형식이 잘못된 경우 MalformedURLException(IOExeption의 하위 클래스)을 throw
@@ -62,9 +65,6 @@ public class ExchangeController {
             resultString = readStreamToString(inputStream);
             ObjectMapper objectMapper = new ObjectMapper();
             result = Arrays.asList(objectMapper.readValue(resultString, ExchangeResponse[].class));
-
-
-            System.out.println("result = " + result);
 
             if(inputStream != null) inputStream.close();
 
