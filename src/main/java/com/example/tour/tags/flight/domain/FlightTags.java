@@ -2,10 +2,11 @@ package com.example.tour.tags.flight.domain;
 
 import com.example.tour.tags.flight.dto.FlightTagsCreateRequest;
 import com.example.tour.tags.flight.dto.FlightTagsUpdateRequest;
-import jakarta.persistence.*;
-import lombok.*;
 
-import java.util.Date;
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+import lombok.*;
 
 @Getter
 @AllArgsConstructor
@@ -18,53 +19,61 @@ public class FlightTags {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    private Date startDate;
-
-    @Temporal(TemporalType.TIME)
-    @Column(nullable = false)
-    private Date startTime;
+    private LocalDateTime startTakeoffDateTime;
 
     @Column(nullable = false)
-    private String startAirport;
+    private LocalDateTime startLandingDateTime;
+
+    @Column(nullable = false)
+    private String startTakeoffAirport;
+
+    @Column(nullable = false)
+    private String startLandingfAirport;
 
     @Column
     private String startSeat;
 
-    @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    private Date combackDate;
-
-    @Temporal(TemporalType.TIME)
-    @Column(nullable = false)
-    private Date combackTime;
+    private LocalDateTime combackTakeoffDateTime;
 
     @Column(nullable = false)
-    private String combackAirport;
+    private LocalDateTime combackLandingffDateTime;
+
+    @Column(nullable = false)
+    private String combackTakeoffAirport;
+
+    @Column(nullable = false)
+    private String combackLandingAirport;
 
     @Column
     private String combackSeat;
 
-
     public FlightTags(FlightTagsCreateRequest request) {
-        this.startDate = request.getStartDate();
-        this.startTime = request.getStartTime();
-        this.startAirport = request.getStartAirport();
+        this.startTakeoffDateTime = request.getStartTakeoffDateTime();
+        this.startLandingDateTime = request.getStartLandingDateTime();
+        this.startTakeoffAirport = request.getStartTakeoffAirport();
+        this.startLandingfAirport = request.getStartLandingfAirport();
 
-        this.combackDate = request.getCombackDate();
-        this.combackTime = request.getCombackTime();
-        this.combackAirport = request.getCombackAirport();
+        this.combackTakeoffDateTime = request.getCombackTakeoffDateTime();
+        this.combackLandingffDateTime = request.getCombackLandingffDateTime();
+        this.combackTakeoffAirport = request.getCombackTakeoffAirport();
+        this.combackLandingAirport = request.getCombackLandingAirport();
     }
 
     // update 용
     public void updateDB(FlightTagsUpdateRequest request) {
-        this.startDate = request.getStartDate();
-        this.startTime = request.getStartTime();
-        this.startAirport = request.getStartAirport();
-        this.combackDate = request.getCombackDate();
-        this.combackTime = request.getCombackTime();
-        this.combackAirport = request.getCombackAirport();
+        this.startTakeoffDateTime = request.getStartTakeoffDateTime();
+        this.startLandingDateTime = request.getStartLandingDateTime();
+        this.startTakeoffAirport = request.getStartTakeoffAirport();
+        this.startLandingfAirport = request.getStartLandingfAirport();
+        this.startSeat = request.getStartSeat();
+
+        this.combackTakeoffDateTime = request.getCombackTakeoffDateTime();
+        this.combackLandingffDateTime = request.getCombackLandingffDateTime();
+        this.combackTakeoffAirport = request.getCombackTakeoffAirport();
+        this.combackLandingAirport = request.getCombackLandingAirport();
+        this.combackSeat = request.getCombackSeat();
     }
 }
 

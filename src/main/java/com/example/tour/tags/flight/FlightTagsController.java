@@ -26,12 +26,12 @@ public class FlightTagsController {
                 .body(flightTagsService.getFlightTags());
     }
 
-    @PutMapping("api/tags/flight")
+    @PutMapping("/api/tags/flight")
     public void updateFlightTags(@RequestBody FlightTagsUpdateRequest request) {
         flightTagsService.updaterFlightTags(request);
     }
 
-    @DeleteMapping("api/tags/flight")
+    @DeleteMapping("/api/tags/flight")
     public void deleteFlightTags(@RequestParam Long id) {
         flightTagsService.deleteFlightTags(id);
     }
