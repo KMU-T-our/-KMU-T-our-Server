@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ExchangeResponse {
+public class ExchangeRateResponse {
     @JsonProperty("cur_unit")
     private String curUnit; // 통화 코드
 
