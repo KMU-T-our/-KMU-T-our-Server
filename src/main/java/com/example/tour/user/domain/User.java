@@ -28,11 +28,8 @@ public class User {
     @Column(name = "social_id", nullable = false)
     private String socialId;
 
-    @Column(name = "is_kakao_user")
-    private boolean isKakaoUser;
-
-    @Column(name = "is_naver_user")
-    private boolean isNaverUser;
+    @Column(name = "type")
+    private String type;
 
     @Column
     @Nullable

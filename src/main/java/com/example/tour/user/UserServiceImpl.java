@@ -60,18 +60,17 @@ public class UserServiceImpl {
      * 카카오 액세스 토큰을 이용해서 유저정보를 가져오고
      * 디비에 해당 유저가 없다면 새로 만들고 있다면 그 유저를 이용해 jwt를 만들어 리턴하는 함수
      */
-    public String saveUserKakaoAndGetToken(String token) {
+    public ResponseEntity<User> saveUserKakaoAndGetToken(String token) {
         // 액세스토큰을 이용하여 카카오에서 회원 Json을 받아오고 필요한 정보만 KakaoProfile에 매핑해준다.
         KakaoProfile profile = findKakaoProfile(token);
 
         // KakaoProfile의 소셜아이디로 디비에서 유저를 찾는다.
-        User user = userRepository.findBySocialIdAndIsKakaoUser(profile.getId(), true);
+        User user = userRepository.findBySocialIdAndType(profile.getId(), "kakao");
 
         // 만약 해당 소셜아이디를 가진 유저가 없다면 새로 만든다.
         if (user == null) {
             user = User.builder()
-                    .isKakaoUser(true)
-                    .isNaverUser(false)
+                    .type("kakao")
                     .name(profile.getName())
                     .socialId(profile.getId())
                     .build();
@@ -79,7 +78,7 @@ public class UserServiceImpl {
         }
 
         // 디비에서 찾았거나 새로 만든 유저로 토큰을만들어 반환한다.
-        return createJwtToken(user);
+        return makeResponseEntity(user);
     }
 
 
@@ -123,33 +122,22 @@ public class UserServiceImpl {
     }
 
 
-    // user 와 java-jwt를 이용하여 jwt생성
-    // 클레임에 id만 넣었다.
-    public String createJwtToken(User user) {
-        return JWT.create()
-                .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
-                .withClaim("id", user.getId())
-                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
-    }
-
-
     // 네이버도 위쪽을 카카오 로직과 똑같다.
-    public String saveUserNaverAndGetToken(String token) {
+    public ResponseEntity<User> saveUserNaverAndGetToken(String token) {
         NaverProfile profile = findNaverProfile(token);
 
-        User user = userRepository.findBySocialIdAndIsNaverUser(profile.getId(), true);
+        User user = userRepository.findBySocialIdAndType(profile.getId(), "naver");
 
         if (user == null) {
             user = User.builder()
-                    .isNaverUser(true)
-                    .isKakaoUser(false)
+                    .type("kakao")
                     .socialId(profile.getId())
                     .name(profile.getName())
                     .email(profile.getEmail())
                     .build();
             userRepository.save(user);
         }
-        return createJwtToken(user);
+        return makeResponseEntity(user);
     }
 
     private NaverProfile findNaverProfile(String token) {
@@ -177,5 +165,20 @@ public class UserServiceImpl {
             e.printStackTrace();
         }
         return naverProfile;
+    }
+
+    public ResponseEntity<User> makeResponseEntity(User user) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + createJwtToken(user));
+        return ResponseEntity.ok().headers(headers).body(user);
+    }
+
+    // user 와 java-jwt를 이용하여 jwt생성
+    // 클레임에 id만 넣었다.
+    public String createJwtToken(User user) {
+        return JWT.create()
+                .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
+                .withClaim("id", user.getId())
+                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
     }
 }

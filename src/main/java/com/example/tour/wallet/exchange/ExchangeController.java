@@ -2,10 +2,7 @@ package com.example.tour.wallet.exchange;
 
 import com.example.tour.wallet.exchange.dto.ExchangeResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -57,6 +54,7 @@ public class ExchangeController {
 
         try{
             // URL 형식이 잘못된 경우 MalformedURLException(IOExeption의 하위 클래스)을 throw
+            // input 받는 거 수정해야 함
             URL url = new URL(urlStr);
 
             // I/O 오류 발생시 IOEXception 발생시킴
