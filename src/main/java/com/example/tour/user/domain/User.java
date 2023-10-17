@@ -1,28 +1,28 @@
 package com.example.tour.user.domain;
 
+import com.example.tour.config.middletable.projectuser.ProjectUser;
 import com.example.tour.user.dto.UserCreateRequest;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 @Table(name = "user")
 @Entity
 @NoArgsConstructor
-@Builder
+@Builder()
 public class User {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
     @Column(name = "social_id", nullable = false)
@@ -39,6 +39,10 @@ public class User {
     @Nullable
     private String email;
 
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    @Builder.Default
+    private List<ProjectUser> projects = new ArrayList<>();
 
     public User(String name, String email) {
         this.name = name;

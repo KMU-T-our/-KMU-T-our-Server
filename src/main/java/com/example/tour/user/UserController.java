@@ -3,18 +3,10 @@ package com.example.tour.user;
 import com.example.tour.user.domain.User;
 import com.example.tour.user.dto.UserCreateRequest;
 import com.example.tour.user.dto.UserUpdateRequest;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
-import lombok.AllArgsConstructor;
-import org.springframework.web.client.RestTemplate;
-
-import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.util.List;
 
 @AllArgsConstructor
