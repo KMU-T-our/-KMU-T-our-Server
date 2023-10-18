@@ -22,4 +22,9 @@ public class ProjectUserController {
         projectUserService.saveProjectUser(new ProjectUser(projectUserDto));
     }
 
+    @DeleteMapping("api/projectuser")
+    public void deleteProjectUser(@RequestBody ProjectUserDto projectUserDto){
+        projectUserService.deleteUserByProject(projectUserDto);
+    }
+
 }

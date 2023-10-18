@@ -19,20 +19,6 @@ public class ProjectUser implements Persistable<ProjectUserId> {
         this.id = new ProjectUserId(projectUserDto.getProjectId(), projectUserDto.getUserId());
     }
 
-    // 테스트를 위해 잠시 제거
-
-
-//    @MapsId(value = "projectId")
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "project_id")
-//    private Project project;
-//
-//    @MapsId(value = "userId")
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User user;
-
-
     @Override
     public ProjectUserId getId() {
         return id;
