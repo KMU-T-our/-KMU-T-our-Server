@@ -1,6 +1,5 @@
 package com.example.tour.config.middletable.projectuser.id;
 
-import com.example.tour.project.Project;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
