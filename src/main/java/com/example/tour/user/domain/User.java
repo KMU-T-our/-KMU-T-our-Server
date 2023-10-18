@@ -39,11 +39,6 @@ public class User {
     @Nullable
     private String email;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    @Builder.Default
-    private List<ProjectUser> projects = new ArrayList<>();
-
     public User(String name, String email) {
         this.name = name;
         this.email = email;

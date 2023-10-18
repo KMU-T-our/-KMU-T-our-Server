@@ -19,8 +19,14 @@ public class ProjectController {
         projectService.saveProject(new Project(name));
     }
 
-    @GetMapping("/api/project")
+    @GetMapping("/api/projects")
     public List<Project> getAllProject() {
         return projectService.getAllProject();
     }
+
+    @GetMapping("/api/project")
+    public List<Project> getProjectByUserId(@RequestParam Long id) {
+        return projectService.getProjectByUserId(id);
+    }
+
 }

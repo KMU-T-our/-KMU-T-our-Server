@@ -19,7 +19,7 @@ public class ProjectUserController {
 
     @PostMapping("/api/projectuser")
     public void saveProjectUser(@RequestBody ProjectUserDto projectUserDto) {
-        projectUserService.saveProjectUser(new ProjectUser(projectUserDto));
+        projectUserService.saveProjectUser(projectUserDto);
     }
 
 }

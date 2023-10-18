@@ -24,9 +24,9 @@ public class Project {
     @Column(name = "project_name")
     private String name;
 
-    @OneToMany
-    @JoinColumn(name = "project_id")
-    private List<ProjectUser> users = new ArrayList<>();
+//    @OneToMany
+//    @JoinColumn(name = "project_id")
+//    private List<ProjectUser> users = new ArrayList<>();
 
     public Project(String name) {
         this.name = name;
