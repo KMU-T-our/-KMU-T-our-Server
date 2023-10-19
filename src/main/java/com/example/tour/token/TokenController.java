@@ -1,17 +1,11 @@
 package com.example.tour.token;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.example.tour.token.jwt.JwtProperties;
 import com.example.tour.user.UserServiceImpl;
 import com.example.tour.user.domain.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Date;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,5 +23,4 @@ public class TokenController {
         }
         return response;
     }
-
 }

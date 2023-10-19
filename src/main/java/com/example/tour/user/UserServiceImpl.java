@@ -106,7 +106,7 @@ public class UserServiceImpl {
         );
 
 
-//        System.out.println("kakaoProfileResponse.getBody() = " + kakaoProfileResponse.getBody());  // 썡 Json 테스트용 출력
+        System.out.println("kakaoProfileResponse.getBody() = " + kakaoProfileResponse.getBody());  // 썡 Json 테스트용 출력
 
 
         // Json을 kakaoProfile에 매핑해주기 위한 오브젝트 매퍼
