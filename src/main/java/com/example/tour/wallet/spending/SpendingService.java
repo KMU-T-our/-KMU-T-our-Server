@@ -3,16 +3,15 @@ package com.example.tour.wallet.spending;
 import com.example.tour.wallet.spending.dto.request.SpendingCreateRequest;
 import com.example.tour.wallet.spending.dto.request.SpendingUpdateRequest;
 import com.example.tour.wallet.spending.dto.response.SpendingResponse;
-import org.springframework.jdbc.core.JdbcTemplate;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class SpendingService {
     private final SpendingRepository spendingRepository;
-
-    public SpendingService(JdbcTemplate jdbcTemplate) {
-        this.spendingRepository = new SpendingRepository(jdbcTemplate);
-    }
 
     public void saveSpending(SpendingCreateRequest request) {
         spendingRepository.saveSpending(request.getTitle(),request.getTag(), request.getAmount(), request.getDate());

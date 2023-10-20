@@ -2,9 +2,11 @@ package com.example.tour.wallet.spending;
 
 import com.example.tour.wallet.spending.dto.response.SpendingResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class SpendingRepository {
 
     private final JdbcTemplate jdbcTemplate;

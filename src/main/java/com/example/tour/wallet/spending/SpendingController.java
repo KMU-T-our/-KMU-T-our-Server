@@ -3,20 +3,16 @@ package com.example.tour.wallet.spending;
 import com.example.tour.wallet.spending.dto.request.SpendingCreateRequest;
 import com.example.tour.wallet.spending.dto.request.SpendingUpdateRequest;
 import com.example.tour.wallet.spending.dto.response.SpendingResponse;
-import org.springframework.jdbc.core.JdbcTemplate;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class SpendingController {
 
     private final SpendingService spendingService;
-    public final JdbcTemplate jdbcTemplate;
-    public SpendingController(JdbcTemplate jdbcTemplate){
-        this.jdbcTemplate = jdbcTemplate;
-        this.spendingService = new SpendingService(jdbcTemplate);
-    }
 
     @PostMapping("/api/wallet/spending")
     public void saveWalletSpending(@RequestBody SpendingCreateRequest request){
