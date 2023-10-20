@@ -1,5 +1,7 @@
 package com.example.tour.wallet.spending.domain;
 
+import com.example.tour.wallet.spending.dto.request.SpendingCreateRequest;
+import com.example.tour.wallet.spending.dto.request.SpendingUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,19 +18,32 @@ public class Spending {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private long wallet_spending_id;
+    private Long walletSpendingId;
 
     @Column
-    private String wallet_spending_title;
+    private String walletSpendingTitle;
 
     @Column
-    private int wallet_spending_tag;
+    private int walletSpendingTag;
 
     @Column
-    private long wallet_spending_amount;
+    private long walletSpendingAmount;
 
     @Column
-    private String wallet_spending_date;
+    private String walletSpendingDate;
 
+    public Spending(SpendingCreateRequest request) {
+        this.walletSpendingTitle = request.getTitle();
+        this.walletSpendingTag = request.getTag();
+        this.walletSpendingAmount = request.getAmount();
+        this.walletSpendingDate = request.getDate();
+    }
+
+    public Spending(SpendingUpdateRequest request) {
+        this.walletSpendingTitle = request.getTitle();
+        this.walletSpendingTag = request.getTag();
+        this.walletSpendingAmount = request.getAmount();
+        this.walletSpendingDate = request.getDate();
+    }
 
 }
