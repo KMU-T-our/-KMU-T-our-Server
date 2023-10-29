@@ -15,8 +15,8 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @PostMapping("/api/project")
-    public void postProject(@RequestParam String name) {
-        projectService.saveProject(new Project(name));
+    public void postProject(@RequestParam("project_name") String name, @RequestParam("user_id") Long userId) {
+        projectService.saveProject(name, userId);
     }
 
     @GetMapping("/api/projects")
