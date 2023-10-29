@@ -1,5 +1,7 @@
 package com.example.tour.load.personal;
 
+import com.example.tour.config.middletable.projectuser.ProjectUser;
+import com.example.tour.config.middletable.projectuser.ProjectUserRepository;
 import com.example.tour.load.personal.domain.PersonalLoad;
 
 import com.example.tour.load.personal.dto.PersonalLoadRequest;
@@ -14,11 +16,13 @@ import java.util.List;
 public class PersonalLoadServiceImpl {
 
     private final PersonalLoadRepository personalLoadRepository;
+    private final ProjectUserRepository projectUserRepository;
 
     @Transactional
     public void savePersonalLoad(PersonalLoadRequest request){
-        PersonalLoad personalLoad = new PersonalLoad(request);
-        PersonalLoad p = personalLoadRepository.save(personalLoad);
+        ProjectUser projectUser = projectUserRepository.findProjectUserByIdUserIdAndProjectId(request.getProject_id(), request.getUser_id());
+        PersonalLoad personalLoad = new PersonalLoad(request, projectUser);
+        personalLoadRepository.save(personalLoad);
     }
 
     @Transactional

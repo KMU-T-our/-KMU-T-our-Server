@@ -14,5 +14,6 @@ public class PersonalLoadRequest {
     private Long id;
     private String name;
     private boolean checkbox;
-    private ProjectUser projectUser;
+    private Long project_id;
+    private Long user_id;
 }

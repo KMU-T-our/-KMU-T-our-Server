@@ -1,7 +1,6 @@
 package com.example.tour.load.personal.domain;
 
 import com.example.tour.config.middletable.projectuser.ProjectUser;
-import com.example.tour.config.middletable.projectuser.dto.ProjectUserDto;
 import com.example.tour.load.personal.dto.PersonalLoadRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,8 +9,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "personalLoad")
 @Entity
 public class PersonalLoad {
@@ -33,19 +32,19 @@ public class PersonalLoad {
     })
     private ProjectUser projectUser;
 
-    public PersonalLoad(PersonalLoadRequest request){
+    public PersonalLoad(PersonalLoadRequest request, ProjectUser projectUser){
         this.name = request.getName();
         this.checkbox = request.isCheckbox();
-        this.projectUser = request.getProjectUser();
-    }
-
-    public void setMapping(ProjectUser projectUser){
         this.projectUser = projectUser;
     }
+
+    /*public void setMapping(ProjectUser projectUser){
+        this.projectUser = projectUser;
+    }*/
 
     public void updatePersonalLoad(PersonalLoadRequest request){
         this.name = request.getName();
         this.checkbox = request.isCheckbox();
-        this.projectUser = request.getProjectUser();
+        //this.projectUser = request.getProjectUser();
     }
 }

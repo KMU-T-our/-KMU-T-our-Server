@@ -2,7 +2,6 @@ package com.example.tour.config.middletable.projectuser;
 
 import com.example.tour.config.middletable.projectuser.dto.ProjectUserDto;
 import com.example.tour.config.middletable.projectuser.id.ProjectUserId;
-import com.example.tour.load.personal.domain.PersonalLoad;
 import com.example.tour.project.Project;
 import com.example.tour.user.domain.User;
 import jakarta.persistence.*;
@@ -33,9 +32,11 @@ public class ProjectUser implements Persistable<ProjectUserId> {
     @JoinColumn(name = "user_id")
     private User user;
 
+    /*
     @OneToOne(mappedBy = "projectUser")
     private PersonalLoad personalLoad;
-
+    굳이 양방향 안해도 될듯하다.
+    */
 
     @Override
     public ProjectUserId getId() {
