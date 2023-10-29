@@ -2,6 +2,7 @@ package com.example.tour.config.middletable.projectuser;
 
 import com.example.tour.config.middletable.projectuser.dto.ProjectUserDto;
 import com.example.tour.config.middletable.projectuser.id.ProjectUserId;
+import com.example.tour.load.personal.domain.PersonalLoad;
 import com.example.tour.project.Project;
 import com.example.tour.user.domain.User;
 import jakarta.persistence.*;
@@ -31,6 +32,9 @@ public class ProjectUser implements Persistable<ProjectUserId> {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToOne(mappedBy = "projectUser")
+    private PersonalLoad personalLoad;
 
 
     @Override

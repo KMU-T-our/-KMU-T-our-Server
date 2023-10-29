@@ -1,13 +1,9 @@
 package com.example.tour.project;
 
-import com.example.tour.config.middletable.projectuser.ProjectUser;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Entity

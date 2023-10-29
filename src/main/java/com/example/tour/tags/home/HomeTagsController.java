@@ -21,7 +21,7 @@ public class HomeTagsController {
     }
 
     @GetMapping("/api/tags/home")
-    public ResponseEntity<List<HomeTags>> updateHomeTags() {
+    public ResponseEntity<List<HomeTags>> getHomeTags() {
         return ResponseEntity.ok().body(homeTagsService.getHomeTags());
     }
 
