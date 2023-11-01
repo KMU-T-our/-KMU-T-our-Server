@@ -20,7 +20,7 @@ public class UserController {
         userService.saveUser(request);
     }
 
-    @GetMapping("/api/user") // Get /api/user
+    @GetMapping("/api/users") // Get /api/user
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok()
                 .body(userService.getUsers());
