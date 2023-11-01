@@ -1,5 +1,6 @@
 package com.example.tour.config.middletable.projectuser;
 
+import com.example.tour.config.middletable.projectuser.dto.ProjectUserResponse;
 import com.example.tour.config.middletable.projectuser.dto.ProjectUserSaveRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +13,7 @@ public class ProjectUserController {
     private final ProjectUserService projectUserService;
 
     @PostMapping("/api/projectuser")
-    public Long saveProjectUser(@RequestBody ProjectUserSaveRequest request) {
+    public ProjectUserResponse saveProjectUser(@RequestBody ProjectUserSaveRequest request) {
         return projectUserService.save(request);
     }
 }

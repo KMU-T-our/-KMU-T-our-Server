@@ -1,5 +1,6 @@
 package com.example.tour.config.middletable.projectuser;
 
+import com.example.tour.config.middletable.projectuser.dto.ProjectUserResponse;
 import com.example.tour.config.middletable.projectuser.dto.ProjectUserSaveRequest;
 import com.example.tour.project.Project;
 import com.example.tour.project.ProjectRepository;
@@ -17,12 +18,12 @@ public class ProjectUserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Long save(ProjectUserSaveRequest request) {
+    public ProjectUserResponse save(ProjectUserSaveRequest request) {
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(IllegalArgumentException::new);
         Project project = projectRepository.findById(request.getProjectId())
                 .orElseThrow(IllegalArgumentException::new);
         ProjectUser projectUser = projectUserRepository.save(new ProjectUser(project, user));
-        return projectUser.getProjectUserId();
+        return new ProjectUserResponse(projectUser.getProjectUserId());
     }
 }
