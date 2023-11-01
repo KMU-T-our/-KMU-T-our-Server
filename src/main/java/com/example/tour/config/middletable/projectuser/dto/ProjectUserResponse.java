@@ -1,6 +1,5 @@
 package com.example.tour.config.middletable.projectuser.dto;
 
-import com.example.tour.config.middletable.projectuser.ProjectUserRepository;
 import lombok.Getter;
 import lombok.Setter;
 
