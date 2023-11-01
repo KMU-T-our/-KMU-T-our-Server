@@ -9,7 +9,7 @@ import lombok.Setter;
 public class SpendingResponse {
     private long id;
     private String title;
-    private int tag;
+    private Spending.SpendingTag tag;
     private long amount;
     private String date;
 

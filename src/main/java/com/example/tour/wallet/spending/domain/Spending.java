@@ -23,8 +23,9 @@ public class Spending {
     @Column
     private String walletSpendingTitle;
 
+    @Enumerated(EnumType.STRING)
     @Column
-    private int walletSpendingTag;
+    private SpendingTag walletSpendingTag;
 
     @Column
     private long walletSpendingAmount;
@@ -53,6 +54,14 @@ public class Spending {
         this.walletSpendingDate = request.getDate();
     }
 
+    public enum SpendingTag {
+        기타,
+        식당,
+        선물,
+        교통,
+        관광,
+        숙소
+    }
 
 
 

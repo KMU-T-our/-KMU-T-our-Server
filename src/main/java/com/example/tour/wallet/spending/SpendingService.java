@@ -5,7 +5,6 @@ import com.example.tour.wallet.spending.dto.request.SpendingCreateRequest;
 import com.example.tour.wallet.spending.dto.request.SpendingUpdateRequest;
 import com.example.tour.wallet.spending.dto.response.SpendingResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +28,7 @@ public class SpendingService {
     }
 
     @Transactional(readOnly = true)
-    public List<SpendingResponse> getFilteringTagSpending(int tag){
+    public List<SpendingResponse> getFilteringTagSpending(Spending.SpendingTag tag){
         return spendingRepository.findByWalletSpendingTag(tag).stream()
                 .map(SpendingResponse::new).collect(Collectors.toList());
     }
