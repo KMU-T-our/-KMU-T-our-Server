@@ -34,6 +34,9 @@ public class Spending {
     private String walletSpendingDate;
 
     public Spending(SpendingCreateRequest request) {
+        if(request.getAmount() == 0){
+            throw new IllegalArgumentException();
+        }
         this.walletSpendingTitle = request.getTitle();
         this.walletSpendingTag = request.getTag();
         this.walletSpendingAmount = request.getAmount();
@@ -48,10 +51,10 @@ public class Spending {
     }
 
     public void updateSpending(SpendingUpdateRequest request) {
-        this.walletSpendingTitle = request.getTitle();
-        this.walletSpendingTag = request.getTag();
-        this.walletSpendingAmount = request.getAmount();
-        this.walletSpendingDate = request.getDate();
+        if(request.getTitle() != null) {this.walletSpendingTitle = request.getTitle();}
+        if(request.getTag() != null) {this.walletSpendingTag = request.getTag();}
+        if(request.getAmount() != 0) {this.walletSpendingAmount = request.getAmount();}
+        if(request.getDate() != null) {this.walletSpendingDate = request.getDate();}
     }
 
     public enum SpendingTag {
