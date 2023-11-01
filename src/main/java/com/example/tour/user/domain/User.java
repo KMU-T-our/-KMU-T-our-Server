@@ -1,6 +1,5 @@
 package com.example.tour.user.domain;
 
-import com.example.tour.config.middletable.projectuser.ProjectUser;
 import com.example.tour.user.dto.UserCreateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,9 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @AllArgsConstructor
