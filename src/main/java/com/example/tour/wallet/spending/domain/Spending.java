@@ -46,4 +46,14 @@ public class Spending {
         this.walletSpendingDate = request.getDate();
     }
 
+    public void updateSpending(SpendingUpdateRequest request) {
+        this.walletSpendingTitle = request.getTitle();
+        this.walletSpendingTag = request.getTag();
+        this.walletSpendingAmount = request.getAmount();
+        this.walletSpendingDate = request.getDate();
+    }
+
+
+
+
 }

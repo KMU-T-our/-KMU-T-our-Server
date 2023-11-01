@@ -5,49 +5,53 @@ import com.example.tour.wallet.spending.dto.request.SpendingCreateRequest;
 import com.example.tour.wallet.spending.dto.request.SpendingUpdateRequest;
 import com.example.tour.wallet.spending.dto.response.SpendingResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class SpendingService {
-    //    private final SpendingRepository spendingRepository;
-    private final SpendingRepositoryJpa spendingRepository;
+    private final SpendingRepository spendingRepository;
 
+    @Transactional
     public void saveSpending(SpendingCreateRequest request) {
-//        spendingRepository.saveSpending(request.getTitle(),request.getTag(), request.getAmount(), request.getDate());
         spendingRepository.save(new Spending(request));
-
     }
 
+    @Transactional(readOnly = true)
     public List<SpendingResponse> getEntireSpending(){
-//        return spendingRepository.getEntireSpending();
         return spendingRepository.findAll().stream()
-                .map(SpendingResponse::new)
-                .toList();
+                .map(SpendingResponse::new).collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
     public List<SpendingResponse> getFilteringTagSpending(int tag){
-//        return spendingRepository.getFilteringTagSpending(tag);
         return spendingRepository.findByWalletSpendingTag(tag).stream()
-                .map(SpendingResponse::new)
-                .toList();
+                .map(SpendingResponse::new).collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<SpendingResponse> getFilteringDateSpending(String date){
-//        return spendingRepository.getFilteringDateSpending(date);
         return spendingRepository.findByWalletSpendingDate(date).stream()
-                .map(SpendingResponse::new)
-                .toList();
+                .map(SpendingResponse::new).collect(Collectors.toList());
     }
 
+    @Transactional
     public void updateSpending(SpendingUpdateRequest request){
-//        spendingRepository.updateSpending(request.getId(), request.getTitle(), request.getTag(), request.getAmount(), request.getDate());
-        spendingRepository.save(new Spending(request));
+        Spending spending = spendingRepository.findById(request.getId())
+                .orElseThrow(IllegalArgumentException::new);
+        spending.updateSpending(request);
     }
 
-    public void deleteSpending(@RequestParam long id) {
-        spendingRepository.deleteById(id);
+    @Transactional
+    public void deleteSpending(long id){
+        Spending spending = spendingRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
+        spendingRepository.delete(spending);
+
     }
 }
