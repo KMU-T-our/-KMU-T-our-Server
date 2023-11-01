@@ -1,8 +1,6 @@
 package com.example.tour.load.personal.dto;
 
 
-
-import com.example.tour.config.middletable.projectuser.ProjectUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

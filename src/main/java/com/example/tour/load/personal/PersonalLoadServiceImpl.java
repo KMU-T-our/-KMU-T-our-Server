@@ -20,8 +20,7 @@ public class PersonalLoadServiceImpl {
 
     @Transactional
     public void savePersonalLoad(PersonalLoadRequest request){
-        ProjectUser projectUser = projectUserRepository.findProjectUserByIdUserIdAndProjectId(request.getProject_id(), request.getUser_id());
-        PersonalLoad personalLoad = new PersonalLoad(request, projectUser);
+        PersonalLoad personalLoad = new PersonalLoad(request, projectUserRepository.findProjectUserByIdUserIdAndProjectId(request.getProject_id(), request.getUser_id()));
         personalLoadRepository.save(personalLoad);
     }
 

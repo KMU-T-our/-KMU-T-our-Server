@@ -25,7 +25,7 @@ public class PersonalLoad {
     @ColumnDefault("false")
     private boolean checkbox;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "project_id", nullable = false),
             @JoinColumn(name = "user_id", nullable = false)
