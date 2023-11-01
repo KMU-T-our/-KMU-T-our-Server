@@ -1,9 +1,7 @@
 package com.example.tour.load.personal;
 
-import com.example.tour.config.middletable.projectuser.ProjectUser;
 import com.example.tour.config.middletable.projectuser.ProjectUserRepository;
 import com.example.tour.load.personal.domain.PersonalLoad;
-
 import com.example.tour.load.personal.dto.PersonalLoadRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,8 +18,8 @@ public class PersonalLoadServiceImpl {
 
     @Transactional
     public void savePersonalLoad(PersonalLoadRequest request){
-        PersonalLoad personalLoad = new PersonalLoad(request, projectUserRepository.findProjectUserByIdUserIdAndProjectId(request.getProject_id(), request.getUser_id()));
-        personalLoadRepository.save(personalLoad);
+//        PersonalLoad personalLoad = new PersonalLoad(request, projectUserRepository.findProjectUserByIdUserIdAndProjectId(request.getProject_id(), request.getUser_id()));
+//        personalLoadRepository.save(personalLoad);
     }
 
     @Transactional

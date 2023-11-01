@@ -1,10 +1,10 @@
 package com.example.tour.project;
 
+import com.example.tour.project.dto.ProjectResponse;
+import com.example.tour.project.dto.ProjectSaveRequest;
+import com.example.tour.project.dto.ProjectSaveResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,18 +15,12 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @PostMapping("/api/project")
-    public void postProject(@RequestParam("project_name") String name, @RequestParam("user_id") Long userId) {
-        projectService.saveProject(name, userId);
-    }
-
-    @GetMapping("/api/projects")
-    public List<Project> getAllProject() {
-        return projectService.getAllProject();
+    public ProjectSaveResponse saveProject(@RequestBody ProjectSaveRequest request) {
+        return projectService.saveProject(request);
     }
 
     @GetMapping("/api/project")
-    public List<Project> getProjectByUserId(@RequestParam Long id) {
-        return projectService.getProjectByUserId(id);
+    public List<ProjectResponse> getProjectByUserId(@RequestParam Long userId) {
+        return projectService.getProjectByUserId(userId);
     }
-
 }

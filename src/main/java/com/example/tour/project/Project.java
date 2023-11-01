@@ -1,13 +1,21 @@
 package com.example.tour.project;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Getter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "PROJECT")
 public class Project {
 
@@ -17,14 +25,14 @@ public class Project {
     private Long id;
 
     @Nullable
-    @Column(name = "project_name")
+    @Column(name = "project_name", nullable = false)
     private String name;
 
-//    @OneToMany
-//    @JoinColumn(name = "project_id")
-//    private List<ProjectUser> users = new ArrayList<>();
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @Column(name = "start_day")
+    private Date startDay;
 
-    public Project(String name) {
-        this.name = name;
-    }
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @Column(name = "end_day")
+    private Date endDay;
 }

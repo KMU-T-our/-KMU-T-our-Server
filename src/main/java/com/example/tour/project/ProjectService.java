@@ -2,8 +2,12 @@ package com.example.tour.project;
 
 import com.example.tour.config.middletable.projectuser.ProjectUser;
 import com.example.tour.config.middletable.projectuser.ProjectUserRepository;
+import com.example.tour.project.dto.ProjectResponse;
+import com.example.tour.project.dto.ProjectSaveRequest;
+import com.example.tour.project.dto.ProjectSaveResponse;
 import com.example.tour.user.UserRepository;
 import com.example.tour.user.domain.User;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,24 +21,25 @@ public class ProjectService {
     private final ProjectUserRepository projectUserRepository;
     private final UserRepository userRepository;
 
-
-    public void saveProject(String name, Long userId) {
-        Project project = new Project(name);
-        User user = userRepository.findById(userId)
+    @Transactional
+    public ProjectSaveResponse saveProject(ProjectSaveRequest request) {
+        Project project = Project.builder()
+                .name(request.getProjectName())
+                .startDay(request.getStartDay())
+                .endDay(request.endDay)
+                .build();
+        User user = userRepository.findById(request.getUserId())
                 .orElseThrow(IllegalArgumentException::new);
         ProjectUser projectUser = new ProjectUser(project, user);
         projectUserRepository.save(projectUser);
         projectRepository.save(project);
+        return new ProjectSaveResponse(projectUser.getProjectUserId(), project);
     }
 
-    public List<Project> getAllProject() {
-        return projectRepository.findAll();
-    }
-
-    public List<Project> getProjectByUserId(Long id) {
-        return projectUserRepository.findByUserId(id)
+    public List<ProjectResponse> getProjectByUserId(Long userId) {
+        return projectUserRepository.findByUserId(userId)
                 .stream()
-                .map(ProjectUser::getProject)
+                .map(pu -> new ProjectResponse(pu.getProject()))
                 .toList();
     }
 }
