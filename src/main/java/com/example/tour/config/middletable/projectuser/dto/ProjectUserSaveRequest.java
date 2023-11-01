@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProjectUserDto {
-    private Long userId;
-    private Long projectId;
+public class ProjectUserSaveRequest {
+    Long userId;
+    Long projectId;
 }

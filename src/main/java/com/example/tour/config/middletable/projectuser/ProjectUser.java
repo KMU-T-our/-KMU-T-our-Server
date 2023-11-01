@@ -1,5 +1,6 @@
 package com.example.tour.config.middletable.projectuser;
 
+import com.example.tour.config.middletable.projectuser.dto.ProjectUserSaveRequest;
 import com.example.tour.project.Project;
 import com.example.tour.user.domain.User;
 import jakarta.persistence.*;
