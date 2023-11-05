@@ -1,5 +1,6 @@
 package com.example.tour.load.personal;
 
+import com.example.tour.config.middletable.projectuser.ProjectUser;
 import com.example.tour.config.middletable.projectuser.ProjectUserRepository;
 import com.example.tour.load.personal.domain.PersonalLoad;
 import com.example.tour.load.personal.dto.PersonalLoadRequest;
@@ -18,8 +19,9 @@ public class PersonalLoadServiceImpl {
 
     @Transactional
     public void savePersonalLoad(PersonalLoadRequest request){
-//        PersonalLoad personalLoad = new PersonalLoad(request, projectUserRepository.findProjectUserByIdUserIdAndProjectId(request.getProject_id(), request.getUser_id()));
-//        personalLoadRepository.save(personalLoad);
+        ProjectUser projectUser = projectUserRepository.findByProjectUserId(request.getProject_user_id());
+        PersonalLoad personalLoad = new PersonalLoad(request, projectUser);
+        personalLoadRepository.save(personalLoad);
     }
 
     @Transactional
@@ -34,8 +36,8 @@ public class PersonalLoadServiceImpl {
     }
 
     @Transactional
-    public void deletePersonalLoad(String name){
-        PersonalLoad personalLoad = personalLoadRepository.findByName(name)
+    public void deletePersonalLoad(Long id){
+        PersonalLoad personalLoad = personalLoadRepository.findById(id)
                 .orElseThrow(IllegalAccessError::new);
 
         personalLoadRepository.delete(personalLoad);

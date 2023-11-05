@@ -21,7 +21,7 @@ public class PersonalLoadController {
     }
 
     @GetMapping("/api/load/personal")
-    public ResponseEntity<List<PersonalLoad>> getPersonalLoadTags(){
+    public ResponseEntity<List<PersonalLoad>> getPersonalLoad(){
         return ResponseEntity.ok()
                 .body(personalLoadService.getPersonalLoad());
     }
@@ -32,7 +32,7 @@ public class PersonalLoadController {
     }
 
     @DeleteMapping("api/load/personal")
-    public void deletePersonalLoad(@RequestParam String name){
-        personalLoadService.deletePersonalLoad(name);
+    public void deletePersonalLoad(@RequestParam Long id){
+        personalLoadService.deletePersonalLoad(id);
     }
 }

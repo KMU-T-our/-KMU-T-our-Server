@@ -26,7 +26,7 @@ public class PersonalLoad {
     private boolean checkbox;
 
     @ManyToOne
-    @JoinColumn(name = "project_id")
+    @JoinColumn(name = "project_user_id", nullable = false)
     private ProjectUser projectUser;
 
     public PersonalLoad(PersonalLoadRequest request, ProjectUser projectUser){
