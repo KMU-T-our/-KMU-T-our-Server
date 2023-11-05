@@ -42,7 +42,8 @@ public class User {
 
     public User(UserCreateRequest request) {
         this.name = request.getName();
-        this.email = request.getEmail();
+        this.socialId = request.getSocial_id();
+        this.type = request.getType();
     }
 
     // update
