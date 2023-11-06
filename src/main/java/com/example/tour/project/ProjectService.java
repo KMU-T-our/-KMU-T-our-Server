@@ -39,7 +39,7 @@ public class ProjectService {
     public List<ProjectResponse> getProjectByUserId(Long userId) {
         return projectUserRepository.findByUserId(userId)
                 .stream()
-                .map(pu -> new ProjectResponse(pu.getProject()))
+                .map(ProjectResponse::new)
                 .toList();
     }
 }
