@@ -1,5 +1,7 @@
 package com.example.tour.wallet.spending;
 
+import com.example.tour.config.middletable.projectuser.ProjectUser;
+import com.example.tour.config.middletable.projectuser.ProjectUserRepository;
 import com.example.tour.wallet.spending.domain.Spending;
 import com.example.tour.wallet.spending.dto.request.SpendingCreateRequest;
 import com.example.tour.wallet.spending.dto.request.SpendingUpdateRequest;
@@ -15,27 +17,31 @@ import java.util.stream.Collectors;
 @Service
 public class SpendingService {
     private final SpendingRepository spendingRepository;
-
+    private final ProjectUserRepository projectUserRepository;
     @Transactional
     public void saveSpending(SpendingCreateRequest request) {
-        spendingRepository.save(new Spending(request));
+        ProjectUser projectUser = projectUserRepository.findByProjectUserId(request.getProjectUserId());
+        spendingRepository.save(new Spending(request, projectUser));
     }
 
     @Transactional(readOnly = true)
-    public List<SpendingResponse> getEntireSpending(){
-        return spendingRepository.findAll().stream()
+    public List<SpendingResponse> getEntireSpending(Long projectUserId){
+        ProjectUser projectUser = projectUserRepository.findByProjectUserId(projectUserId);
+        return spendingRepository.findByProjectUser(projectUser).stream()
                 .map(SpendingResponse::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<SpendingResponse> getFilteringTagSpending(Spending.SpendingTag tag){
-        return spendingRepository.findByWalletSpendingTag(tag).stream()
+    public List<SpendingResponse> getFilteringTagSpending(Long projectUserId, Spending.SpendingTag tag){
+        ProjectUser projectUser = projectUserRepository.findByProjectUserId(projectUserId);
+        return spendingRepository.findByProjectUserAndWalletSpendingTag(projectUser, tag).stream()
                 .map(SpendingResponse::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<SpendingResponse> getFilteringDateSpending(String date){
-        return spendingRepository.findByWalletSpendingDate(date).stream()
+    public List<SpendingResponse> getFilteringDateSpending(Long projectUserId, String date){
+        ProjectUser projectUser = projectUserRepository.findByProjectUserId(projectUserId);
+        return spendingRepository.findByProjectUserAndWalletSpendingDate(projectUser,date).stream()
                 .map(SpendingResponse::new).collect(Collectors.toList());
     }
 
@@ -47,7 +53,7 @@ public class SpendingService {
     }
 
     @Transactional
-    public void deleteSpending(long id){
+    public void deleteSpending(Long id){
         Spending spending = spendingRepository.findById(id)
                 .orElseThrow(IllegalArgumentException::new);
         spendingRepository.delete(spending);
