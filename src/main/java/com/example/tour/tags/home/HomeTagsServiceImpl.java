@@ -1,6 +1,6 @@
 package com.example.tour.tags.home;
 
-import com.example.tour.tags.home.domain.HomeTags;
+import com.example.tour.tags.home.domain.HomeTag;
 import com.example.tour.tags.home.dto.HomeTagsCreateRequest;
 import com.example.tour.tags.home.dto.HomeTagsUpdateRequest;
 import lombok.RequiredArgsConstructor;
@@ -17,28 +17,28 @@ public class HomeTagsServiceImpl {
 
     @Transactional
     public void saveHomeTags(HomeTagsCreateRequest request) {
-        HomeTags h = homeTagsRepository.save(new HomeTags((request)));
+        HomeTag h = homeTagsRepository.save(new HomeTag((request)));
     }
 
     @Transactional
-    public List<HomeTags> getHomeTags() {
+    public List<HomeTag> getHomeTags() {
         return homeTagsRepository.findAll();
     }
 
     @Transactional
     public void updaterHomeTags(HomeTagsUpdateRequest request) {
-        HomeTags homeTags = homeTagsRepository.findById(request.getId())
+        HomeTag homeTag = homeTagsRepository.findById(request.getId())
                 .orElseThrow(IllegalAccessError::new);
 
-        homeTags.updateHomeTags(request);
+        homeTag.updateHomeTags(request);
     }
 
     @Transactional
     public void deleteHomeTags(Long id) {
-        HomeTags homeTags = homeTagsRepository.findById(id)
+        HomeTag homeTag = homeTagsRepository.findById(id)
                 .orElseThrow(IllegalAccessError::new);
 
-        homeTagsRepository.delete(homeTags);
+        homeTagsRepository.delete(homeTag);
     }
 }
 
