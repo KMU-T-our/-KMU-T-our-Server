@@ -3,6 +3,7 @@ package com.example.tour.wallet.exchange;
 import com.example.tour.wallet.exchange.domain.ExchangeRateApi;
 import com.example.tour.wallet.exchange.dto.ExchangeRateResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -13,14 +14,23 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class ExchangeRateService {
-    private ExchangeRateApi exchangeRateApi = new ExchangeRateApi();
+
+    private final ExchangeRateApi exchangeRateApi;
+    Map<String, List<ExchangeRateResponse>> resultCacheMap;
+
     public List<ExchangeRateResponse> callExchangeApi(String searchDate){
         HttpsURLConnection urlConnection = null;
         InputStream inputStream = null;
-        List<ExchangeRateResponse> result = null;
+        List<ExchangeRateResponse> result = resultCacheMap.get(searchDate);
+
+        if (result != null) {
+            return result;
+        }
 
         try{
             // URL 형식이 잘못된 경우 MalformedURLException(IOException의 하위 클래스)을 throw
@@ -41,6 +51,7 @@ public class ExchangeRateService {
                 urlConnection.disconnect();
             }
         }
+        resultCacheMap.put(searchDate, result);
         return result;
     }
 
