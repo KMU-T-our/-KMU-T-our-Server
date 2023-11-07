@@ -1,5 +1,8 @@
 package com.example.tour.wallet.exchange.domain;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ExchangeRateApi {
     private final String authKey = "w1rFjNClOwszKPrkvE1yKayBxOauuN6L";
     private final String requestUrl = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON";
