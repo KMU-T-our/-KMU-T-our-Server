@@ -19,14 +19,12 @@ public class FlightTagsUpdateRequest {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime startLandingDateTime;
     private String startTakeoffAirport;
-    private String startLandingfAirport;
-    private String startSeat;
+    private String startLandingAirport;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime combackTakeoffDateTime;
+    private LocalDateTime endTakeoffDateTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime combackLandingffDateTime;
-    private String combackTakeoffAirport;
-    private String combackLandingAirport;
-    private String combackSeat;
+    private LocalDateTime endLandingffDateTime;
+    private String endTakeoffAirport;
+    private String endLandingAirport;
 }

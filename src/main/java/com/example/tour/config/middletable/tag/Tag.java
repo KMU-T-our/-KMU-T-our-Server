@@ -9,7 +9,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @Getter
-@Setter
+@Table(name = "TAG")
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,4 +18,8 @@ public class Tag {
     @ManyToOne
     @JoinColumn(name = "project_id")
     public Project project;
+
+    public Tag(Project project) {
+        this.project = project;
+    }
 }
