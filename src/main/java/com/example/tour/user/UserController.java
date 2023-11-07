@@ -15,12 +15,7 @@ public class UserController {
 
     private final UserServiceImpl userService;
 
-    @PostMapping("/api/user") // Post /api/user
-    public void saveUsers(@RequestBody UserCreateRequest request) {
-        userService.saveUser(request);
-    }
-
-    @GetMapping("/api/users") // Get /api/user
+    @GetMapping("/api/users")
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok()
                 .body(userService.getUsers());
@@ -35,6 +30,4 @@ public class UserController {
     public void deleteUsers(@RequestParam String email) {
         userService.deleteUser(email);
     }
-
-
 }

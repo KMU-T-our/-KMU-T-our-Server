@@ -23,6 +23,7 @@ public class ShareLoad {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "share_load_id")
     private Long id;
 
     @Column(nullable = false)

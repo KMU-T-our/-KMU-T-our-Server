@@ -30,7 +30,7 @@ public class ShareLoadServiceImpl {
         shareLoadRepository.save(shareLoad);
 
         //shareUser 테이블에 값 넣기(디폴트값 : 프로젝트 Id 일치하는 유저 정보 삽입)
-        shareUserService.makeShareUser(request.getProject_id(), shareLoad.getId());
+//        shareUserService.makeShareUser(request.getProject_id(), shareLoad.getId());
     }
 
     // 전체 검색
