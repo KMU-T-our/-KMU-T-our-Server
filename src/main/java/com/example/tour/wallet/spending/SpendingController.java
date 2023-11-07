@@ -21,18 +21,18 @@ public class SpendingController {
     }
 
     @GetMapping("/api/wallet/spending/entire")
-    public List<SpendingResponse> getWalletEntireSpending(){
-        return spendingService.getEntireSpending();
+    public List<SpendingResponse> getWalletEntireSpending(@RequestParam Long projectUserId){
+        return spendingService.getEntireSpending(projectUserId);
     }
 
     @GetMapping("/api/wallet/spending/tag")
-    public List<SpendingResponse> getWalletFilteringTagSpending(@RequestParam Spending.SpendingTag tag){
-        return spendingService.getFilteringTagSpending(tag);
+    public List<SpendingResponse> getWalletFilteringTagSpending(@RequestParam Long projectUserId, Spending.SpendingTag tag){
+        return spendingService.getFilteringTagSpending(projectUserId, tag);
     }
 
     @GetMapping("/api/wallet/spending/date")
-    public List<SpendingResponse> getWalletFilteringDateSpending(@RequestParam String date){
-        return spendingService.getFilteringDateSpending(date);
+    public List<SpendingResponse> getWalletFilteringDateSpending(@RequestParam Long projectUserId, String date){
+        return spendingService.getFilteringDateSpending(projectUserId, date);
     }
 
     @PutMapping("/api/wallet/spending")
