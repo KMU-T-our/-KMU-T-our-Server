@@ -1,6 +1,6 @@
 package com.example.tour.tags.home;
 
-import com.example.tour.tags.home.domain.HomeTags;
+import com.example.tour.tags.home.domain.HomeTag;
 import com.example.tour.tags.home.dto.HomeTagsCreateRequest;
 import com.example.tour.tags.home.dto.HomeTagsUpdateRequest;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class HomeTagsController {
     }
 
     @GetMapping("/api/tags/home")
-    public ResponseEntity<List<HomeTags>> getHomeTags() {
+    public ResponseEntity<List<HomeTag>> getHomeTags() {
         return ResponseEntity.ok().body(homeTagsService.getHomeTags());
     }
 
