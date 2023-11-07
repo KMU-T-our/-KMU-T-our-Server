@@ -26,7 +26,7 @@ public class ProjectService {
         Project project = Project.builder()
                 .name(request.getProjectName())
                 .startDay(request.getStartDay())
-                .endDay(request.endDay)
+                .endDay(request.getEndDay())
                 .build();
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(IllegalArgumentException::new);

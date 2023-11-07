@@ -1,7 +1,8 @@
 package com.example.tour.load.share.domain;
 
 import com.example.tour.config.undertable.shareuser.ShareUser;
-import com.example.tour.load.share.dto.ShareLoadRequest;
+import com.example.tour.load.share.dto.ShareLoadSaveRequest;
+import com.example.tour.load.share.dto.ShareLoadUpdateRequest;
 import com.example.tour.project.Project;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -41,15 +42,14 @@ public class ShareLoad {
     @OneToMany(mappedBy = "shareLoad")
     private List<ShareUser> users = new ArrayList<>();
 
-    public ShareLoad(ShareLoadRequest request, Optional<Project> project){
-        this.name = request.getName();
+    public ShareLoad(ShareLoadSaveRequest request, Optional<Project> project) {
+        this.name = request.getShareLoadName();
         this.checkbox = request.isCheckbox();
         this.project = project.get();
     }
 
-    public void updateShareLoad(ShareLoadRequest request){
-        this.name = request.getName();
+    public void updateShareLoad(ShareLoadUpdateRequest request) {
+        this.name = request.getShareLoadName();
         this.checkbox = request.isCheckbox();
     }
-
 }

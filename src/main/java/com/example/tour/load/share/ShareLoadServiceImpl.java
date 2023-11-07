@@ -1,11 +1,9 @@
 package com.example.tour.load.share;
 
-import com.example.tour.config.middletable.projectuser.ProjectUser;
-import com.example.tour.config.middletable.projectuser.ProjectUserRepository;
-import com.example.tour.config.undertable.shareuser.ShareUserRepository;
 import com.example.tour.config.undertable.shareuser.ShareUserService;
 import com.example.tour.load.share.domain.ShareLoad;
-import com.example.tour.load.share.dto.ShareLoadRequest;
+import com.example.tour.load.share.dto.ShareLoadSaveRequest;
+import com.example.tour.load.share.dto.ShareLoadUpdateRequest;
 import com.example.tour.project.Project;
 import com.example.tour.project.ProjectRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +21,10 @@ public class ShareLoadServiceImpl {
     private final ProjectRepository projectRepository;
 
     private final ShareUserService shareUserService;
+
     @Transactional
-    public void saveShareLoad(ShareLoadRequest request){
-        Optional<Project> project = projectRepository.findById(request.getProject_id());
+    public void saveShareLoad(ShareLoadSaveRequest request) {
+        Optional<Project> project = projectRepository.findById(request.getProjectId());
         ShareLoad shareLoad = new ShareLoad(request, project);
         shareLoadRepository.save(shareLoad);
 
@@ -40,10 +39,9 @@ public class ShareLoadServiceImpl {
     }
 
     @Transactional
-    public void updaterShareLoad(ShareLoadRequest request){
+    public void updaterShareLoad(ShareLoadUpdateRequest request) {
         ShareLoad shareLoad = shareLoadRepository.findById(request.getId())
                 .orElseThrow(IllegalAccessError::new);
-
         shareLoad.updateShareLoad(request);
     }
 
@@ -51,7 +49,6 @@ public class ShareLoadServiceImpl {
     public void deleteShareLoad(Long id){
         ShareLoad shareLoad = shareLoadRepository.findById(id)
                 .orElseThrow(IllegalAccessError::new);
-
         shareLoadRepository.delete(shareLoad);
     }
 }

@@ -1,7 +1,8 @@
 package com.example.tour.load.share;
 
 import com.example.tour.load.share.domain.ShareLoad;
-import com.example.tour.load.share.dto.ShareLoadRequest;
+import com.example.tour.load.share.dto.ShareLoadSaveRequest;
+import com.example.tour.load.share.dto.ShareLoadUpdateRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class ShareLoadController {
     private final ShareLoadServiceImpl shareLoadService;
 
     @PostMapping("/api/load/share")
-    public void saveShareLoad(@RequestBody ShareLoadRequest request){
+    public void saveShareLoad(@RequestBody ShareLoadSaveRequest request) {
         shareLoadService.saveShareLoad(request);
     }
 
@@ -26,7 +27,7 @@ public class ShareLoadController {
     }
 
     @PutMapping("/api/load/share")
-    public void updateShareLoad(@RequestBody ShareLoadRequest request){
+    public void updateShareLoad(@RequestBody ShareLoadUpdateRequest request) {
         shareLoadService.updaterShareLoad(request);
     }
 
