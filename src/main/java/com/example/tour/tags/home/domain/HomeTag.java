@@ -2,8 +2,10 @@ package com.example.tour.tags.home.domain;
 
 import java.time.LocalDateTime;
 
-import com.example.tour.tags.home.dto.HomeTagsCreateRequest;
-import com.example.tour.tags.home.dto.HomeTagsUpdateRequest;
+import com.example.tour.config.middletable.tag.Tag;
+import com.example.tour.tags.home.HomeTagsController;
+import com.example.tour.tags.home.dto.HomeTagCreateRequest;
+import com.example.tour.tags.home.dto.HomeTagUpdateRequest;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -21,6 +23,10 @@ public class HomeTag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "home_tag_id")
     private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "id")
+    private Tag tag;
 
     @Column(nullable = false)
     private String name;
@@ -40,20 +46,20 @@ public class HomeTag {
     @Column
     private int numberOfRooms;
 
-    public HomeTag(HomeTagsCreateRequest request){
+    public void updateHomeTags(HomeTagUpdateRequest request) {
         this.name = request.getName();
         this.address = request.getAddress();
-        this.checkInTime = request.getCheckInInfo();
-        this.checkOutTime = request.getCheckOutInfo();
+        this.checkInTime = request.getCheckInTime();
+        this.checkOutTime = request.getCheckOutTime();
         this.numberOfPeople = request.getNumberOfPeople();
         this.numberOfRooms = request.getNumberOfRooms();
     }
 
-    public void updateHomeTags(HomeTagsUpdateRequest request) {
+    public HomeTag(HomeTagCreateRequest request) {
         this.name = request.getName();
         this.address = request.getAddress();
-        this.checkInTime = request.getCheckInInfo();
-        this.checkOutTime = request.getCheckOutInfo();
+        this.checkInTime = request.getCheckInTime();
+        this.checkOutTime = request.getCheckOutTime();
         this.numberOfPeople = request.getNumberOfPeople();
         this.numberOfRooms = request.getNumberOfRooms();
     }

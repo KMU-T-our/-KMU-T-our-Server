@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @NoArgsConstructor
-public class HomeTagsUpdateRequest {
+public class HomeTagUpdateRequest {
     private Long id;
     private String name;
     private String address;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime checkInInfo;
+    private LocalDateTime checkInTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime checkOutInfo;
+    private LocalDateTime checkOutTime;
     private int numberOfPeople;
     private int numberOfRooms;
 }
