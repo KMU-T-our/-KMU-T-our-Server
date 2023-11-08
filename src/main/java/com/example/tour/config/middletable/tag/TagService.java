@@ -16,9 +16,7 @@ public class TagService {
 
     @Transactional
     public TagResponse save(TagSaveRequest request){
-        Project project = projectRepository.findById(request.getProjectId())
-                .orElseThrow(IllegalArgumentException::new);
-        Tag tag = tagRepository.save(new Tag(project));
-        return new TagResponse(tag.getId());
+        Tag tag = tagRepository.save(new Tag());
+        return new TagResponse(tag.getTagId());
     }
 }

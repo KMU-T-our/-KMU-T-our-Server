@@ -12,13 +12,6 @@ import lombok.NoArgsConstructor;
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    public Long tagId;
 
-    @ManyToOne
-    @JoinColumn(name = "project_id")
-    public Project project;
-
-    public Tag(Project project) {
-        this.project = project;
-    }
 }
