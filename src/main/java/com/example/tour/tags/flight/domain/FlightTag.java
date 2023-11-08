@@ -45,7 +45,7 @@ public class FlightTag {
     @Column(nullable = false)
     private String endLandingAirport;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "tag_id", nullable = false)
     private Tag tag;
 

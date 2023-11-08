@@ -2,6 +2,8 @@ package com.example.tour.tags.home.domain;
 
 import java.time.LocalDateTime;
 
+import com.example.tour.tags.home.dto.HomeTagsCreateRequest;
+import com.example.tour.tags.home.dto.HomeTagsUpdateRequest;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -38,4 +40,21 @@ public class HomeTag {
     @Column
     private int numberOfRooms;
 
+    public HomeTag(HomeTagsCreateRequest request){
+        this.name = request.getName();
+        this.address = request.getAddress();
+        this.checkInTime = request.getCheckInInfo();
+        this.checkOutTime = request.getCheckOutInfo();
+        this.numberOfPeople = request.getNumberOfPeople();
+        this.numberOfRooms = request.getNumberOfRooms();
+    }
+
+    public void updateHomeTags(HomeTagsUpdateRequest request) {
+        this.name = request.getName();
+        this.address = request.getAddress();
+        this.checkInTime = request.getCheckInInfo();
+        this.checkOutTime = request.getCheckOutInfo();
+        this.numberOfPeople = request.getNumberOfPeople();
+        this.numberOfRooms = request.getNumberOfRooms();
+    }
 }
