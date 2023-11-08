@@ -1,8 +1,9 @@
 package com.example.tour.tags.flight.domain;
 
 import com.example.tour.config.middletable.tag.Tag;
-import com.example.tour.tags.flight.dto.FlightTagsCreateRequest;
-import com.example.tour.tags.flight.dto.FlightTagsUpdateRequest;
+import com.example.tour.project.Project;
+import com.example.tour.tags.flight.dto.FlightTagCreateRequest;
+import com.example.tour.tags.flight.dto.FlightTagUpdateRequest;
 
 import jakarta.persistence.*;
 
@@ -20,6 +21,14 @@ public class FlightTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long flightTagId;
+
+    @OneToOne
+    @JoinColumn(name = "tag_id", nullable = false)
+    private Tag tag;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id", nullable = false)
+    private Project project;
 
     @Column(nullable = false)
     private LocalDateTime startTakeoffDateTime;
@@ -45,12 +54,11 @@ public class FlightTag {
     @Column(nullable = false)
     private String endLandingAirport;
 
-    @OneToOne
-    @JoinColumn(name = "tag_id", nullable = false)
-    private Tag tag;
 
+    public FlightTag(Project project,Tag tag, FlightTagCreateRequest request) {
+        this.tag = tag;
+        this.project = project;
 
-    public FlightTag(FlightTagsCreateRequest request) {
         this.startTakeoffDateTime = request.getStartTakeoffDateTime();
         this.startLandingDateTime = request.getStartLandingDateTime();
         this.startTakeoffAirport = request.getStartTakeoffAirport();
@@ -62,16 +70,32 @@ public class FlightTag {
         this.endLandingAirport = request.getEndLandingAirport();
     }
 
-    public void updateFlightTag(FlightTagsUpdateRequest request) {
-        this.startTakeoffDateTime = request.getStartTakeoffDateTime();
-        this.startLandingDateTime = request.getStartLandingDateTime();
-        this.startTakeoffAirport = request.getStartTakeoffAirport();
-        this.startLandingAirport = request.getStartLandingAirport();
+    public void updateFlightTag(FlightTagUpdateRequest request) {
+        if(request.getStartTakeoffDateTime() != null) {
+            this.startTakeoffDateTime = request.getStartTakeoffDateTime();
+        }
+        if(request.getStartLandingDateTime() != null){
+            this.startLandingDateTime = request.getStartLandingDateTime();
+        }
+        if(request.getStartTakeoffAirport() != null){
+            this.startTakeoffAirport = request.getStartTakeoffAirport();
+        }
+        if(request.getStartLandingAirport() != null){
+            this.startLandingAirport = request.getStartLandingAirport();
+        }
 
-        this.endTakeoffDateTime = request.getEndTakeoffDateTime();
-        this.endLandingDateTime = request.getEndLandingffDateTime();
-        this.endTakeoffAirport = request.getEndTakeoffAirport();
-        this.endLandingAirport = request.getEndLandingAirport();
+        if(request.getEndTakeoffDateTime() != null){
+            this.endTakeoffDateTime = request.getEndTakeoffDateTime();
+        }
+        if(request.getEndLandingDateTime() != null){
+            this.endLandingDateTime = request.getEndLandingDateTime();
+        }
+        if(request.getEndTakeoffAirport() != null){
+            this.endTakeoffAirport = request.getEndTakeoffAirport();
+        }
+        if(request.getEndLandingAirport() != null){
+            this.endLandingAirport = request.getEndLandingAirport();
+        }
     }
 }
 

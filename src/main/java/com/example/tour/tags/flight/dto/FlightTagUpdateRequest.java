@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class FlightTagsUpdateRequest {
+public class FlightTagUpdateRequest {
 
-    private Long id;
+    private Long tagId;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime startTakeoffDateTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -24,7 +24,7 @@ public class FlightTagsUpdateRequest {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime endTakeoffDateTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime endLandingffDateTime;
+    private LocalDateTime endLandingDateTime;
     private String endTakeoffAirport;
     private String endLandingAirport;
 }

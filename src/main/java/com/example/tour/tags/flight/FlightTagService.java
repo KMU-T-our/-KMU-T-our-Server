@@ -1,8 +1,14 @@
 package com.example.tour.tags.flight;
 
+import com.example.tour.config.middletable.tag.Tag;
+import com.example.tour.config.middletable.tag.TagRepository;
+import com.example.tour.config.middletable.tag.TagService;
+import com.example.tour.project.Project;
+import com.example.tour.project.ProjectRepository;
 import com.example.tour.tags.flight.domain.FlightTag;
-import com.example.tour.tags.flight.dto.FlightTagsCreateRequest;
-import com.example.tour.tags.flight.dto.FlightTagsUpdateRequest;
+import com.example.tour.tags.flight.dto.FlightTagCreateRequest;
+import com.example.tour.tags.flight.dto.FlightTagResponse;
+import com.example.tour.tags.flight.dto.FlightTagUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,30 +20,34 @@ import java.util.List;
 public class FlightTagService {
 
     private final FlightTagRepository flightTagRepository;
+    private final TagRepository tagRepository;
+    private final ProjectRepository projectRepository;
+    private final TagService tagService;
 
     @Transactional
-    public void saveFlightTag(FlightTagsCreateRequest request) {
-        FlightTag f = flightTagRepository.save(new FlightTag(request));
+    public FlightTagResponse findByTagId(Long tagId){
+        Tag tag = tagRepository.findById(tagId).orElseThrow(IllegalArgumentException::new);
+        return new FlightTagResponse(flightTagRepository.findByTag(tag));
     }
 
     @Transactional
-    public List<FlightTag> getFlightTag() {
-        return flightTagRepository.findAll();
+    public void saveFlightTag(FlightTagCreateRequest request) {
+        Project project = projectRepository.findById(request.getProjectId()).orElseThrow(IllegalArgumentException::new);
+        Tag tag = tagService.getInstance();
+        FlightTag flightTag = flightTagRepository.save(new FlightTag(project, tag, request));
+
     }
 
     @Transactional
-    public void updateFlightTag(FlightTagsUpdateRequest request) {
-        FlightTag flightTag = flightTagRepository.findById(request.getId())
-                .orElseThrow(IllegalAccessError::new);
-
+    public void updateFlightTag(FlightTagUpdateRequest request) {
+        Tag tag = tagRepository.findById(request.getTagId()).orElseThrow(IllegalArgumentException::new);
+        FlightTag flightTag = flightTagRepository.findByTag(tag);
         flightTag.updateFlightTag(request);
     }
 
     @Transactional
-    public void deleteFlightTag(Long id) {
-        FlightTag flightTag = flightTagRepository.findById(id)
-                .orElseThrow(IllegalAccessError::new);
-
-        flightTagRepository.delete(flightTag);
+    public void deleteFlightTag(Long tagId) {
+        Tag tag = tagRepository.findById(tagId).orElseThrow(IllegalArgumentException::new);
+        flightTagRepository.deleteByTag(tag);
     }
 }
