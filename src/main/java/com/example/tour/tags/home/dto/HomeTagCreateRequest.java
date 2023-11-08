@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class HomeTagCreateRequest {
-
+    private Long projectId;
     private String name;
     private String address;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime checkInTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime checkOutTime;
-    private int numberOfPeople;
-    private int numberOfRooms;
+    private Integer numberOfPeople;
+    private Integer numberOfRooms;
 }

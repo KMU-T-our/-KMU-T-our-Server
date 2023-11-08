@@ -19,4 +19,11 @@ public class TagService {
         Tag tag = tagRepository.save(new Tag());
         return new TagResponse(tag.getTagId());
     }
+
+    @Transactional
+    public Tag getInstance() {
+        Tag tag = new Tag();
+        tagRepository.save(tag);
+        return tag;
+    }
 }

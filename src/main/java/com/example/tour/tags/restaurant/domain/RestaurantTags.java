@@ -1,5 +1,7 @@
 package com.example.tour.tags.restaurant.domain;
 
+import com.example.tour.config.middletable.tag.Tag;
+import com.example.tour.project.Project;
 import com.example.tour.tags.restaurant.dto.RestaurantTagsCreateRequest;
 import com.example.tour.tags.restaurant.dto.RestaurantTagsUpdateRequest;
 import jakarta.persistence.*;
@@ -20,35 +22,20 @@ public class RestaurantTags {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "tag_id")
+    private Tag tag;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
+
     @Column(nullable = false)
     private String name;
 
-    @Column
     private String address;
-
-    @Column
     private Date visitDate;
-
-    @Column
     private String visitMeal;
-
-    @Column
     private int numberOfPeople;
-
-    public RestaurantTags(RestaurantTagsCreateRequest request) {
-        this.name = request.getName();
-        this.address = request.getAddress();
-        this.visitDate = request.getVisitDate();
-        this.visitMeal = request.getVisitMeal();
-        this.numberOfPeople = request.getNumberOfPeople();
-    }
-
-    public void updateRestaurantTags(RestaurantTagsUpdateRequest request) {
-        this.name = request.getName();
-        this.address = request.getAddress();
-        this.visitDate = request.getVisitDate();
-        this.visitMeal = request.getVisitMeal();
-        this.numberOfPeople = request.getNumberOfPeople();
-    }
 }
 
