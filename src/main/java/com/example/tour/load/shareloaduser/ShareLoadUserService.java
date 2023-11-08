@@ -1,11 +1,9 @@
-package com.example.tour.load.loaduser;
+package com.example.tour.load.shareloaduser;
 
-import com.example.tour.load.loaduser.domain.LoadUser;
-import com.example.tour.load.loaduser.dto.LoadUserSaveRequest;
+import com.example.tour.load.shareloaduser.domain.ShareLoadUser;
+import com.example.tour.load.shareloaduser.dto.ShareLoadUserSaveRequest;
 import com.example.tour.load.share.ShareLoadRepository;
 import com.example.tour.load.share.domain.ShareLoad;
-import com.example.tour.project.Project;
-import com.example.tour.project.ProjectRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,22 +12,22 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class LoadUserService {
+public class ShareLoadUserService {
 
-    private final LoadUserRepository loadUserRepository;
+    private final ShareLoadUserRepository shareLoadUserRepository;
     private final ShareLoadRepository shareLoadRepository;
 
     @Transactional
-    public void save(LoadUserSaveRequest request) {
+    public void save(ShareLoadUserSaveRequest request) {
         ShareLoad shareLoad = shareLoadRepository.findById(request.getLoadId())
                 .orElseThrow(IllegalArgumentException::new);
         request.getUsers().stream()
-                .forEach(v -> loadUserRepository.save(new LoadUser(shareLoad, v)));
+                .forEach(v -> shareLoadUserRepository.save(new ShareLoadUser(shareLoad, v)));
     }
 
     public List<Long> get(Long loadId) {
-        return loadUserRepository.findByShareLoadId(loadId).stream()
-                .map(LoadUser::getUserId)
+        return shareLoadUserRepository.findByShareLoadId(loadId).stream()
+                .map(ShareLoadUser::getUserId)
                 .toList();
     }
 }

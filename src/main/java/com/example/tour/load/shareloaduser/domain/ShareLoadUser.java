@@ -1,4 +1,4 @@
-package com.example.tour.load.loaduser.domain;
+package com.example.tour.load.shareloaduser.domain;
 
 import com.example.tour.load.share.domain.ShareLoad;
 import jakarta.persistence.*;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LoadUser {
+public class ShareLoadUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class LoadUser {
 
     private Long userId;
 
-    public LoadUser(ShareLoad shareLoad, Long userId) {
+    public ShareLoadUser(ShareLoad shareLoad, Long userId) {
         this.shareLoad = shareLoad;
         this.userId = userId;
     }
