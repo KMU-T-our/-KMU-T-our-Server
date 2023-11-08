@@ -1,8 +1,8 @@
 package com.example.tour.tags.home;
 
 import com.example.tour.tags.home.domain.HomeTag;
-import com.example.tour.tags.home.dto.HomeTagsCreateRequest;
-import com.example.tour.tags.home.dto.HomeTagsUpdateRequest;
+import com.example.tour.tags.home.dto.HomeTagCreateRequest;
+import com.example.tour.tags.home.dto.HomeTagUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +16,8 @@ public class HomeTagsServiceImpl {
     private final HomeTagsRepository homeTagsRepository;
 
     @Transactional
-    public void saveHomeTags(HomeTagsCreateRequest request) {
-        HomeTag h = homeTagsRepository.save(new HomeTag((request)));
+    public void saveHomeTags(HomeTagCreateRequest request) {
+        HomeTag h = homeTagsRepository.save(new HomeTag(request));
     }
 
     @Transactional
@@ -26,7 +26,7 @@ public class HomeTagsServiceImpl {
     }
 
     @Transactional
-    public void updaterHomeTags(HomeTagsUpdateRequest request) {
+    public void updaterHomeTags(HomeTagUpdateRequest request) {
         HomeTag homeTag = homeTagsRepository.findById(request.getId())
                 .orElseThrow(IllegalAccessError::new);
 

@@ -1,8 +1,8 @@
 package com.example.tour.tags.home;
 
 import com.example.tour.tags.home.domain.HomeTag;
-import com.example.tour.tags.home.dto.HomeTagsCreateRequest;
-import com.example.tour.tags.home.dto.HomeTagsUpdateRequest;
+import com.example.tour.tags.home.dto.HomeTagCreateRequest;
+import com.example.tour.tags.home.dto.HomeTagUpdateRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ public class HomeTagsController {
     private final HomeTagsServiceImpl homeTagsService;
 
     @PostMapping("/api/tags/home")
-    public void saveHomeTags(@RequestBody HomeTagsCreateRequest request) {
+    public void saveHomeTags(@RequestBody HomeTagCreateRequest request) {
         homeTagsService.saveHomeTags(request);
     }
 
@@ -26,7 +26,7 @@ public class HomeTagsController {
     }
 
     @PutMapping("/api/tags/home")
-    public void updateHomeTags(@RequestBody HomeTagsUpdateRequest request) {
+    public void updateHomeTags(@RequestBody HomeTagUpdateRequest request) {
         homeTagsService.updaterHomeTags(request);
     }
 
