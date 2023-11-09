@@ -1,6 +1,6 @@
 package com.example.tour.load.share;
 
-import com.example.tour.config.undertable.shareuser.ShareUserService;
+
 import com.example.tour.load.share.domain.ShareLoad;
 import com.example.tour.load.share.dto.ShareLoadSaveRequest;
 import com.example.tour.load.share.dto.ShareLoadUpdateRequest;
@@ -20,7 +20,6 @@ public class ShareLoadServiceImpl {
     private final ShareLoadRepository shareLoadRepository;
     private final ProjectRepository projectRepository;
 
-    private final ShareUserService shareUserService;
 
     @Transactional
     public void saveShareLoad(ShareLoadSaveRequest request) {
@@ -28,8 +27,6 @@ public class ShareLoadServiceImpl {
         ShareLoad shareLoad = new ShareLoad(request, project);
         shareLoadRepository.save(shareLoad);
 
-        //shareUser 테이블에 값 넣기(디폴트값 : 프로젝트 Id 일치하는 유저 정보 삽입)
-//        shareUserService.makeShareUser(request.getProject_id(), shareLoad.getId());
     }
 
     // 전체 검색

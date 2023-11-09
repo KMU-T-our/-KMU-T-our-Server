@@ -27,7 +27,7 @@ public class HomeTagsServiceImpl {
         Project project = projectRepository.findById(request.getProjectId())
                 .orElseThrow(IllegalArgumentException::new);
         Tag tag = tagService.getInstance();
-        HomeTag homeTag = homeTagsRepository.save(new HomeTag(project, tag, request));
+        homeTagsRepository.save(new HomeTag(project, tag, request));
     }
 
     @Transactional

@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import com.example.tour.config.middletable.tag.Tag;
 import com.example.tour.project.Project;
-import com.example.tour.tags.home.HomeTagsController;
 import com.example.tour.tags.home.dto.HomeTagCreateRequest;
 import com.example.tour.tags.home.dto.HomeTagUpdateRequest;
 import jakarta.persistence.*;
@@ -16,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "homeTags")
+@Table(name = "homeTag")
 @Entity
 public class HomeTag {
 
@@ -26,7 +25,7 @@ public class HomeTag {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "tag_id")
     private Tag tag;
 
     @ManyToOne

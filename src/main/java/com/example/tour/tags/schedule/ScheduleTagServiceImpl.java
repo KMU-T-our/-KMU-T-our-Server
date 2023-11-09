@@ -1,7 +1,14 @@
 package com.example.tour.tags.schedule;
 
+import com.example.tour.config.middletable.tag.Tag;
+import com.example.tour.config.middletable.tag.TagRepository;
+import com.example.tour.config.middletable.tag.TagService;
+import com.example.tour.project.Project;
+import com.example.tour.project.ProjectRepository;
 import com.example.tour.tags.schedule.domain.ScheduleTag;
-import com.example.tour.tags.schedule.dto.ScheduleTagRequest;
+import com.example.tour.tags.schedule.dto.ScheduleTagCreateRequest;
+import com.example.tour.tags.schedule.dto.ScheduleTagResponse;
+import com.example.tour.tags.schedule.dto.ScheduleTagUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,28 +20,38 @@ import java.util.List;
 public class ScheduleTagServiceImpl {
 
     private final ScheduleTagRepository scheduleTagRepository;
+    private final TagService tagService;
+    private final TagRepository tagRepository;
+    private final ProjectRepository projectRepository;
 
     @Transactional
-    public void saveScheduleTag(ScheduleTagRequest request){
-        scheduleTagRepository.save(new ScheduleTag(request));
-    }
-
-    @Transactional
-    public List<ScheduleTag> getScheduleTag(){
-        return scheduleTagRepository.findAll();
-    }
-
-    @Transactional
-    public void updateScheduleTag(ScheduleTagRequest request){
-        ScheduleTag scheduleTag = scheduleTagRepository.findById(request.getId())
+    public void saveScheduleTag(ScheduleTagCreateRequest request){
+        Project project = projectRepository.findById(request.getProjectId())
                 .orElseThrow(IllegalAccessError::new);
+        Tag tag = tagService.getInstance();
+        scheduleTagRepository.save(new ScheduleTag(project, tag, request));
+    }
+
+    @Transactional
+    public ScheduleTagResponse findByTagId(Long tagId){
+        Tag tag = tagRepository.findById(tagId)
+                .orElseThrow(IllegalAccessError::new);
+        return new ScheduleTagResponse(scheduleTagRepository.findByTag(tag));
+    }
+
+
+    @Transactional
+    public void updateScheduleTag(ScheduleTagUpdateRequest request){
+        Tag tag = tagRepository.findById(request.getTagId())
+                .orElseThrow(IllegalAccessError::new);
+        ScheduleTag scheduleTag = scheduleTagRepository.findByTag(tag);
         scheduleTag.updateScheduleTag(request);
     }
 
     @Transactional
-    public void deleteScheduleTag(Long id){
-        ScheduleTag scheduleTag = scheduleTagRepository.findById(id)
-                .orElseThrow(IllegalAccessError::new);
-        scheduleTagRepository.delete(scheduleTag);
+    public void deleteScheduleTag(Long tagId){
+        Tag tag = tagRepository.findById(tagId)
+                        .orElseThrow(IllegalAccessError::new);
+        scheduleTagRepository.deleteByTag(tag);
     }
 }

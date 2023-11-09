@@ -5,9 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ScheduleTagRequest {
-    private Long id;
+public class ScheduleTagUpdateRequest {
     private String scheduleName;
     private String scheduleDate;
     private String scheduleContent;
+    private Long tagId;
 }
