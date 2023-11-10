@@ -4,6 +4,7 @@ import com.example.tour.config.middletable.tag.Tag;
 import com.example.tour.project.Project;
 import com.example.tour.tags.restaurant.dto.RestaurantTagCreateRequest;
 import com.example.tour.tags.restaurant.dto.RestaurantTagUpdateRequest;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class RestaurantTag {
     @JoinColumn(name = "tag_id")
     private Tag tag;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;

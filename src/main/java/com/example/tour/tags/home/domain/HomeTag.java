@@ -7,11 +7,13 @@ import com.example.tour.project.Project;
 import com.example.tour.tags.home.HomeTagsController;
 import com.example.tour.tags.home.dto.HomeTagCreateRequest;
 import com.example.tour.tags.home.dto.HomeTagUpdateRequest;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @AllArgsConstructor
@@ -29,15 +31,19 @@ public class HomeTag {
     @JoinColumn(name = "id")
     private Tag tag;
 
+
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "project_id")
     private Project project;
 
     @Column(nullable = false)
     private String name;
 
     private String address;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime checkInTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime checkOutTime;
     private Integer numberOfPeople;
     private Integer numberOfRooms;

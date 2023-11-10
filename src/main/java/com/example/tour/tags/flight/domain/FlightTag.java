@@ -5,10 +5,12 @@ import com.example.tour.project.Project;
 import com.example.tour.tags.flight.dto.FlightTagCreateRequest;
 import com.example.tour.tags.flight.dto.FlightTagUpdateRequest;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import lombok.*;
+
 
 @Getter
 @AllArgsConstructor
@@ -26,6 +28,7 @@ public class FlightTag {
     @JoinColumn(name = "tag_id", nullable = false)
     private Tag tag;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;

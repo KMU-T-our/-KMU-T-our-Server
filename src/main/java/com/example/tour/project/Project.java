@@ -1,6 +1,11 @@
 package com.example.tour.project;
 
+import com.example.tour.tags.flight.domain.FlightTag;
+import com.example.tour.tags.home.domain.HomeTag;
+import com.example.tour.tags.restaurant.domain.RestaurantTag;
+import com.example.tour.tags.schedule.domain.ScheduleTag;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -10,6 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Entity
@@ -35,4 +41,16 @@ public class Project {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "end_day")
     private Date endDay;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
+    private List<HomeTag> homeTags;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
+    private List<FlightTag> flightTags;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
+    private List<RestaurantTag> restaurantTags;
 }

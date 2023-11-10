@@ -1,6 +1,5 @@
 package com.example.tour.config.middletable.tag;
 
-import com.example.tour.project.Project;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
