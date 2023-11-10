@@ -1,6 +1,6 @@
 package com.example.tour.load.share;
 
-import com.example.tour.config.undertable.shareuser.ShareUserService;
+//import com.example.tour.config.undertable.shareuser.ShareUserService;
 import com.example.tour.load.share.domain.ShareLoad;
 import com.example.tour.load.share.dto.ShareLoadSaveRequest;
 import com.example.tour.load.share.dto.ShareLoadUpdateRequest;
@@ -20,7 +20,7 @@ public class ShareLoadServiceImpl {
     private final ShareLoadRepository shareLoadRepository;
     private final ProjectRepository projectRepository;
 
-    private final ShareUserService shareUserService;
+//    private final ShareUserService shareUserService;
 
     @Transactional
     public void saveShareLoad(ShareLoadSaveRequest request) {
