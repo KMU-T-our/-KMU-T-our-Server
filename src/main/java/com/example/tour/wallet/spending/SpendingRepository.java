@@ -8,12 +8,13 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 public interface SpendingRepository extends JpaRepository<Spending, Long> {
     List<Spending> findByProjectUser(ProjectUser projectUser);
-    List<Spending> findByProjectUserAndWalletSpendingTag(ProjectUser projectUser, Spending.SpendingTag tag);
-
-    List<Spending> findByProjectUserAndWalletSpendingDate(ProjectUser projectUser, String date);
+    List<Spending> findByProjectUserAndWalletSpendingTagIn(ProjectUser projectUser, List<Spending.SpendingTag> tag);
+    List<Spending> findByProjectUserAndWalletSpendingDate(ProjectUser projectUser, LocalDate walletSpendingDate);
 }
 
