@@ -23,11 +23,12 @@ public class HomeTagsServiceImpl {
     private final ProjectRepository projectRepository;
 
     @Transactional
-    public void saveHomeTag(HomeTagCreateRequest request) {
+    public Tag saveHomeTag(HomeTagCreateRequest request) {
         Project project = projectRepository.findById(request.getProjectId())
                 .orElseThrow(IllegalArgumentException::new);
         Tag tag = tagService.getInstance();
         HomeTag homeTag = homeTagsRepository.save(new HomeTag(project, tag, request));
+        return tag;
     }
 
     @Transactional

@@ -1,5 +1,6 @@
 package com.example.tour.tags.restaurant;
 
+import com.example.tour.config.middletable.tag.Tag;
 import com.example.tour.tags.restaurant.dto.RestaurantTagCreateRequest;
 import com.example.tour.tags.restaurant.dto.RestaurantTagResponse;
 import com.example.tour.tags.restaurant.dto.RestaurantTagUpdateRequest;
@@ -13,8 +14,8 @@ public class RestaurantTagController {
     private final RestaurantTagServiceImpl restaurantTagsService;
 
     @PostMapping("/api/tags/restaurant")
-    public void saveRestaurantTags(@RequestBody RestaurantTagCreateRequest request) {
-        restaurantTagsService.saveRestaurantTag(request);
+    public Tag saveRestaurantTags(@RequestBody RestaurantTagCreateRequest request) {
+        return restaurantTagsService.saveRestaurantTag(request);
     }
 
     @GetMapping("/api/tags/restaurant")
