@@ -5,6 +5,9 @@ import com.example.tour.wallet.spending.dto.request.SpendingCreateRequest;
 import com.example.tour.wallet.spending.dto.request.SpendingUpdateRequest;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -17,20 +20,22 @@ public class Spending {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @Column(name = "wallet_spending_id")
     private Long walletSpendingId;
 
-    @Column
+    @Column(name = "wallet_spending_title")
     private String walletSpendingTitle;
 
     @Enumerated(EnumType.STRING)
-    @Column
+    @Column(name = "wallet_spending_tag")
     private SpendingTag walletSpendingTag;
 
-    @Column
+    @Column(name = "wallet_spending_amount")
     private Long walletSpendingAmount;
 
-    @Column
-    private String walletSpendingDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "wallet_spending_date")
+    private LocalDate walletSpendingDate;
 
     // ProjectUser와 단방향 매핑
     @ManyToOne
@@ -47,15 +52,6 @@ public class Spending {
         this.walletSpendingDate = request.getDate();
         this.projectUser = projectUser;
     }
-
-    public Spending(SpendingUpdateRequest request, ProjectUser projectUser) {
-        this.walletSpendingTitle = request.getTitle();
-        this.walletSpendingTag = request.getTag();
-        this.walletSpendingAmount = request.getAmount();
-        this.walletSpendingDate = request.getDate();
-        this.projectUser = projectUser;
-    }
-
     public void updateSpending(SpendingUpdateRequest request) {
         if(request.getTitle() != null) {this.walletSpendingTitle = request.getTitle();}
         if(request.getTag() != null) {this.walletSpendingTag = request.getTag();}
@@ -64,12 +60,12 @@ public class Spending {
     }
 
     public enum SpendingTag {
-        기타,
-        식당,
-        선물,
-        교통,
-        관광,
-        숙소
+        ETC,
+        FOOD,
+        GIFT,
+        TRANSIT,
+        TOUR,
+        HOME
     }
 
 
