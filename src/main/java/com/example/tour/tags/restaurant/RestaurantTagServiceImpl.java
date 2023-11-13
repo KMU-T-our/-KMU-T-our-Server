@@ -11,12 +11,14 @@ import com.example.tour.tags.restaurant.dto.RestaurantTagResponse;
 import com.example.tour.tags.restaurant.dto.RestaurantTagUpdateRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class RestaurantTagServiceImpl {
 
     private final RestaurantTagRepository restaurantTagRepository;
@@ -25,11 +27,12 @@ public class RestaurantTagServiceImpl {
     private final ProjectRepository projectRepository;
 
     @Transactional
-    public void saveRestaurantTag(RestaurantTagCreateRequest request) {
+    public Tag saveRestaurantTag(RestaurantTagCreateRequest request) {
         Project project = projectRepository.findById(request.getProjectId())
                 .orElseThrow(IllegalArgumentException::new);
         Tag tag = tagService.getInstance();
         restaurantTagRepository.save(new RestaurantTag(project, tag, request));
+        return tag;
     }
 
     @Transactional

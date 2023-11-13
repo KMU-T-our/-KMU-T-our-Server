@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
@@ -39,10 +40,8 @@ public class RestaurantTag {
 
     private String address;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd", timezone = "Asia/Seoul")
-    private LocalDateTime visitDay;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm", timezone = "Asia/Seoul")
-    private LocalDateTime visitTime;
+    private String visitDay;
+    private String visitTime;
     private Integer numberOfPeople;
 
     public RestaurantTag(Project project, Tag tag, RestaurantTagCreateRequest request) {

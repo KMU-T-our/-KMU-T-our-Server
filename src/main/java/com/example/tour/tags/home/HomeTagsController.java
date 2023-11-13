@@ -1,5 +1,6 @@
 package com.example.tour.tags.home;
 
+import com.example.tour.config.middletable.tag.Tag;
 import com.example.tour.tags.home.dto.HomeTagCreateRequest;
 import com.example.tour.tags.home.dto.HomeTagResponse;
 import com.example.tour.tags.home.dto.HomeTagUpdateRequest;
@@ -13,8 +14,8 @@ public class HomeTagsController {
     private final HomeTagsServiceImpl homeTagsService;
 
     @PostMapping("/api/tags/home")
-    public void saveHomeTags(@RequestBody HomeTagCreateRequest request) {
-        homeTagsService.saveHomeTag(request);
+    public Tag saveHomeTags(@RequestBody HomeTagCreateRequest request) {
+        return homeTagsService.saveHomeTag(request);
     }
 
     @GetMapping("/api/tags/home")
