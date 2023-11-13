@@ -6,10 +6,12 @@ import com.example.tour.wallet.spending.domain.Spending;
 import com.example.tour.wallet.spending.dto.request.SpendingCreateRequest;
 import com.example.tour.wallet.spending.dto.request.SpendingUpdateRequest;
 import com.example.tour.wallet.spending.dto.response.SpendingResponse;
+import com.example.tour.wallet.spending.dto.response.SpendingSaveResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,27 +21,29 @@ public class SpendingService {
     private final SpendingRepository spendingRepository;
     private final ProjectUserRepository projectUserRepository;
     @Transactional
-    public void saveSpending(SpendingCreateRequest request) {
+    public SpendingSaveResponse saveSpending(SpendingCreateRequest request) {
         ProjectUser projectUser = projectUserRepository.findByProjectUserId(request.getProjectUserId());
-        spendingRepository.save(new Spending(request, projectUser));
+        Spending spending = new Spending(request, projectUser);
+        spendingRepository.save(spending);
+        return new SpendingSaveResponse(projectUser.getProjectUserId(), spending);
     }
 
     @Transactional(readOnly = true)
-    public List<SpendingResponse> getEntireSpending(Long projectUserId){
+    public List<SpendingResponse> getSpendingAll(Long projectUserId){
         ProjectUser projectUser = projectUserRepository.findByProjectUserId(projectUserId);
         return spendingRepository.findByProjectUser(projectUser).stream()
                 .map(SpendingResponse::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<SpendingResponse> getFilteringTagSpending(Long projectUserId, Spending.SpendingTag tag){
+    public List<SpendingResponse> getFilteringByTag(Long projectUserId, List<Spending.SpendingTag> tags){
         ProjectUser projectUser = projectUserRepository.findByProjectUserId(projectUserId);
-        return spendingRepository.findByProjectUserAndWalletSpendingTag(projectUser, tag).stream()
+        return spendingRepository.findByProjectUserAndWalletSpendingTagIn(projectUser, tags).stream()
                 .map(SpendingResponse::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<SpendingResponse> getFilteringDateSpending(Long projectUserId, String date){
+    public List<SpendingResponse> getFilteringByDate(Long projectUserId, LocalDate date){
         ProjectUser projectUser = projectUserRepository.findByProjectUserId(projectUserId);
         return spendingRepository.findByProjectUserAndWalletSpendingDate(projectUser,date).stream()
                 .map(SpendingResponse::new).collect(Collectors.toList());
@@ -47,7 +51,7 @@ public class SpendingService {
 
     @Transactional
     public void updateSpending(SpendingUpdateRequest request){
-        Spending spending = spendingRepository.findById(request.getId())
+        Spending spending = spendingRepository.findById(request.getSpendingId())
                 .orElseThrow(IllegalArgumentException::new);
         spending.updateSpending(request);
     }
