@@ -18,7 +18,7 @@ public class ScheduleTagUserController {
     }
 
     @GetMapping("/api/scheduleuser")
-    public List<Long> get(@RequestParam Long scheduleUserId){
-        return scheduleTagUserService.get(scheduleUserId);
+    public List<Long> get(@RequestParam Long scheduleTagId){
+        return scheduleTagUserService.get(scheduleTagId);
     }
 }

@@ -19,7 +19,7 @@ public class ScheduleTagUserService {
 
     @Transactional
     public void save(ScheduleTagUserSaveRequest request){
-        ScheduleTag scheduleTag = scheduleTagRepository.findById(request.getScheduleUserId())
+        ScheduleTag scheduleTag = scheduleTagRepository.findById(request.getScheduleTagId())
                 .orElseThrow(IllegalAccessError::new);
         request.getUsers().stream()
                 .forEach(v -> scheduleTagUserRepository.save(new ScheduleTagUser(scheduleTag, v)));

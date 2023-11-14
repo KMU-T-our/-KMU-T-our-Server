@@ -8,6 +8,6 @@ import java.util.List;
 @Getter
 @Setter
 public class ScheduleTagUserSaveRequest {
-    Long scheduleUserId;
+    Long scheduleTagId;
     List<Long> users;
 }

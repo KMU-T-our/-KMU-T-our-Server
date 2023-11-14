@@ -4,11 +4,13 @@ import com.example.tour.config.middletable.projectuser.ProjectUser;
 import com.example.tour.config.middletable.projectuser.ProjectUserRepository;
 import com.example.tour.load.personal.domain.PersonalLoad;
 import com.example.tour.load.personal.dto.PersonalLoadRequest;
+import com.example.tour.load.personal.dto.PersonalLoadResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 
 @RequiredArgsConstructor
 @Service
@@ -25,7 +27,18 @@ public class PersonalLoadServiceImpl {
     }
 
     @Transactional
-    public List<PersonalLoad> getPersonalLoad() {return personalLoadRepository.findAll();}
+    public List<PersonalLoad> getAllPersonalLoad(PersonalLoadRequest request) {
+        ProjectUser projectUser = projectUserRepository.findByProjectUserId(request.getProject_user_id());
+        return personalLoadRepository.findAllByProjectUser(projectUser);
+    }
+
+    @Transactional
+    public PersonalLoadResponse getPersonalLoad(PersonalLoadRequest request){
+        ProjectUser projectUser = projectUserRepository.findByProjectUserId(request.getProject_user_id());
+        PersonalLoad personalLoad = personalLoadRepository.findByProjectUserAndId(projectUser, request.getId());
+        PersonalLoadResponse personalLoadResponse = new PersonalLoadResponse(personalLoad);
+        return personalLoadResponse;
+    }
 
     @Transactional
     public void updaterPersonalLoad(PersonalLoadRequest request){
