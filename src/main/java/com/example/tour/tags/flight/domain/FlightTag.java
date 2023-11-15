@@ -79,6 +79,7 @@ public class FlightTag {
     }
 
     public void updateFlightTag(FlightTagUpdateRequest request) {
+        if(request.getAirline() != null) this.airline = request.getAirline();
         if(request.getStartTakeoffTime() != null) this.startTakeoffTime = request.getStartTakeoffTime();
         if(request.getStartLandingTime() != null) this.startLandingTime = request.getStartLandingTime();
         if(request.getStartTakeoffAirport() != null) this.startTakeoffAirport = request.getStartTakeoffAirport();
