@@ -36,4 +36,9 @@ public class ScheduleTagController {
         scheduleTagService.deleteScheduleTag(tagId);
     }
 
+    @GetMapping("/api/tags/schedules")
+    public List<ScheduleTagResponse> getScheduleTagsByProjectId(@RequestParam Long projectId) {
+        return scheduleTagService.findByProjectId(projectId);
+    }
+
 }

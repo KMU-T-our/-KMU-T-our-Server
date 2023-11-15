@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class FlightTagResponse {
+    private Long tagId;
     private String airline;
 
     private String startTakeoffTime;
@@ -23,6 +24,7 @@ public class FlightTagResponse {
     private String endLandingAirport;
 
     public FlightTagResponse(FlightTag tag) {
+        this.tagId = tag.getTag().getTagId();
         this.airline = tag.getAirline();
         this.startTakeoffTime = tag.getStartTakeoffTime();
         this.startLandingTime = tag.getStartLandingTime();

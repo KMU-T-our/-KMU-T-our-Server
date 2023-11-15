@@ -54,4 +54,12 @@ public class ScheduleTagServiceImpl {
                         .orElseThrow(IllegalAccessError::new);
         scheduleTagRepository.deleteByTag(tag);
     }
+
+    public List<ScheduleTagResponse> findByProjectId(Long projectId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(IllegalArgumentException::new);
+        return scheduleTagRepository.findByProject(project).stream()
+                .map(ScheduleTagResponse::new)
+                .toList();
+    }
 }
