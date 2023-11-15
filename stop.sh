@@ -1,3 +1,2 @@
 #!/bin/bash
-
-sudo kill $(sudo lsof -t -i:8080)
+fuser -k 8080/tcp
