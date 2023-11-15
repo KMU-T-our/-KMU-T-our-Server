@@ -13,9 +13,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @RequiredArgsConstructor
 @Service
 public class HomeTagsServiceImpl {
@@ -26,12 +23,11 @@ public class HomeTagsServiceImpl {
     private final ProjectRepository projectRepository;
 
     @Transactional
-    public Tag saveHomeTag(HomeTagCreateRequest request) {
+    public void saveHomeTag(HomeTagCreateRequest request) {
         Project project = projectRepository.findById(request.getProjectId())
                 .orElseThrow(IllegalArgumentException::new);
         Tag tag = tagService.getInstance();
-        HomeTag homeTag = homeTagsRepository.save(new HomeTag(project, tag, request));
-        return tag;
+        homeTagsRepository.save(new HomeTag(project, tag, request));
     }
 
     @Transactional
@@ -55,15 +51,6 @@ public class HomeTagsServiceImpl {
         Tag tag = tagRepository.findById(tagId)
                 .orElseThrow(IllegalArgumentException::new);
         homeTagsRepository.deleteByTag(tag);
-    }
-
-    @Transactional
-    public List<HomeTagResponse> findByProjectId(Long projectId) {
-        Project project = projectRepository.findById(projectId)
-                .orElseThrow(IllegalArgumentException::new);
-        return homeTagsRepository.findByProject(project).stream()
-                .map(HomeTagResponse::new)
-                .toList();
     }
 }
 

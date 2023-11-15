@@ -3,6 +3,8 @@ package com.example.tour.load.personal;
 
 import com.example.tour.load.personal.domain.PersonalLoad;
 import com.example.tour.load.personal.dto.PersonalLoadRequest;
+import com.example.tour.load.personal.dto.PersonalLoadResponse;
+import com.example.tour.load.share.dto.ShareLoadResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +22,18 @@ public class PersonalLoadController {
         personalLoadService.savePersonalLoad(request);
     }
 
-    @GetMapping("/api/load/personal")
-    public ResponseEntity<List<PersonalLoad>> getPersonalLoad(){
+    @GetMapping("/api/load/personals")
+    public ResponseEntity<List<PersonalLoad>> getAllPersonalLoad(@RequestBody PersonalLoadRequest request){
         return ResponseEntity.ok()
-                .body(personalLoadService.getPersonalLoad());
+                .body(personalLoadService.getAllPersonalLoad(request));
     }
 
-    @PutMapping("/api/load/personal")
+    @GetMapping("/api/load/personal")
+    public PersonalLoadResponse getPersonalLoad(@RequestBody PersonalLoadRequest request){
+        return personalLoadService.getPersonalLoad(request);
+    }
+
+    @PatchMapping("/api/load/personal")
     public void updatePersonalLoad(@RequestBody PersonalLoadRequest request){
         personalLoadService.updaterPersonalLoad(request);
     }

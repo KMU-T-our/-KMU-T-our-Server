@@ -1,13 +1,13 @@
 package com.example.tour.tags.schedule.domain;
 
 import com.example.tour.config.middletable.tag.Tag;
-import com.example.tour.tags.schedule.dto.ScheduleTagRequest;
+import com.example.tour.project.Project;
+import com.example.tour.tags.schedule.dto.ScheduleTagCreateRequest;
+import com.example.tour.tags.schedule.dto.ScheduleTagUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -35,15 +35,22 @@ public class ScheduleTag {
     @JoinColumn(name = "tag_id")
     private Tag tag;
 
-    public ScheduleTag(ScheduleTagRequest request){
+    @ManyToOne
+    @JoinColumn
+    private Project project;
+
+    public ScheduleTag(Project project, Tag tag, ScheduleTagCreateRequest request){
         this.scheduleName = request.getScheduleName();
         this.scheduleDate = request.getScheduleDate();
         this.scheduleContent = request.getScheduleContent();
+
+        this.project = project;
+        this.tag = tag;
     }
 
-    public void updateScheduleTag(ScheduleTagRequest request){
-        this.scheduleName = request.getScheduleName();
-        this.scheduleDate = request.getScheduleDate();
-        this.scheduleContent = request.getScheduleContent();
+    public void updateScheduleTag(ScheduleTagUpdateRequest request){
+       if(request.getScheduleName() != null) this.scheduleName = request.getScheduleName();
+       if(request.getScheduleDate() != null) this.scheduleDate = request.getScheduleDate();
+       if(request.getScheduleContent() != null) this.scheduleContent = request.getScheduleContent();
     }
 }

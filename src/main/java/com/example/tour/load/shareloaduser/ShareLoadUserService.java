@@ -30,4 +30,10 @@ public class ShareLoadUserService {
                 .map(ShareLoadUser::getUserId)
                 .toList();
     }
+
+    public void delete(Long loadId){
+        ShareLoadUser shareLoadUser = shareLoadUserRepository.findById(loadId)
+                .orElseThrow(IllegalAccessError::new);
+        shareLoadUserRepository.delete(shareLoadUser);
+    }
 }

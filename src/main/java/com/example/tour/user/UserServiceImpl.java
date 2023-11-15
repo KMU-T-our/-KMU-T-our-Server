@@ -2,6 +2,8 @@ package com.example.tour.user;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.example.tour.config.middletable.projectuser.ProjectUser;
+import com.example.tour.config.middletable.projectuser.ProjectUserRepository;
 import com.example.tour.token.jwt.JwtProperties;
 import com.example.tour.user.domain.User;
 import com.example.tour.user.dto.KakaoProfile;
@@ -28,6 +30,7 @@ import java.util.List;
 public class UserServiceImpl {
 
     private final UserRepository userRepository;
+    private final ProjectUserRepository projectUserRepository;
 
     @Transactional
     public void saveUser(UserCreateRequest request) {
@@ -37,6 +40,14 @@ public class UserServiceImpl {
     @Transactional
     public List<User> getUsers() {
         return userRepository.findAll();
+    }
+
+    //멤버
+    @Transactional
+    public User getMember(Long projectUserId){
+        ProjectUser projectUser = projectUserRepository.findByProjectUserId(projectUserId);
+        Long userId = projectUser.getUser().getId();
+        return userRepository.findById(userId).orElseThrow(IllegalAccessError::new);
     }
 
     @Transactional

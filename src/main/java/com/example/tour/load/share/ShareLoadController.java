@@ -1,13 +1,15 @@
 package com.example.tour.load.share;
 
 import com.example.tour.load.share.domain.ShareLoad;
+import com.example.tour.load.share.dto.ShareLoadResponse;
 import com.example.tour.load.share.dto.ShareLoadSaveRequest;
-import com.example.tour.load.share.dto.ShareLoadUpdateRequest;
+import com.example.tour.load.share.dto.ShareLoadRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @AllArgsConstructor
 @RestController
@@ -21,13 +23,18 @@ public class ShareLoadController {
     }
 
     @GetMapping("/api/load/shares")
-    public ResponseEntity<List<ShareLoad>> getShareLoad(){
+    public ResponseEntity<List<ShareLoadResponse>> getAllShareLoad(@RequestBody ShareLoadRequest request){
         return ResponseEntity.ok()
-                .body(shareLoadService.getShareLoad());
+                .body(shareLoadService.getAllShareLoad(request));
+    }
+
+    @GetMapping("/api/load/share")
+    public ShareLoadResponse getShareLoad(@RequestBody ShareLoadRequest request){
+        return shareLoadService.getShareLoad(request);
     }
 
     @PutMapping("/api/load/share")
-    public void updateShareLoad(@RequestBody ShareLoadUpdateRequest request) {
+    public void updateShareLoad(@RequestBody ShareLoadRequest request) {
         shareLoadService.updaterShareLoad(request);
     }
 
