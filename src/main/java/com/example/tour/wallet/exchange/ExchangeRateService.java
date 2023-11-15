@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ import java.util.Map;
 public class ExchangeRateService {
 
     private final ExchangeRateApi exchangeRateApi;
-    Map<String, List<ExchangeRateResponse>> resultCacheMap;
+    Map<String, List<ExchangeRateResponse>> resultCacheMap = new HashMap<>();
 
     public List<ExchangeRateResponse> callExchangeApi(String searchDate){
         HttpsURLConnection urlConnection = null;

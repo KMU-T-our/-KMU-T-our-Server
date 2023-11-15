@@ -10,10 +10,10 @@ import java.time.LocalDate;
 @Setter
 @Getter
 public class SpendingCreateRequest {
-    private String spendingTitle;
-    private Spending.SpendingTag spendingTag;
-    private Long spendingAmount;
+    private String title;
+    private Spending.SpendingTag tag;
+    private Long amount;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate spendingDate;
+    private LocalDate date;
     private Long projectUserId;
 }

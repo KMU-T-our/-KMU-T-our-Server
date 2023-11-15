@@ -9,7 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class FlightTagCreateRequest {
     private Long projectId;
-
     private String airline;
 
     private String startTakeoffTime;

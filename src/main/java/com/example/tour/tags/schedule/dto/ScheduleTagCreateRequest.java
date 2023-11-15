@@ -8,8 +8,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ScheduleTagCreateRequest {
-    private String scheduleName;
-    private String scheduleDate;
-    private String scheduleContent;
     private Long projectId;
+    private String name;
+    private String date;
+    private String content;
 }

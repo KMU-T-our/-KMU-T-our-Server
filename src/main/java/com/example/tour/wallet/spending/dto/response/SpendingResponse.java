@@ -10,19 +10,19 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class SpendingResponse {
-    private long spendingId;
-    private String spendingTitle;
-    private Spending.SpendingTag spendingTag;
-    private long spendingAmount;
+    private long id;
+    private String title;
+    private Spending.SpendingTag tag;
+    private long amount;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    private LocalDate spendingDate;
+    private LocalDate date;
 
     public SpendingResponse(Spending spending) {
-        this.spendingId = spending.getWalletSpendingId();
-        this.spendingTitle = spending.getWalletSpendingTitle();
-        this.spendingTag = spending.getWalletSpendingTag();
-        this.spendingAmount = spending.getWalletSpendingAmount();
-        this.spendingDate = spending.getWalletSpendingDate();
+        this.id = spending.getWalletSpendingId();
+        this.title = spending.getWalletSpendingTitle();
+        this.tag = spending.getWalletSpendingTag();
+        this.amount = spending.getWalletSpendingAmount();
+        this.date = spending.getWalletSpendingDate();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.tour.tags.flight.dto;
 
+import com.example.tour.config.ResponseComparator;
 import com.example.tour.tags.flight.domain.FlightTag;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,8 @@ import java.time.LocalDateTime;
 
 @Setter
 @Getter
-public class FlightTagResponse {
+public class FlightTagResponse implements ResponseComparator {
+    private Long tagId;
     private String airline;
 
     private String startTakeoffTime;
@@ -23,6 +25,7 @@ public class FlightTagResponse {
     private String endLandingAirport;
 
     public FlightTagResponse(FlightTag tag) {
+        this.tagId = tag.getTag().getTagId();
         this.airline = tag.getAirline();
         this.startTakeoffTime = tag.getStartTakeoffTime();
         this.startLandingTime = tag.getStartLandingTime();

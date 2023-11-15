@@ -17,6 +17,11 @@ configurations {
 	}
 }
 
+// 빌드시에 일반 jar파일만 생성한다.
+jar {
+	enabled = false
+}
+
 repositories {
 	mavenCentral()
 }

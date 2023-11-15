@@ -6,6 +6,7 @@ import com.example.tour.config.middletable.tag.TagService;
 import com.example.tour.tags.comment.domain.Comment;
 import com.example.tour.tags.comment.dto.CommentCreateRequest;
 import com.example.tour.tags.comment.dto.CommentResponse;
+import com.example.tour.tags.comment.dto.CommentSaveResponse;
 import com.example.tour.user.UserRepository;
 import com.example.tour.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -23,13 +24,15 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
-    private final TagService tagService;
 
     @Transactional
-    public void saveComment(CommentCreateRequest request){
-        Tag tag = tagService.getInstance();
-        User user = userRepository.findById(request.getUserId()).orElseThrow(IllegalArgumentException::new);
+    public CommentSaveResponse saveComment(CommentCreateRequest request){
+        Tag tag = tagRepository.findById(request.getTagId())
+                .orElseThrow(IllegalArgumentException::new);
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(IllegalArgumentException::new);
         Comment comment = commentRepository.save(new Comment(tag, user, request));
+        return new CommentSaveResponse(comment, request.getTagId(), request.getUserId());
     }
 
     @Transactional(readOnly = true)

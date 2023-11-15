@@ -34,7 +34,7 @@ public class RestaurantTagController {
     }
 
     // 맛집태그 수정
-    @PutMapping("/api/tags/restaurant")
+    @PatchMapping("/api/tags/restaurant")
     public void updateRestaurantTags(@RequestBody RestaurantTagUpdateRequest request) {
         restaurantTagsService.updaterRestaurantTags(request);
     }

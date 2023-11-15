@@ -23,13 +23,13 @@ public class ScheduleTag {
     private Long id;
 
     @Column(nullable = false)
-    private String scheduleName;
+    private String name;
 
     @Column(nullable = false)
-    private String scheduleDate;
+    private String date;
 
     @Column(columnDefinition = "TEXT")
-    private String scheduleContent;
+    private String content;
 
     //태그 중간테이블과 매핑
     @OneToOne
@@ -42,17 +42,18 @@ public class ScheduleTag {
     private Project project;
 
     public ScheduleTag(Project project, Tag tag, ScheduleTagCreateRequest request){
-        this.scheduleName = request.getScheduleName();
-        this.scheduleDate = request.getScheduleDate();
-        this.scheduleContent = request.getScheduleContent();
+        this.name = request.getName();
+        this.name = request.getName();
+        this.date = request.getDate();
+        this.content = request.getContent();
 
         this.project = project;
         this.tag = tag;
     }
 
     public void updateScheduleTag(ScheduleTagUpdateRequest request){
-       if(request.getScheduleName() != null) this.scheduleName = request.getScheduleName();
-       if(request.getScheduleDate() != null) this.scheduleDate = request.getScheduleDate();
-       if(request.getScheduleContent() != null) this.scheduleContent = request.getScheduleContent();
+        if (request.getName() != null) this.name = request.getName();
+        if (request.getDate() != null) this.date = request.getDate();
+        if (request.getContent() != null) this.content = request.getContent();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.tour.tags.schedule;
 
+import com.example.tour.config.middletable.tag.Tag;
 import com.example.tour.tags.schedule.domain.ScheduleTag;
 import com.example.tour.tags.schedule.dto.ScheduleTagCreateRequest;
 import com.example.tour.tags.schedule.dto.ScheduleTagResponse;
@@ -17,16 +18,16 @@ public class ScheduleTagController {
     private final ScheduleTagServiceImpl scheduleTagService;
 
     @PostMapping("/api/tags/schedule")
-    public void saveSchedule(@RequestBody ScheduleTagCreateRequest request){
-        scheduleTagService.saveScheduleTag(request);
+    public Tag saveSchedule(@RequestBody ScheduleTagCreateRequest request) {
+        return scheduleTagService.saveScheduleTag(request);
     }
 
     @GetMapping("/api/tags/schedule")
-    public ScheduleTagResponse getScheduleTag(Long tagId){
+    public ScheduleTagResponse getScheduleTag(@RequestParam Long tagId) {
         return scheduleTagService.findByTagId(tagId);
     }
 
-    @PutMapping("/api/tags/schedule")
+    @PatchMapping("/api/tags/schedule")
     public void updateScheduleTag(@RequestBody ScheduleTagUpdateRequest request){
         scheduleTagService.updateScheduleTag(request);
     }
@@ -34,6 +35,11 @@ public class ScheduleTagController {
     @DeleteMapping("/api/tags/schedule")
     public void deleteScheduleTag(@RequestParam Long tagId){
         scheduleTagService.deleteScheduleTag(tagId);
+    }
+
+    @GetMapping("/api/tags/schedules")
+    public List<ScheduleTagResponse> getScheduleTagsByProjectId(@RequestParam Long projectId) {
+        return scheduleTagService.findByProjectId(projectId);
     }
 
 }

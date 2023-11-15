@@ -34,7 +34,7 @@ public class HomeTagsController {
     }
 
     // 숙소태그 수정
-    @PutMapping("/api/tags/home")
+    @PatchMapping("/api/tags/home")
     public void updateHomeTags(@RequestBody HomeTagUpdateRequest request) {
         homeTagsService.updaterHomeTag(request);
     }
