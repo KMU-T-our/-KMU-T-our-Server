@@ -37,4 +37,9 @@ public class FlightTagController {
     public void deleteFlightTag(@RequestParam Long tagId) {
         flightTagService.deleteFlightTag(tagId);
     }
+
+    @GetMapping("/api/tags/flights")
+    public List<FlightTagResponse> getFlightTagsByProjectId(@RequestParam Long projectId) {
+        return flightTagService.findByProjectId(projectId);
+    }
 }

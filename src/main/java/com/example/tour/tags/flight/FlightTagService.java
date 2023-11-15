@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.IllformedLocaleException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -53,5 +54,14 @@ public class FlightTagService {
     public void deleteFlightTag(Long tagId) {
         Tag tag = tagRepository.findById(tagId).orElseThrow(IllegalArgumentException::new);
         flightTagRepository.deleteByTag(tag);
+    }
+
+    @Transactional
+    public List<FlightTagResponse> findByProjectId(Long projectId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(IllegalArgumentException::new);
+        return flightTagRepository.findByProject(project).stream()
+                .map(FlightTagResponse::new)
+                .toList();
     }
 }

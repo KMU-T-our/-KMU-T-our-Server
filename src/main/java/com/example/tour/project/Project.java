@@ -53,4 +53,8 @@ public class Project {
     @JsonManagedReference
     @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
     private List<RestaurantTag> restaurantTags;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
+    private List<ScheduleTag> scheduleTags;
 }

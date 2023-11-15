@@ -25,11 +25,12 @@ public class ScheduleTagServiceImpl {
     private final ProjectRepository projectRepository;
 
     @Transactional
-    public void saveScheduleTag(ScheduleTagCreateRequest request){
+    public Tag saveScheduleTag(ScheduleTagCreateRequest request) {
         Project project = projectRepository.findById(request.getProjectId())
                 .orElseThrow(IllegalAccessError::new);
         Tag tag = tagService.getInstance();
         scheduleTagRepository.save(new ScheduleTag(project, tag, request));
+        return tag;
     }
 
     @Transactional
@@ -53,5 +54,13 @@ public class ScheduleTagServiceImpl {
         Tag tag = tagRepository.findById(tagId)
                         .orElseThrow(IllegalAccessError::new);
         scheduleTagRepository.deleteByTag(tag);
+    }
+
+    public List<ScheduleTagResponse> findByProjectId(Long projectId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(IllegalArgumentException::new);
+        return scheduleTagRepository.findByProject(project).stream()
+                .map(ScheduleTagResponse::new)
+                .toList();
     }
 }
