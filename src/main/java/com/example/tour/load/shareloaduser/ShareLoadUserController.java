@@ -25,4 +25,10 @@ public class ShareLoadUserController {
         return shareLoadUserService.get(loadId);
 
     }
+
+    // loadId 로 삭제하기
+    @DeleteMapping("/api/loaduser")
+    public void delete(@RequestParam Long loadId){
+        shareLoadUserService.delete(loadId);
+    }
 }

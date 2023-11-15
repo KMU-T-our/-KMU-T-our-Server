@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
@@ -32,9 +33,10 @@ public class ShareLoadServiceImpl {
 
     // 전체 검색
     @Transactional
-    public List<ShareLoad> getAllShareLoad(ShareLoadRequest request) {
+    public List<ShareLoadResponse> getAllShareLoad(ShareLoadRequest request) {
         Project project = projectRepository.findProjectById(request.getProjectId());
-        return shareLoadRepository.findAllByProject(project);
+        return shareLoadRepository.findAllByProject(project).stream()
+                .map(ShareLoadResponse::new).toList();
     }
 
     // projectId + Id 로 검색

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @AllArgsConstructor
 @RestController
@@ -22,7 +23,7 @@ public class ShareLoadController {
     }
 
     @GetMapping("/api/load/shares")
-    public ResponseEntity<List<ShareLoad>> getAllShareLoad(@RequestBody ShareLoadRequest request){
+    public ResponseEntity<List<ShareLoadResponse>> getAllShareLoad(@RequestBody ShareLoadRequest request){
         return ResponseEntity.ok()
                 .body(shareLoadService.getAllShareLoad(request));
     }

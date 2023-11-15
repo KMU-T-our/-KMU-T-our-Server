@@ -21,6 +21,11 @@ public class UserController {
                 .body(userService.getUsers());
     }
 
+    @GetMapping("/api/user/member")
+    public User getMember(@RequestParam Long projectUserId){
+        return userService.getMember(projectUserId);
+    }
+
     @PutMapping("/api/user")
     public void updateUsers(@RequestBody UserUpdateRequest request) {
         userService.updaterUser(request);
