@@ -30,6 +30,7 @@ public class RestaurantTagServiceImpl {
     public Tag saveRestaurantTag(RestaurantTagCreateRequest request) {
         Project project = projectRepository.findById(request.getProjectId())
                 .orElseThrow(IllegalArgumentException::new);
+        log.info("numberOfPeople = {}", request.getNumberOfPeople());
         Tag tag = tagService.getInstance();
         restaurantTagRepository.save(new RestaurantTag(project, tag, request));
         return tag;
@@ -55,5 +56,14 @@ public class RestaurantTagServiceImpl {
         Tag tag = tagRepository.findById(tagId)
                 .orElseThrow(IllegalArgumentException::new);
         restaurantTagRepository.deleteByTag(tag);
+    }
+
+    @Transactional
+    public List<RestaurantTagResponse> findByProjectId(Long projectId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(IllegalArgumentException::new);
+        return restaurantTagRepository.findByProject(project).stream()
+                .map(RestaurantTagResponse::new)
+                .toList();
     }
 }

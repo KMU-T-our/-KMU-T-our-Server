@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RestaurantTagResponse {
+    private Long tagId;
     private String name;
     private String address;
     private String visitDay;
@@ -14,6 +15,7 @@ public class RestaurantTagResponse {
     private Integer numberOfPeople;
 
     public RestaurantTagResponse(RestaurantTag tag) {
+        this.tagId = tag.getTag().getTagId();
         this.name = tag.getName();
         this.address = tag.getAddress();
         this.visitDay = tag.getVisitDay();

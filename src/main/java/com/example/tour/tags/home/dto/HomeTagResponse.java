@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class HomeTagResponse {
+    private Long tagId;
     private String name;
     private String address;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -22,6 +23,7 @@ public class HomeTagResponse {
     private Integer numberOfRooms;
 
     public HomeTagResponse(HomeTag tag) {
+        this.tagId = tag.getTag().getTagId();
         this.name = tag.getName();
         this.address = tag.getAddress();
         this.checkInTime = tag.getCheckInTime();
