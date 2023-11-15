@@ -6,10 +6,12 @@ import com.example.tour.wallet.spending.dto.request.SpendingUpdateRequest;
 import com.example.tour.wallet.spending.dto.response.SpendingResponse;
 import com.example.tour.wallet.spending.dto.response.SpendingSaveResponse;
 import lombok.AllArgsConstructor;
+import net.bytebuddy.asm.Advice;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,8 +40,9 @@ public class SpendingController {
     }
 
     @GetMapping("/api/wallet/spending/date")
-    public List<SpendingResponse> getSpendingFilteringByDate(@RequestParam Long projectUserId, @DateTimeFormat(pattern = "YYYY-MM-DD") @RequestParam LocalDate date){
-        return spendingService.getFilteringByDate(projectUserId, date);
+    public List<SpendingResponse> getSpendingFilteringByDate(@RequestParam Long projectUserId, @RequestParam String date){
+        LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ISO_DATE );
+        return spendingService.getFilteringByDate(projectUserId, localDate);
     }
 
     @PutMapping("/api/wallet/spending")

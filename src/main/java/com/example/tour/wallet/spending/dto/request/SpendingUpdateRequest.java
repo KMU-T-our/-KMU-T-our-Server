@@ -13,11 +13,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class SpendingUpdateRequest {
 
-    private long spendingId;
-    private String spendingTitle;
-    private Spending.SpendingTag spendingTag;
-    private long spendingAmount;
+    private long id;
+    private String title;
+    private Spending.SpendingTag tag;
+    private long amount;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate spendingDate;
+    private LocalDate date;
 
 }
