@@ -14,10 +14,10 @@ public class HomeTagCreateRequest {
     private Long projectId;
     private String name;
     private String address;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime checkInTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime checkOutTime;
+    private String checkInDay;
+    private String checkInTime;
+    private String checkOutDay;
+    private String checkOutTime;
     private Integer numberOfPeople;
     private Integer numberOfRooms;
 }

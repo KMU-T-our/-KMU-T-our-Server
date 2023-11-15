@@ -30,7 +30,6 @@ public class HomeTag {
     @JoinColumn(name = "tag_id")
     private Tag tag;
 
-
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "project_id")
@@ -40,10 +39,10 @@ public class HomeTag {
     private String name;
 
     private String address;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime checkInTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime checkOutTime;
+    private String checkInDay;
+    private String checkInTime;
+    private String checkOutDay;
+    private String checkOutTime;
     private Integer numberOfPeople;
     private Integer numberOfRooms;
 
@@ -52,7 +51,9 @@ public class HomeTag {
         this.project = project;
         this.name = request.getName();
         this.address = request.getAddress();
+        this.checkInDay = request.getCheckInDay();
         this.checkInTime = request.getCheckInTime();
+        this.checkOutDay = request.getCheckOutDay();
         this.checkOutTime = request.getCheckOutTime();
         this.numberOfPeople = request.getNumberOfPeople();
         this.numberOfRooms = request.getNumberOfRooms();
@@ -61,7 +62,9 @@ public class HomeTag {
     public void update(HomeTagUpdateRequest request) {
         if (request.getName() != null) this.name = request.getName();
         if (request.getAddress() != null) this.address = request.getAddress();
+        if (request.getCheckInDay() != null) this.checkInDay = request.getCheckInDay();
         if (request.getCheckInTime() != null) this.checkInTime = request.getCheckInTime();
+        if (request.getCheckOutDay() != null) this.checkInDay = request.getCheckOutDay();
         if (request.getCheckOutTime() != null) this.checkOutTime = request.getCheckOutTime();
         if (request.getNumberOfPeople() != null) this.numberOfPeople = request.getNumberOfPeople();
         if (request.getNumberOfRooms() != null) this.numberOfRooms = request.getNumberOfRooms();
