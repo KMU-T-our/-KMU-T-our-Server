@@ -4,6 +4,7 @@ import com.example.tour.config.middletable.tag.Tag;
 import com.example.tour.project.Project;
 import com.example.tour.tags.schedule.dto.ScheduleTagCreateRequest;
 import com.example.tour.tags.schedule.dto.ScheduleTagUpdateRequest;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,6 +36,7 @@ public class ScheduleTag {
     @JoinColumn(name = "tag_id")
     private Tag tag;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn
     private Project project;
