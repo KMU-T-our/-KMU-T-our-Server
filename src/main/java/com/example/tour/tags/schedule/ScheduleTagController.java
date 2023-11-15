@@ -27,7 +27,7 @@ public class ScheduleTagController {
         return scheduleTagService.findByTagId(tagId);
     }
 
-    @PutMapping("/api/tags/schedule")
+    @PatchMapping("/api/tags/schedule")
     public void updateScheduleTag(@RequestBody ScheduleTagUpdateRequest request){
         scheduleTagService.updateScheduleTag(request);
     }

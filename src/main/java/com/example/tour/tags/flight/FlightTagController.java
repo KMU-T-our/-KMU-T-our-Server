@@ -1,6 +1,5 @@
 package com.example.tour.tags.flight;
 
-import com.example.tour.config.middletable.tag.Tag;
 import com.example.tour.tags.flight.domain.FlightTag;
 import com.example.tour.tags.flight.dto.FlightTagCreateRequest;
 import com.example.tour.tags.flight.dto.FlightTagResponse;
@@ -18,17 +17,16 @@ public class FlightTagController {
     private final FlightTagService flightTagService;
 
     @PostMapping("/api/tags/flight")
-    public Tag saveFlightTag(@RequestBody FlightTagCreateRequest request) {
-        return flightTagService.saveFlightTag(request);
+    public void saveFlightTag(@RequestBody FlightTagCreateRequest request) {
+        flightTagService.saveFlightTag(request);
     }
-
 
     @GetMapping("/api/tags/flight")
     public FlightTagResponse getFlightTags(@RequestParam Long tagId) {
         return flightTagService.findByTagId(tagId);
     }
 
-    @PutMapping("/api/tags/flight")
+    @PatchMapping("/api/tags/flight")
     public void updateFlightTag(@RequestBody FlightTagUpdateRequest request) {
         flightTagService.updateFlightTag(request);
     }
@@ -36,10 +34,5 @@ public class FlightTagController {
     @DeleteMapping("/api/tags/flight")
     public void deleteFlightTag(@RequestParam Long tagId) {
         flightTagService.deleteFlightTag(tagId);
-    }
-
-    @GetMapping("/api/tags/flights")
-    public List<FlightTagResponse> getFlightTagsByProjectId(@RequestParam Long projectId) {
-        return flightTagService.findByProjectId(projectId);
     }
 }
