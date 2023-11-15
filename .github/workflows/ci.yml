@@ -29,7 +29,7 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build -x test
 
-      - name: AWS credential settingq
+      - name: AWS credential setting
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: ${{ env.AWS_REGION }}
@@ -37,10 +37,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: upload to s3
-        run: aws s3 cp --region ap-northeast-2 ./build/libs/tour-0.0.1-SNAPSHOT.jar s3://mytourserver-bucket/tour-0.0.1-SNAPSHOT.jar
+        run: aws deploy push --application-name T-our-codeDeploy --ignore-hidden-files --s3-location s3://mytourserver-bucket/build.zip --source .
       - name: EC2에 배포
         run: aws deploy create-deployment
           --application-name T-our-codeDeploy
           --deployment-config-name CodeDeployDefault.AllAtOnce
           --deployment-group-name T-our-codeDeploy-group
-          --s3-location bucket=mytourserver-bucket,key=tour-0.0.1-SNAPSHOT.jar
+          --s3-location bucket=mytourserver-bucket,bundleType=zip,key=build.zip
