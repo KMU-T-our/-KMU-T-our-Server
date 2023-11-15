@@ -3,9 +3,6 @@ package com.example.tour.tags.flight.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -13,17 +10,13 @@ import java.time.LocalDateTime;
 public class FlightTagCreateRequest {
     private Long projectId;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime startTakeoffDateTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime startLandingDateTime;
+    private String startTakeoffTime;
+    private String startLandingTime;
     private String startTakeoffAirport;
     private String startLandingAirport;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime endTakeoffDateTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime endLandingDateTime;
+    private String endTakeoffTime;
+    private String endLandingTime;
     private String endTakeoffAirport;
     private String endLandingAirport;
 }

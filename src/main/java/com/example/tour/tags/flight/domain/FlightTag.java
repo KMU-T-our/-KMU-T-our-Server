@@ -5,9 +5,9 @@ import com.example.tour.project.Project;
 import com.example.tour.tags.flight.dto.FlightTagCreateRequest;
 import com.example.tour.tags.flight.dto.FlightTagUpdateRequest;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
 import lombok.*;
 
 @Getter
@@ -26,15 +26,16 @@ public class FlightTag {
     @JoinColumn(name = "tag_id", nullable = false)
     private Tag tag;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 
     @Column(nullable = false)
-    private LocalDateTime startTakeoffDateTime;
+    private String startTakeoffTime;
 
     @Column(nullable = false)
-    private LocalDateTime startLandingDateTime;
+    private String startLandingTime;
 
     @Column(nullable = false)
     private String startTakeoffAirport;
@@ -43,10 +44,10 @@ public class FlightTag {
     private String startLandingAirport;
 
     @Column(nullable = false)
-    private LocalDateTime endTakeoffDateTime;
+    private String endTakeoffTime;
 
     @Column(nullable = false)
-    private LocalDateTime endLandingDateTime;
+    private String endLandingTime;
 
     @Column(nullable = false)
     private String endTakeoffAirport;
@@ -59,43 +60,27 @@ public class FlightTag {
         this.tag = tag;
         this.project = project;
 
-        this.startTakeoffDateTime = request.getStartTakeoffDateTime();
-        this.startLandingDateTime = request.getStartLandingDateTime();
+        this.startTakeoffTime = request.getStartTakeoffTime();
+        this.startLandingTime = request.getStartLandingTime();
         this.startTakeoffAirport = request.getStartTakeoffAirport();
         this.startLandingAirport = request.getStartLandingAirport();
 
-        this.endTakeoffDateTime = request.getEndTakeoffDateTime();
-        this.endLandingDateTime = request.getEndLandingDateTime();
+        this.endTakeoffTime = request.getEndTakeoffTime();
+        this.endLandingTime = request.getEndLandingTime();
         this.endTakeoffAirport = request.getEndTakeoffAirport();
         this.endLandingAirport = request.getEndLandingAirport();
     }
 
     public void updateFlightTag(FlightTagUpdateRequest request) {
-        if(request.getStartTakeoffDateTime() != null) {
-            this.startTakeoffDateTime = request.getStartTakeoffDateTime();
-        }
-        if(request.getStartLandingDateTime() != null){
-            this.startLandingDateTime = request.getStartLandingDateTime();
-        }
-        if(request.getStartTakeoffAirport() != null){
-            this.startTakeoffAirport = request.getStartTakeoffAirport();
-        }
-        if(request.getStartLandingAirport() != null){
-            this.startLandingAirport = request.getStartLandingAirport();
-        }
+        if(request.getStartTakeoffTime() != null) this.startTakeoffTime = request.getStartTakeoffTime();
+        if(request.getStartLandingTime() != null) this.startLandingTime = request.getStartLandingTime();
+        if(request.getStartTakeoffAirport() != null) this.startTakeoffAirport = request.getStartTakeoffAirport();
+        if(request.getStartLandingAirport() != null) this.startLandingAirport = request.getStartLandingAirport();
 
-        if(request.getEndTakeoffDateTime() != null){
-            this.endTakeoffDateTime = request.getEndTakeoffDateTime();
-        }
-        if(request.getEndLandingDateTime() != null){
-            this.endLandingDateTime = request.getEndLandingDateTime();
-        }
-        if(request.getEndTakeoffAirport() != null){
-            this.endTakeoffAirport = request.getEndTakeoffAirport();
-        }
-        if(request.getEndLandingAirport() != null){
-            this.endLandingAirport = request.getEndLandingAirport();
-        }
+        if(request.getEndTakeoffTime() != null) this.endTakeoffTime = request.getEndTakeoffTime();
+        if(request.getEndLandingTime() != null) this.endLandingTime = request.getEndLandingTime();
+        if(request.getEndTakeoffAirport() != null) this.endTakeoffAirport = request.getEndTakeoffAirport();
+        if(request.getEndLandingAirport() != null) this.endLandingAirport = request.getEndLandingAirport();
     }
 }
 

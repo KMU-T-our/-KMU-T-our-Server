@@ -1,5 +1,6 @@
 package com.example.tour.tags.flight;
 
+import com.example.tour.config.middletable.tag.Tag;
 import com.example.tour.tags.flight.domain.FlightTag;
 import com.example.tour.tags.flight.dto.FlightTagCreateRequest;
 import com.example.tour.tags.flight.dto.FlightTagResponse;
@@ -17,9 +18,10 @@ public class FlightTagController {
     private final FlightTagService flightTagService;
 
     @PostMapping("/api/tags/flight")
-    public void saveFlightTag(@RequestBody FlightTagCreateRequest request) {
-        flightTagService.saveFlightTag(request);
+    public Tag saveFlightTag(@RequestBody FlightTagCreateRequest request) {
+        return flightTagService.saveFlightTag(request);
     }
+
 
     @GetMapping("/api/tags/flight")
     public FlightTagResponse getFlightTags(@RequestParam Long tagId) {
