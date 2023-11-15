@@ -5,6 +5,45 @@ on:
   push:
     branches: [ main ]
 
+env:
+  AWS_REGION: ap-northeast-2
+
 jobs:
   build:
     runs-on: ubuntu-20.04
+
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+
+      - name: JDK 17 setup
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: gradlew chmod
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew clean build
+
+      - name: kill 8080
+        run: fuser -k 8080/tcp
+
+      - name: AWS credential setting
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+
+      - name: upload to s3
+        run: aws s3 cp --region ap-northeast-2 ./build/libs/tour-0.0.1-SNAPSHOT.jar s3://mytourserver-bucket/tour-0.0.1-SNAPSHOT.jar
+      - name: EC2에 배포
+        run: aws deploy create-deployment
+          --application-name T-our-codeDeploy
+          --deployment-config-name CodeDeployDefault.AllAtOnce
+          --deployment-group-name T-our-codeDeploy-group
+          --s3-location bucket=mytourserver-bucket,key=tour-0.0.1-SNAPSHOT.jar
