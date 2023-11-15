@@ -7,6 +7,8 @@ import com.example.tour.tags.flight.dto.FlightTagUpdateRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @AllArgsConstructor
 @RestController
@@ -32,5 +34,10 @@ public class FlightTagController {
     @DeleteMapping("/api/tags/flight")
     public void deleteFlightTag(@RequestParam Long tagId) {
         flightTagService.deleteFlightTag(tagId);
+    }
+
+    @GetMapping("/api/tags/flights")
+    public List<FlightTagResponse> getFlightTagsByProjectId(@RequestParam Long projectId) {
+        return flightTagService.findByProjectId(projectId);
     }
 }
