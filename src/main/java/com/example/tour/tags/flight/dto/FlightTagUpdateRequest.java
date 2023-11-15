@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 public class FlightTagUpdateRequest {
 
     private Long tagId;
+    private String airline;
+
     private String startTakeoffTime;
     private String startLandingTime;
     private String startTakeoffAirport;

@@ -21,6 +21,7 @@ public class FlightTag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "flight_tag_id")
     private Long flightTagId;
 
     @OneToOne
@@ -32,34 +33,39 @@ public class FlightTag {
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 
-    @Column(nullable = false)
+    @Column(name = "flight_tag_airline", nullable = false)
+    private String airline;
+
+    @Column(name = "flight_tag_startTakeoffTime",nullable = false)
     private String startTakeoffTime;
 
-    @Column(nullable = false)
+    @Column(name = "flight_tag_startLandingTime",nullable = false)
     private String startLandingTime;
 
-    @Column(nullable = false)
+    @Column(name = "flight_tag_startTakeoffAirport",nullable = false)
     private String startTakeoffAirport;
 
-    @Column(nullable = false)
+    @Column(name = "flight_tag_startLandingAirport",nullable = false)
     private String startLandingAirport;
 
-    @Column(nullable = false)
+    @Column(name = "flight_tag_endTakeoffTime",nullable = false)
     private String endTakeoffTime;
 
-    @Column(nullable = false)
+    @Column(name = "flight_tag_endLandingTime",nullable = false)
     private String endLandingTime;
 
-    @Column(nullable = false)
+    @Column(name = "flight_tag_endTakeoffAirport",nullable = false)
     private String endTakeoffAirport;
 
-    @Column(nullable = false)
+    @Column(name = "flight_tag_endLandingAirport",nullable = false)
     private String endLandingAirport;
 
 
     public FlightTag(Project project,Tag tag, FlightTagCreateRequest request) {
         this.tag = tag;
         this.project = project;
+
+        this.airline = request.getAirline();
 
         this.startTakeoffTime = request.getStartTakeoffTime();
         this.startLandingTime = request.getStartLandingTime();

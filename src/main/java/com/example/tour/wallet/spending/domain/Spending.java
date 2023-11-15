@@ -23,18 +23,18 @@ public class Spending {
     @Column(name = "wallet_spending_id")
     private Long walletSpendingId;
 
-    @Column(name = "wallet_spending_title")
+    @Column(name = "wallet_spending_title", nullable = false)
     private String walletSpendingTitle;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "wallet_spending_tag")
+    @Column(name = "wallet_spending_tag", nullable = false)
     private SpendingTag walletSpendingTag;
 
-    @Column(name = "wallet_spending_amount")
+    @Column(name = "wallet_spending_amount", nullable = false)
     private Long walletSpendingAmount;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "wallet_spending_date")
+    @Column(name = "wallet_spending_date", nullable = false)
     private LocalDate walletSpendingDate;
 
     // ProjectUser와 단방향 매핑
