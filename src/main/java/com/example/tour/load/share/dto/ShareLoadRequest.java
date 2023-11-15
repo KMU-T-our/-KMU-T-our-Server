@@ -7,9 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ShareLoadUpdateRequest {
+public class ShareLoadRequest {
     private Long id;
     private Long projectId;
-    private String shareLoadName;
+    private String name;
     private boolean checkbox;
 }

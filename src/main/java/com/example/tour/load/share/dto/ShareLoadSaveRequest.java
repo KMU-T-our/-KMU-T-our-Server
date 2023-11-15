@@ -9,6 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ShareLoadSaveRequest {
     private Long projectId;
-    private String shareLoadName;
+    private String name;
     private boolean checkbox;
 }

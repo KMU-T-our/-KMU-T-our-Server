@@ -2,8 +2,9 @@ package com.example.tour.load.share;
 
 
 import com.example.tour.load.share.domain.ShareLoad;
+import com.example.tour.load.share.dto.ShareLoadResponse;
 import com.example.tour.load.share.dto.ShareLoadSaveRequest;
-import com.example.tour.load.share.dto.ShareLoadUpdateRequest;
+import com.example.tour.load.share.dto.ShareLoadRequest;
 import com.example.tour.project.Project;
 import com.example.tour.project.ProjectRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,12 +32,22 @@ public class ShareLoadServiceImpl {
 
     // 전체 검색
     @Transactional
-    public List<ShareLoad> getShareLoad(){
-        return shareLoadRepository.findAll();
+    public List<ShareLoad> getAllShareLoad(ShareLoadRequest request) {
+        Project project = projectRepository.findProjectById(request.getProjectId());
+        return shareLoadRepository.findAllByProject(project);
+    }
+
+    // projectId + Id 로 검색
+    @Transactional
+    public ShareLoadResponse getShareLoad(ShareLoadRequest request){
+        Project project = projectRepository.findProjectById(request.getProjectId());
+        ShareLoad shareLoad = shareLoadRepository.findByProjectAndId(project, request.getId());
+        ShareLoadResponse shareLoadResponse = new ShareLoadResponse(shareLoad);
+        return shareLoadResponse;
     }
 
     @Transactional
-    public void updaterShareLoad(ShareLoadUpdateRequest request) {
+    public void updaterShareLoad(ShareLoadRequest request) {
         ShareLoad shareLoad = shareLoadRepository.findById(request.getId())
                 .orElseThrow(IllegalAccessError::new);
         shareLoad.updateShareLoad(request);

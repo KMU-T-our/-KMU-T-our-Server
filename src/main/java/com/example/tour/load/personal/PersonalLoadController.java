@@ -4,6 +4,7 @@ package com.example.tour.load.personal;
 import com.example.tour.load.personal.domain.PersonalLoad;
 import com.example.tour.load.personal.dto.PersonalLoadRequest;
 import com.example.tour.load.personal.dto.PersonalLoadResponse;
+import com.example.tour.load.share.dto.ShareLoadResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

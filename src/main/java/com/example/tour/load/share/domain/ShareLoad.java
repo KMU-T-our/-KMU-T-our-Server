@@ -1,7 +1,7 @@
 package com.example.tour.load.share.domain;
 
 import com.example.tour.load.share.dto.ShareLoadSaveRequest;
-import com.example.tour.load.share.dto.ShareLoadUpdateRequest;
+import com.example.tour.load.share.dto.ShareLoadRequest;
 import com.example.tour.project.Project;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,13 +35,13 @@ public class ShareLoad {
 
 
     public ShareLoad(ShareLoadSaveRequest request, Optional<Project> project) {
-        this.name = request.getShareLoadName();
+        this.name = request.getName();
         this.checkbox = request.isCheckbox();
         this.project = project.get();
     }
 
-    public void updateShareLoad(ShareLoadUpdateRequest request) {
-        this.name = request.getShareLoadName();
+    public void updateShareLoad(ShareLoadRequest request) {
+        this.name = request.getName();
         this.checkbox = request.isCheckbox();
     }
 }
