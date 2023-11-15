@@ -15,7 +15,7 @@ public class CommentResponse {
     private Long userId;
     private String writer;
     private String content;
-    @JsonFormat(pattern = "yyyy-MM-ddTHH:mm:ss", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private Date createDateTime;
 
     public CommentResponse(Comment comment){

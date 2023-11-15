@@ -39,7 +39,7 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     @Column(name = "createdDateTime", nullable = false, updatable = false)
-    @JsonFormat(pattern = "yyyy-MM-ddTHH:mm:ss", timezone = "Asia/Seoul")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private Date createDateTime;
 
     @PrePersist
