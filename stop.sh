@@ -1,3 +1,3 @@
 #!/bin/bash
 
-fuser -k 8080/tcp
+kill -9 $(lsof -t -i:8080)
