@@ -32,7 +32,7 @@ jobs:
       - name: kill 8080
         run: fuser -k 8080/tcp
 
-      - name: AWS credential setting
+      - name: AWS credential settingq
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: ${{ env.AWS_REGION }}
