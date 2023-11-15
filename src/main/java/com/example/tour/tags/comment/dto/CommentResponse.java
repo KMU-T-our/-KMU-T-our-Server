@@ -12,6 +12,7 @@ import java.util.Date;
 public class CommentResponse {
     private Long commentId;
     private Long tagId;
+    private Long userId;
     private String writer;
     private String content;
     @JsonFormat(pattern = "yyyy-MM-ddTHH:mm:ss", timezone = "Asia/Seoul")
@@ -20,6 +21,7 @@ public class CommentResponse {
     public CommentResponse(Comment comment){
         this.commentId = comment.getCommentId();
         this.tagId = comment.getTag().getTagId();
+        this.userId = comment.getUser().getId();
         this.writer = comment.getUser().getName();
         this.content = comment.getContent();
         this.createDateTime = comment.getCreateDateTime();
