@@ -3,7 +3,7 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ubuntu/spring-github-action
+    destination: /home/ubuntu/t_our
     overwrite: yes
 
 permissions:
