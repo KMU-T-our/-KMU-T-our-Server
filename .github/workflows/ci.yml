@@ -34,7 +34,7 @@ jobs:
         with:
           aws-region: ${{ env.AWS_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: upload to s3
         run: aws s3 cp --region ap-northeast-2 ./build/libs/tour-0.0.1-SNAPSHOT.jar s3://mytourserver-bucket/tour-0.0.1-SNAPSHOT.jar
