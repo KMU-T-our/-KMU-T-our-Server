@@ -15,6 +15,4 @@ public class CommentCreateRequest {
     private Long tagId;
     private Long userId ;
     private String content;
-    private String createDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
-
 }

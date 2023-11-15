@@ -3,9 +3,14 @@ package com.example.tour.tags.comment.domain;
 import com.example.tour.config.middletable.tag.Tag;
 import com.example.tour.tags.comment.dto.CommentCreateRequest;
 import com.example.tour.user.domain.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -31,15 +36,21 @@ public class Comment {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    private String createDateTime;
+    @Column(name = "createdDateTime", nullable = false, updatable = false)
+    @JsonFormat(pattern = "yyyy-MM-ddTHH:mm:ss", timezone = "Asia/Seoul")
+    private Date createDateTime;
+
+    @PrePersist
+    protected void onCreate() throws ParseException {
+        createDateTime = new Date();
+    }
 
     public Comment(Tag tag, User user, CommentCreateRequest request) {
         this.user = user;
         this.tag = tag;
         this.content = request.getContent();
-        this.createDateTime = request.getCreateDateTime();
 
     }
 }
