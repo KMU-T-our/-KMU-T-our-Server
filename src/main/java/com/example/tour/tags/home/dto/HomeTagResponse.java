@@ -1,5 +1,6 @@
 package com.example.tour.tags.home.dto;
 
+import com.example.tour.config.ResponseComparator;
 import com.example.tour.config.middletable.tag.Tag;
 import com.example.tour.tags.home.domain.HomeTag;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Setter
 @Getter
-public class HomeTagResponse {
+public class HomeTagResponse implements ResponseComparator {
     private Long tagId;
     private String name;
     private String address;

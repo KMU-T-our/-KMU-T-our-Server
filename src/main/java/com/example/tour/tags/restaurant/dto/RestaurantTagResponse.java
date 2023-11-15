@@ -1,12 +1,13 @@
 package com.example.tour.tags.restaurant.dto;
 
+import com.example.tour.config.ResponseComparator;
 import com.example.tour.tags.restaurant.domain.RestaurantTag;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class RestaurantTagResponse {
+public class RestaurantTagResponse implements ResponseComparator {
     private Long tagId;
     private String name;
     private String address;

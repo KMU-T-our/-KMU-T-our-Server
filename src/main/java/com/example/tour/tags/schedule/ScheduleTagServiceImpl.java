@@ -25,11 +25,12 @@ public class ScheduleTagServiceImpl {
     private final ProjectRepository projectRepository;
 
     @Transactional
-    public void saveScheduleTag(ScheduleTagCreateRequest request){
+    public Tag saveScheduleTag(ScheduleTagCreateRequest request) {
         Project project = projectRepository.findById(request.getProjectId())
                 .orElseThrow(IllegalAccessError::new);
         Tag tag = tagService.getInstance();
         scheduleTagRepository.save(new ScheduleTag(project, tag, request));
+        return tag;
     }
 
     @Transactional
