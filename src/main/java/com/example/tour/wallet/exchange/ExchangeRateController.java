@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class ExchangeRateController {
-    ExchangeRateService exchangeRateService;
+    private final ExchangeRateService exchangeRateService;
 
     @GetMapping("/api/exchange")
     public List<ExchangeRateResponse> callExchangeApi(
