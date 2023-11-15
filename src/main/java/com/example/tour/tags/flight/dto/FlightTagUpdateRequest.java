@@ -14,17 +14,15 @@ import java.time.LocalDateTime;
 public class FlightTagUpdateRequest {
 
     private Long tagId;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime startTakeoffDateTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime startLandingDateTime;
+    private String airline;
+
+    private String startTakeoffTime;
+    private String startLandingTime;
     private String startTakeoffAirport;
     private String startLandingAirport;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime endTakeoffDateTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime endLandingDateTime;
+    private String endTakeoffTime;
+    private String endLandingTime;
     private String endTakeoffAirport;
     private String endLandingAirport;
 }

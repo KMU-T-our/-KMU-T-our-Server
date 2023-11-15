@@ -10,29 +10,28 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class FlightTagResponse {
+    private String airline;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime startTakeoffDateTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime startLandingDateTime;
+    private String startTakeoffTime;
+    private String startLandingTime;
     private String startTakeoffAirport;
     private String startLandingAirport;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime endTakeoffDateTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime endLandingDateTime;
+    private String endTakeoffTime;
+    private String endLandingTime;
     private String endTakeoffAirport;
     private String endLandingAirport;
 
     public FlightTagResponse(FlightTag tag) {
-        this.startTakeoffDateTime = tag.getStartTakeoffDateTime();
-        this.startLandingDateTime = tag.getStartLandingDateTime();
+        this.airline = tag.getAirline();
+        this.startTakeoffTime = tag.getStartTakeoffTime();
+        this.startLandingTime = tag.getStartLandingTime();
         this.startTakeoffAirport = tag.getStartTakeoffAirport();
         this.startLandingAirport = tag.getStartLandingAirport();
-        this.endTakeoffDateTime = tag.getEndTakeoffDateTime();
-        this.endLandingDateTime = tag.getEndLandingDateTime();
+        this.endTakeoffTime = tag.getEndTakeoffTime();
+        this.endLandingTime = tag.getEndLandingTime();
         this.endTakeoffAirport = tag.getEndTakeoffAirport();
         this.endLandingAirport = tag.getEndLandingAirport();
     }
+
 }

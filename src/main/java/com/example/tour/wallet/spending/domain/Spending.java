@@ -5,6 +5,9 @@ import com.example.tour.wallet.spending.dto.request.SpendingCreateRequest;
 import com.example.tour.wallet.spending.dto.request.SpendingUpdateRequest;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -17,20 +20,22 @@ public class Spending {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @Column(name = "wallet_spending_id")
     private Long walletSpendingId;
 
-    @Column
+    @Column(name = "wallet_spending_title", nullable = false)
     private String walletSpendingTitle;
 
     @Enumerated(EnumType.STRING)
-    @Column
+    @Column(name = "wallet_spending_tag", nullable = false)
     private SpendingTag walletSpendingTag;
 
-    @Column
+    @Column(name = "wallet_spending_amount", nullable = false)
     private Long walletSpendingAmount;
 
-    @Column
-    private String walletSpendingDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "wallet_spending_date", nullable = false)
+    private LocalDate walletSpendingDate;
 
     // ProjectUser와 단방향 매핑
     @ManyToOne
@@ -38,38 +43,29 @@ public class Spending {
     private ProjectUser projectUser;
 
     public Spending(SpendingCreateRequest request, ProjectUser projectUser) {
-        if(request.getAmount() == 0){
+        if(request.getSpendingAmount() == 0){
             throw new IllegalArgumentException();
         }
-        this.walletSpendingTitle = request.getTitle();
-        this.walletSpendingTag = request.getTag();
-        this.walletSpendingAmount = request.getAmount();
-        this.walletSpendingDate = request.getDate();
+        this.walletSpendingTitle = request.getSpendingTitle();
+        this.walletSpendingTag = request.getSpendingTag();
+        this.walletSpendingAmount = request.getSpendingAmount();
+        this.walletSpendingDate = request.getSpendingDate();
         this.projectUser = projectUser;
     }
-
-    public Spending(SpendingUpdateRequest request, ProjectUser projectUser) {
-        this.walletSpendingTitle = request.getTitle();
-        this.walletSpendingTag = request.getTag();
-        this.walletSpendingAmount = request.getAmount();
-        this.walletSpendingDate = request.getDate();
-        this.projectUser = projectUser;
-    }
-
     public void updateSpending(SpendingUpdateRequest request) {
-        if(request.getTitle() != null) {this.walletSpendingTitle = request.getTitle();}
-        if(request.getTag() != null) {this.walletSpendingTag = request.getTag();}
-        if(request.getAmount() != 0) {this.walletSpendingAmount = request.getAmount();}
-        if(request.getDate() != null) {this.walletSpendingDate = request.getDate();}
+        if(request.getSpendingTitle() != null) {this.walletSpendingTitle = request.getSpendingTitle();}
+        if(request.getSpendingTag() != null) {this.walletSpendingTag = request.getSpendingTag();}
+        if(request.getSpendingAmount() != 0) {this.walletSpendingAmount = request.getSpendingAmount();}
+        if(request.getSpendingDate() != null) {this.walletSpendingDate = request.getSpendingDate();}
     }
 
     public enum SpendingTag {
-        기타,
-        식당,
-        선물,
-        교통,
-        관광,
-        숙소
+        ETC,
+        FOOD,
+        GIFT,
+        TRANSIT,
+        TOUR,
+        HOME
     }
 
 

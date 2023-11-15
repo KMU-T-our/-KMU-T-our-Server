@@ -25,22 +25,26 @@ public class FlightTagService {
     private final TagService tagService;
 
     @Transactional
+    public Tag saveFlightTag(FlightTagCreateRequest request) {
+        Project project = projectRepository.findById(request.getProjectId())
+                .orElseThrow(IllegalArgumentException::new);
+        Tag tag = tagService.getInstance();
+        flightTagRepository.save(new FlightTag(project, tag, request));
+        return tag;
+
+    }
+
+    @Transactional
     public FlightTagResponse findByTagId(Long tagId){
-        Tag tag = tagRepository.findById(tagId).orElseThrow(IllegalArgumentException::new);
+        Tag tag = tagRepository.findById(tagId)
+                .orElseThrow(IllegalArgumentException::new);
         return new FlightTagResponse(flightTagRepository.findByTag(tag));
     }
 
     @Transactional
-    public void saveFlightTag(FlightTagCreateRequest request) {
-        Project project = projectRepository.findById(request.getProjectId()).orElseThrow(IllegalArgumentException::new);
-        Tag tag = tagService.getInstance();
-        FlightTag flightTag = flightTagRepository.save(new FlightTag(project, tag, request));
-
-    }
-
-    @Transactional
     public void updateFlightTag(FlightTagUpdateRequest request) {
-        Tag tag = tagRepository.findById(request.getTagId()).orElseThrow(IllegalArgumentException::new);
+        Tag tag = tagRepository.findById(request.getTagId())
+                .orElseThrow(IllegalArgumentException::new);
         FlightTag flightTag = flightTagRepository.findByTag(tag);
         flightTag.updateFlightTag(request);
     }
