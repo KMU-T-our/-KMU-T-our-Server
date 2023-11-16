@@ -12,4 +12,6 @@ public interface ScheduleTagRepository extends JpaRepository<ScheduleTag, Long> 
     void deleteByTag(Tag tag);
 
     List<ScheduleTag> findByProject(Project project);
+
+    ScheduleTag findByDateAndProject(String date, Project project);
 }

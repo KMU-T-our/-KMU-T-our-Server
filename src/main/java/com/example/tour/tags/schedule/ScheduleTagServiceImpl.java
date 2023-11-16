@@ -40,6 +40,12 @@ public class ScheduleTagServiceImpl {
         return new ScheduleTagResponse(scheduleTagRepository.findByTag(tag));
     }
 
+    @Transactional
+    public ScheduleTagResponse findByDateAndProjectId(ScheduleTagCreateRequest request){
+        Project project = projectRepository.findProjectById(request.getProjectId());
+        ScheduleTag scheduleTag = scheduleTagRepository.findByDateAndProject(request.getDate(), project);
+        return new ScheduleTagResponse(scheduleTag);
+    }
 
     @Transactional
     public void updateScheduleTag(ScheduleTagUpdateRequest request){

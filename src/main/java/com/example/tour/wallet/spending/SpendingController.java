@@ -45,7 +45,7 @@ public class SpendingController {
         return spendingService.getFilteringByDate(projectUserId, localDate);
     }
 
-    @PutMapping("/api/wallet/spending")
+    @PatchMapping("/api/wallet/spending")
     public void updateSpending(@RequestBody SpendingUpdateRequest request){
         spendingService.updateSpending(request);
     }

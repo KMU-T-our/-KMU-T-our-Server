@@ -27,6 +27,11 @@ public class ScheduleTagController {
         return scheduleTagService.findByTagId(tagId);
     }
 
+    @GetMapping("/api/calender")
+    public ScheduleTagResponse getScheduleTagForCalender(@RequestBody ScheduleTagCreateRequest request){
+        return scheduleTagService.findByDateAndProjectId(request);
+    }
+
     @PatchMapping("/api/tags/schedule")
     public void updateScheduleTag(@RequestBody ScheduleTagUpdateRequest request){
         scheduleTagService.updateScheduleTag(request);

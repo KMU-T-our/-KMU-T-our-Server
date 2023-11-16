@@ -33,7 +33,7 @@ public class ShareLoadController {
         return shareLoadService.getShareLoad(request);
     }
 
-    @PutMapping("/api/load/share")
+    @PatchMapping("/api/load/share")
     public void updateShareLoad(@RequestBody ShareLoadRequest request) {
         shareLoadService.updaterShareLoad(request);
     }
