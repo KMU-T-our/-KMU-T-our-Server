@@ -38,7 +38,7 @@ jobs:
 
       - name: upload to s3
         run: aws deploy push --application-name T-our-codeDeploy --ignore-hidden-files --s3-location s3://mytourserver-bucket/build.zip --source .
-      - name: EC2에 배포
+      - name: EC2 deploy
         run: aws deploy create-deployment
           --application-name T-our-codeDeploy
           --deployment-config-name CodeDeployDefault.AllAtOnce
