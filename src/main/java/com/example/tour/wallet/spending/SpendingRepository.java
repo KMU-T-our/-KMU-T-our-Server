@@ -15,6 +15,6 @@ import java.util.List;
 public interface SpendingRepository extends JpaRepository<Spending, Long> {
     List<Spending> findByProjectUser(ProjectUser projectUser);
     List<Spending> findByProjectUserAndWalletSpendingTagIn(ProjectUser projectUser, List<Spending.SpendingTag> tag);
-    List<Spending> findByProjectUserAndWalletSpendingDate(ProjectUser projectUser, LocalDate walletSpendingDate);
+    List<Spending> findByProjectUserAndWalletSpendingDate(ProjectUser projectUser, String walletSpendingDate);
 }
 

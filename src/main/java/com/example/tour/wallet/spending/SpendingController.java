@@ -41,8 +41,7 @@ public class SpendingController {
 
     @GetMapping("/api/wallet/spending/date")
     public List<SpendingResponse> getSpendingFilteringByDate(@RequestParam Long projectUserId, @RequestParam String date){
-        LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ISO_DATE );
-        return spendingService.getFilteringByDate(projectUserId, localDate);
+        return spendingService.getFilteringByDate(projectUserId, date);
     }
 
     @PatchMapping("/api/wallet/spending")

@@ -43,7 +43,7 @@ public class SpendingService {
     }
 
     @Transactional(readOnly = true)
-    public List<SpendingResponse> getFilteringByDate(Long projectUserId, LocalDate date){
+    public List<SpendingResponse> getFilteringByDate(Long projectUserId, String date){
         ProjectUser projectUser = projectUserRepository.findByProjectUserId(projectUserId);
         return spendingRepository.findByProjectUserAndWalletSpendingDate(projectUser,date).stream()
                 .map(SpendingResponse::new).collect(Collectors.toList());
