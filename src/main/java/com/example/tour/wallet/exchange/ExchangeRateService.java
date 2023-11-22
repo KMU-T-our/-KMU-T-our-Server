@@ -1,5 +1,6 @@
 package com.example.tour.wallet.exchange;
 
+import com.example.tour.wallet.exchange.domain.ExchangeRate;
 import com.example.tour.wallet.exchange.domain.ExchangeRateApi;
 import com.example.tour.wallet.exchange.dto.ExchangeRateResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,35 +13,65 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class ExchangeRateService {
 
-    private final ExchangeRateApi exchangeRateApi;
-    Map<String, List<ExchangeRateResponse>> resultCacheMap = new HashMap<>();
+    private final ExchangeRateApi exchangeRateApi ;
+    private final Deque<ExchangeRate> resultCacheDeque = new ArrayDeque<>();
 
     public List<ExchangeRateResponse> callExchangeApi(String searchDate){
-        HttpsURLConnection urlConnection = null;
-        InputStream inputStream = null;
-        List<ExchangeRateResponse> result = resultCacheMap.get(searchDate);
 
-        if (result != null) {
-            return result;
+        // 가장 최근의 환율, 날짜
+        ExchangeRate latestRate = resultCacheDeque.peekLast();
+        List<ExchangeRateResponse> result;
+
+        /* 앱 최초 실행 or 캐시에 정보 없는 경우 */
+        if (latestRate == null) {
+            result = getExchangeRate(searchDate);
+        } else {
+            List<ExchangeRateResponse> latestRateList = latestRate.getExchangeRateList();
+            String latestDate = latestRate.getSearchDate();
+
+            // 원하는 날짜의 환율 이미 캐시에 있는 경우
+            if (searchDate.equals(latestDate)) {
+                return latestRateList;
+            }
+
+            // 원하는 날짜의 환율 캐시에 없는 경우, API로부터 가져오기
+            result = getExchangeRate(searchDate);
+
+            // API 호출 실패하거나 결과가 없는 경우, 이전 날짜로 다시 시도
+            while (result.isEmpty()) {
+                LocalDate date = LocalDate.parse(searchDate);
+                searchDate = date.minusDays(1).toString();
+                result = getExchangeRate(searchDate);
+            }
         }
 
+        resultCacheDeque.addLast(new ExchangeRate(searchDate, result));
+        if (resultCacheDeque.size() > 10) {
+            resultCacheDeque.removeFirst();
+        }
+        return result;
+
+    }
+
+    private List<ExchangeRateResponse> getExchangeRate(String searchDate){
+        HttpsURLConnection urlConnection = null;
+        List<ExchangeRateResponse> result = null;
         try{
-            // URL 형식이 잘못된 경우 MalformedURLException(IOException의 하위 클래스)을 throw
+            // URL 형식이 잘못된 경우 MalformedURLException(IOException 의 하위 클래스)을 throw
             URL url = new URL(exchangeRateApi.getUrl(searchDate));
 
-            // I/O 오류 발생시 IOException 발생시킴
+            // I/O 오류 발생시 IOException 발생
             urlConnection = (HttpsURLConnection) url.openConnection();
-            inputStream = getNetworkConnection(urlConnection);
+            InputStream inputStream = getNetworkConnection(urlConnection);
             ObjectMapper objectMapper = new ObjectMapper();
+
             result = Arrays.asList(objectMapper.readValue(readStreamToString(inputStream), ExchangeRateResponse[].class));
 
             if(inputStream != null) inputStream.close();
@@ -52,7 +83,6 @@ public class ExchangeRateService {
                 urlConnection.disconnect();
             }
         }
-        resultCacheMap.put(searchDate, result);
         return result;
     }
 
