@@ -18,7 +18,5 @@ public class ExchangeRateResponse {
     @JsonProperty("deal_bas_r")
     private String dealBasRate;     // 매매 기준율
 
-
-
 }
 
