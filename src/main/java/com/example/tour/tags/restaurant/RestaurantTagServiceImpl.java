@@ -32,8 +32,8 @@ public class RestaurantTagServiceImpl {
                 .orElseThrow(IllegalArgumentException::new);
         log.info("numberOfPeople = {}", request.getNumberOfPeople());
         Tag tag = tagService.getInstance();
-        restaurantTagRepository.save(new RestaurantTag(project, tag, request));
-        return new RestaurantTagResponse(restaurantTagRepository.findByTag(tag));
+        RestaurantTag savedTag = restaurantTagRepository.save(new RestaurantTag(project, tag, request));
+        return new RestaurantTagResponse(savedTag);
     }
 
     @Transactional

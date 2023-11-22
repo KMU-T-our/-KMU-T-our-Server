@@ -6,12 +6,10 @@ import com.example.tour.wallet.spending.domain.Spending;
 import com.example.tour.wallet.spending.dto.request.SpendingCreateRequest;
 import com.example.tour.wallet.spending.dto.request.SpendingUpdateRequest;
 import com.example.tour.wallet.spending.dto.response.SpendingResponse;
-import com.example.tour.wallet.spending.dto.response.SpendingSaveResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,11 +19,11 @@ public class SpendingService {
     private final SpendingRepository spendingRepository;
     private final ProjectUserRepository projectUserRepository;
     @Transactional
-    public SpendingSaveResponse saveSpending(SpendingCreateRequest request) {
+    public SpendingResponse saveSpending(SpendingCreateRequest request) {
         ProjectUser projectUser = projectUserRepository.findByProjectUserId(request.getProjectUserId());
         Spending spending = new Spending(request, projectUser);
         spendingRepository.save(spending);
-        return new SpendingSaveResponse(projectUser.getProjectUserId(), spending);
+        return new SpendingResponse(spending);
     }
 
     @Transactional(readOnly = true)
@@ -50,10 +48,11 @@ public class SpendingService {
     }
 
     @Transactional
-    public void updateSpending(SpendingUpdateRequest request){
+    public SpendingResponse updateSpending(SpendingUpdateRequest request){
         Spending spending = spendingRepository.findById(request.getId())
                 .orElseThrow(IllegalArgumentException::new);
         spending.updateSpending(request);
+        return new SpendingResponse(spending);
     }
 
     @Transactional

@@ -4,14 +4,9 @@ import com.example.tour.wallet.spending.domain.Spending;
 import com.example.tour.wallet.spending.dto.request.SpendingCreateRequest;
 import com.example.tour.wallet.spending.dto.request.SpendingUpdateRequest;
 import com.example.tour.wallet.spending.dto.response.SpendingResponse;
-import com.example.tour.wallet.spending.dto.response.SpendingSaveResponse;
 import lombok.AllArgsConstructor;
-import net.bytebuddy.asm.Advice;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +17,7 @@ public class SpendingController {
     private final SpendingService spendingService;
 
     @PostMapping("/api/wallet/spending")
-    public SpendingSaveResponse saveSpending(@RequestBody SpendingCreateRequest request){
+    public SpendingResponse saveSpending(@RequestBody SpendingCreateRequest request){
         return spendingService.saveSpending(request);
     }
 
@@ -45,8 +40,8 @@ public class SpendingController {
     }
 
     @PatchMapping("/api/wallet/spending")
-    public void updateSpending(@RequestBody SpendingUpdateRequest request){
-        spendingService.updateSpending(request);
+    public SpendingResponse updateSpending(@RequestBody SpendingUpdateRequest request){
+        return spendingService.updateSpending(request);
     }
 
     @DeleteMapping("/api/wallet/spending")
