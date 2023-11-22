@@ -3,6 +3,7 @@ package com.example.tour.project;
 import com.example.tour.project.dto.ProjectResponse;
 import com.example.tour.project.dto.ProjectSaveRequest;
 import com.example.tour.project.dto.ProjectSaveResponse;
+import com.example.tour.project.dto.ProjectUpdateDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,5 +30,10 @@ public class ProjectController {
     @GetMapping("/api/project/tags")
     public ResponseEntity<List<Object>> getTags(@RequestParam Long projectId) throws JsonProcessingException {
         return ResponseEntity.ok().body(projectService.getTags(projectId));
+    }
+
+    @PatchMapping("/api/project")
+    public ProjectUpdateDTO updateProject(@RequestBody ProjectUpdateDTO request) {
+        return projectService.updateProject(request);
     }
 }

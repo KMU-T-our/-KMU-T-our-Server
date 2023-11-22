@@ -14,4 +14,6 @@ public interface ScheduleTagRepository extends JpaRepository<ScheduleTag, Long> 
     List<ScheduleTag> findByProject(Project project);
 
     ScheduleTag findByDateAndProject(String date, Project project);
+
+    ScheduleTag findByDate(String date);
 }

@@ -1,12 +1,11 @@
 package com.example.tour.project;
 
+import com.example.tour.project.dto.ProjectUpdateDTO;
 import com.example.tour.tags.flight.domain.FlightTag;
 import com.example.tour.tags.home.domain.HomeTag;
 import com.example.tour.tags.restaurant.domain.RestaurantTag;
 import com.example.tour.tags.schedule.domain.ScheduleTag;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -34,13 +32,11 @@ public class Project {
     @Column(name = "project_name", nullable = false)
     private String name;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "start_day")
-    private Date startDay;
+    private String startDay;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "end_day")
-    private Date endDay;
+    private String endDay;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
@@ -57,4 +53,10 @@ public class Project {
     @JsonManagedReference
     @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
     private List<ScheduleTag> scheduleTags;
+
+    public void update(ProjectUpdateDTO request) {
+        if (request.getName() != null) this.name = request.getName();
+        if (request.getStartDay() != null) this.startDay = request.getStartDay();
+        if (request.getEndDay() != null) this.endDay = request.getEndDay();
+    }
 }

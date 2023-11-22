@@ -28,8 +28,8 @@ public class ScheduleTagController {
     }
 
     @GetMapping("/api/calender")
-    public ScheduleTagResponse getScheduleTagForCalender(@RequestBody ScheduleTagCreateRequest request){
-        return scheduleTagService.findByDateAndProjectId(request);
+    public ScheduleTagResponse getScheduleTagForCalender(@RequestParam String date) {
+        return scheduleTagService.findByDate(date);
     }
 
     @PatchMapping("/api/tags/schedule")
@@ -46,5 +46,4 @@ public class ScheduleTagController {
     public List<ScheduleTagResponse> getScheduleTagsByProjectId(@RequestParam Long projectId) {
         return scheduleTagService.findByProjectId(projectId);
     }
-
 }

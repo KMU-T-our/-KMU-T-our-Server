@@ -13,12 +13,8 @@ public class ProjectSaveResponse {
     public Long projectId;
     public Long projectUserId;
     public String projectName;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    public Date startDay;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    public Date endDay;
+    public String startDay;
+    public String endDay;
 
     public ProjectSaveResponse(Long projectUserId, Project project) {
         this.projectUserId = projectUserId;

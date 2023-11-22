@@ -69,4 +69,9 @@ public class ScheduleTagServiceImpl {
                 .map(ScheduleTagResponse::new)
                 .toList();
     }
+
+    public ScheduleTagResponse findByDate(String date) {
+        ScheduleTag scheduleTag = scheduleTagRepository.findByDate(date);
+        return new ScheduleTagResponse(scheduleTag);
+    }
 }

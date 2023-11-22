@@ -6,13 +6,13 @@ import com.example.tour.config.middletable.projectuser.ProjectUserRepository;
 import com.example.tour.project.dto.ProjectResponse;
 import com.example.tour.project.dto.ProjectSaveRequest;
 import com.example.tour.project.dto.ProjectSaveResponse;
+import com.example.tour.project.dto.ProjectUpdateDTO;
 import com.example.tour.tags.flight.dto.FlightTagResponse;
 import com.example.tour.tags.home.dto.HomeTagResponse;
 import com.example.tour.tags.restaurant.dto.RestaurantTagResponse;
 import com.example.tour.tags.schedule.dto.ScheduleTagResponse;
 import com.example.tour.user.UserRepository;
 import com.example.tour.user.domain.User;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -72,5 +72,13 @@ public class ProjectService {
         result.addAll(scheduleTagResponseList);
         result.sort((o1, o2) -> Math.toIntExact(((((ResponseComparator) o1).getTagId() - ((ResponseComparator) o2).getTagId()))));
         return result;
+    }
+
+    @Transactional
+    public ProjectUpdateDTO updateProject(ProjectUpdateDTO request) {
+        Project project = projectRepository.findById(request.getProjectId())
+                .orElseThrow(IllegalArgumentException::new);
+        project.update(request);
+        return new ProjectUpdateDTO(project);
     }
 }

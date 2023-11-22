@@ -11,10 +11,6 @@ import java.util.Date;
 public class ProjectSaveRequest {
     public Long userId;
     public String projectName;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    public Date startDay;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    public Date endDay;
+    public String startDay;
+    public String endDay;
 }
