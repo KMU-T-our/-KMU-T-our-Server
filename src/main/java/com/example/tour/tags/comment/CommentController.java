@@ -1,12 +1,9 @@
 package com.example.tour.tags.comment;
 
-import com.example.tour.tags.comment.domain.Comment;
 import com.example.tour.tags.comment.dto.CommentCreateRequest;
 import com.example.tour.tags.comment.dto.CommentResponse;
 import com.example.tour.tags.comment.dto.CommentSaveResponse;
-import com.example.tour.wallet.spending.dto.response.SpendingResponse;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +15,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/api/comment")
-    public CommentSaveResponse saveComment(@RequestBody CommentCreateRequest request){
+    public CommentResponse saveComment(@RequestBody CommentCreateRequest request){
         return commentService.saveComment(request);
     }
 

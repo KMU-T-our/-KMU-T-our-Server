@@ -2,7 +2,6 @@ package com.example.tour.tags.comment;
 
 import com.example.tour.config.middletable.tag.Tag;
 import com.example.tour.config.middletable.tag.TagRepository;
-import com.example.tour.config.middletable.tag.TagService;
 import com.example.tour.tags.comment.domain.Comment;
 import com.example.tour.tags.comment.dto.CommentCreateRequest;
 import com.example.tour.tags.comment.dto.CommentResponse;
@@ -13,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,13 +24,13 @@ public class CommentService {
     private final TagRepository tagRepository;
 
     @Transactional
-    public CommentSaveResponse saveComment(CommentCreateRequest request){
+    public CommentResponse saveComment(CommentCreateRequest request){
         Tag tag = tagRepository.findById(request.getTagId())
                 .orElseThrow(IllegalArgumentException::new);
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(IllegalArgumentException::new);
         Comment comment = commentRepository.save(new Comment(tag, user, request));
-        return new CommentSaveResponse(comment, request.getTagId(), request.getUserId());
+        return new CommentResponse(comment);
     }
 
     @Transactional(readOnly = true)

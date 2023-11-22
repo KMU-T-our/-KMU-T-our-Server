@@ -9,7 +9,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Setter
@@ -40,11 +40,11 @@ public class Comment {
     @CreatedDate
     @Column(name = "createdDateTime", nullable = false, updatable = false)
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
-    private Date createDateTime;
+    private LocalDateTime createDateTime;
 
     @PrePersist
     protected void onCreate() throws ParseException {
-        createDateTime = new Date();
+        createDateTime = LocalDateTime.now();
     }
 
     public Comment(Tag tag, User user, CommentCreateRequest request) {
