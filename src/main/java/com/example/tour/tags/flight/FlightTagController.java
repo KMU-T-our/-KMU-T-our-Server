@@ -17,7 +17,7 @@ public class FlightTagController {
     private final FlightTagService flightTagService;
 
     @PostMapping("/api/tags/flight")
-    public Tag saveFlightTag(@RequestBody FlightTagCreateRequest request) {
+    public FlightTagResponse saveFlightTag(@RequestBody FlightTagCreateRequest request) {
         return flightTagService.saveFlightTag(request);
     }
 
@@ -27,8 +27,8 @@ public class FlightTagController {
     }
 
     @PatchMapping("/api/tags/flight")
-    public void updateFlightTag(@RequestBody FlightTagUpdateRequest request) {
-        flightTagService.updateFlightTag(request);
+    public FlightTagResponse updateFlightTag(@RequestBody FlightTagUpdateRequest request) {
+        return flightTagService.updateFlightTag(request);
     }
 
     @DeleteMapping("/api/tags/flight")

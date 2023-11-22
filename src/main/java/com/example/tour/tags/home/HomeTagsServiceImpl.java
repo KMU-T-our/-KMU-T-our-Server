@@ -25,12 +25,12 @@ public class HomeTagsServiceImpl {
     private final ProjectRepository projectRepository;
 
     @Transactional
-    public Tag saveHomeTag(HomeTagCreateRequest request) {
+    public HomeTagResponse saveHomeTag(HomeTagCreateRequest request) {
         Project project = projectRepository.findById(request.getProjectId())
                 .orElseThrow(IllegalArgumentException::new);
         Tag tag = tagService.getInstance();
-        homeTagsRepository.save(new HomeTag(project, tag, request));
-        return tag;
+        HomeTag savedHomeTage = homeTagsRepository.save(new HomeTag(project, tag, request));
+        return new HomeTagResponse(savedHomeTage);
     }
 
     @Transactional
@@ -41,12 +41,12 @@ public class HomeTagsServiceImpl {
     }
 
     @Transactional
-    public void updaterHomeTag(HomeTagUpdateRequest request) {
+    public HomeTagResponse updaterHomeTag(HomeTagUpdateRequest request) {
         Tag tag = tagRepository.findById(request.getTagId())
                 .orElseThrow(IllegalArgumentException::new);
         HomeTag homeTag = homeTagsRepository.findByTag(tag);
         homeTag.update(request);
-
+        return new HomeTagResponse(homeTag);
     }
 
     @Transactional

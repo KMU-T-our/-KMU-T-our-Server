@@ -17,7 +17,7 @@ public class HomeTagsController {
 
     // 숙소태그 등록
     @PostMapping("/api/tags/home")
-    public Tag saveHomeTags(@RequestBody HomeTagCreateRequest request) {
+    public HomeTagResponse saveHomeTags(@RequestBody HomeTagCreateRequest request) {
         return homeTagsService.saveHomeTag(request);
     }
 
@@ -35,8 +35,8 @@ public class HomeTagsController {
 
     // 숙소태그 수정
     @PatchMapping("/api/tags/home")
-    public void updateHomeTags(@RequestBody HomeTagUpdateRequest request) {
-        homeTagsService.updaterHomeTag(request);
+    public HomeTagResponse updateHomeTags(@RequestBody HomeTagUpdateRequest request) {
+        return homeTagsService.updaterHomeTag(request);
     }
 
     // tagId로 숙소태그 삭제
