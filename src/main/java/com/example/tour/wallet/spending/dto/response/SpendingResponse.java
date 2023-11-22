@@ -10,7 +10,7 @@ public class SpendingResponse {
     private Long spendingId;
     private String title;
     private Spending.SpendingTag tag;
-    private long amount;
+    private Long amount;
     private String date;
 
     public SpendingResponse(Spending spending) {

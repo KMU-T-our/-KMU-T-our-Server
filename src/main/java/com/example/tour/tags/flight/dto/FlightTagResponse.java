@@ -4,9 +4,6 @@ import com.example.tour.config.ResponseComparator;
 import com.example.tour.tags.flight.domain.FlightTag;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDateTime;
 
 @Setter
 @Getter

@@ -1,6 +1,5 @@
 package com.example.tour.tags.flight;
 
-import com.example.tour.config.middletable.tag.Tag;
 import com.example.tour.tags.flight.dto.FlightTagCreateRequest;
 import com.example.tour.tags.flight.dto.FlightTagResponse;
 import com.example.tour.tags.flight.dto.FlightTagUpdateRequest;

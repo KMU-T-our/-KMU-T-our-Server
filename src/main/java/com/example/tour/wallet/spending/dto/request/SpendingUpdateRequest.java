@@ -4,7 +4,6 @@ import com.example.tour.wallet.spending.domain.Spending;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -13,10 +12,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class SpendingUpdateRequest {
 
-    private long id;
+    private Long id;
     private String title;
     private Spending.SpendingTag tag;
-    private long amount;
+    private Long amount;
     private String date;
 
 }
