@@ -1,6 +1,5 @@
 package com.example.tour.tags.restaurant;
 
-import com.example.tour.config.middletable.tag.Tag;
 import com.example.tour.tags.restaurant.dto.RestaurantTagCreateRequest;
 import com.example.tour.tags.restaurant.dto.RestaurantTagResponse;
 import com.example.tour.tags.restaurant.dto.RestaurantTagUpdateRequest;
@@ -17,7 +16,7 @@ public class RestaurantTagController {
 
     // 맛집태그 등록
     @PostMapping("/api/tags/restaurant")
-    public Tag saveRestaurantTags(@RequestBody RestaurantTagCreateRequest request) {
+    public RestaurantTagResponse saveRestaurantTags(@RequestBody RestaurantTagCreateRequest request) {
         return restaurantTagsService.saveRestaurantTag(request);
     }
 
@@ -35,8 +34,8 @@ public class RestaurantTagController {
 
     // 맛집태그 수정
     @PatchMapping("/api/tags/restaurant")
-    public void updateRestaurantTags(@RequestBody RestaurantTagUpdateRequest request) {
-        restaurantTagsService.updaterRestaurantTags(request);
+    public RestaurantTagResponse updateRestaurantTags(@RequestBody RestaurantTagUpdateRequest request) {
+        return restaurantTagsService.updaterRestaurantTags(request);
     }
 
     // 맛집태그 삭제

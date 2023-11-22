@@ -27,13 +27,13 @@ public class RestaurantTagServiceImpl {
     private final ProjectRepository projectRepository;
 
     @Transactional
-    public Tag saveRestaurantTag(RestaurantTagCreateRequest request) {
+    public RestaurantTagResponse saveRestaurantTag(RestaurantTagCreateRequest request) {
         Project project = projectRepository.findById(request.getProjectId())
                 .orElseThrow(IllegalArgumentException::new);
         log.info("numberOfPeople = {}", request.getNumberOfPeople());
         Tag tag = tagService.getInstance();
-        restaurantTagRepository.save(new RestaurantTag(project, tag, request));
-        return tag;
+        RestaurantTag savedTag = restaurantTagRepository.save(new RestaurantTag(project, tag, request));
+        return new RestaurantTagResponse(savedTag);
     }
 
     @Transactional
@@ -44,11 +44,12 @@ public class RestaurantTagServiceImpl {
     }
 
     @Transactional
-    public void updaterRestaurantTags(RestaurantTagUpdateRequest request) {
+    public RestaurantTagResponse updaterRestaurantTags(RestaurantTagUpdateRequest request) {
         Tag tag = tagRepository.findById(request.getTagId())
                 .orElseThrow(IllegalArgumentException::new);
         RestaurantTag restaurantTag = restaurantTagRepository.findByTag(tag);
         restaurantTag.update(request);
+        return new RestaurantTagResponse(restaurantTag);
     }
 
     @Transactional

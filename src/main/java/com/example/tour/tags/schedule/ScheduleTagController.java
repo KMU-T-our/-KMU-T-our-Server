@@ -18,7 +18,7 @@ public class ScheduleTagController {
     private final ScheduleTagServiceImpl scheduleTagService;
 
     @PostMapping("/api/tags/schedule")
-    public Tag saveSchedule(@RequestBody ScheduleTagCreateRequest request) {
+    public ScheduleTag saveSchedule(@RequestBody ScheduleTagCreateRequest request) {
         return scheduleTagService.saveScheduleTag(request);
     }
 
@@ -33,8 +33,8 @@ public class ScheduleTagController {
     }
 
     @PatchMapping("/api/tags/schedule")
-    public void updateScheduleTag(@RequestBody ScheduleTagUpdateRequest request){
-        scheduleTagService.updateScheduleTag(request);
+    public ScheduleTag updateScheduleTag(@RequestBody ScheduleTagUpdateRequest request){
+        return scheduleTagService.updateScheduleTag(request);
     }
 
     @DeleteMapping("/api/tags/schedule")
