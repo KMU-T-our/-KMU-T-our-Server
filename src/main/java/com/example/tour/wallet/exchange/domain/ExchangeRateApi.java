@@ -1,7 +1,9 @@
 package com.example.tour.wallet.exchange.domain;
 
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+@Setter
 @Component
 public class ExchangeRateApi {
     private final String authKey = "w1rFjNClOwszKPrkvE1yKayBxOauuN6L";

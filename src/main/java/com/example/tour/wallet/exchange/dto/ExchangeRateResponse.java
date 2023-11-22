@@ -16,7 +16,7 @@ public class ExchangeRateResponse {
     private String curName; // 국가/통화명
 
     @JsonProperty("deal_bas_r")
-    private String dealBasRate;     // 매매 기준율
+    private String dealBasRate; // 매매 기준율
 
 }
 
