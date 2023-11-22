@@ -18,7 +18,7 @@ public class ScheduleTagController {
     private final ScheduleTagServiceImpl scheduleTagService;
 
     @PostMapping("/api/tags/schedule")
-    public Tag saveSchedule(@RequestBody ScheduleTagCreateRequest request) {
+    public ScheduleTag saveSchedule(@RequestBody ScheduleTagCreateRequest request) {
         return scheduleTagService.saveScheduleTag(request);
     }
 
