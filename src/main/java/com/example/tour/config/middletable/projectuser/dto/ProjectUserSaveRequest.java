@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProjectUserSaveRequest {
-    Long userId;
+    String userIdentity;
     Long projectId;
 }

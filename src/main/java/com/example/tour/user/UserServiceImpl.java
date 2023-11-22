@@ -2,6 +2,7 @@ package com.example.tour.user;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
 import com.example.tour.config.middletable.projectuser.ProjectUser;
 import com.example.tour.config.middletable.projectuser.ProjectUserRepository;
 import com.example.tour.token.jwt.JwtProperties;
@@ -24,6 +25,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +34,8 @@ public class UserServiceImpl {
 
     private final UserRepository userRepository;
     private final ProjectUserRepository projectUserRepository;
+    private final Random random = new Random();
+    private final char[] numbers = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
 
     @Transactional
     public void saveUser(UserCreateRequest request) {
@@ -84,6 +89,7 @@ public class UserServiceImpl {
                     .type("kakao")
                     .name(profile.getName())
                     .socialId(profile.getId())
+                    .identity(profile.getName() + "#" + newNanoID())
                     .build();
             userRepository.save(user);
         }
@@ -191,5 +197,9 @@ public class UserServiceImpl {
                 .withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
                 .withClaim("id", user.getId())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET));
+    }
+
+    public String newNanoID() {
+        return NanoIdUtils.randomNanoId(random, numbers, 4);
     }
 }

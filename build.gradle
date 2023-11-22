@@ -31,13 +31,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.json:json:20230227'
 	implementation 'com.antkorwin:common-utils:1.2'
+	implementation 'com.aventrix.jnanoid:jnanoid:2.0.0'
+
 
 	// warning: unknown enum constant When.MAYBE -> Warning 제거
 	implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
 	// java jwt
 	implementation 'com.auth0:java-jwt:4.4.0'
-
 
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'

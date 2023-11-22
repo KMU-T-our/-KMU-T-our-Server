@@ -22,7 +22,7 @@ public class ProjectUserService {
 
     @Transactional
     public ProjectUserResponse save(ProjectUserSaveRequest request) {
-        User user = userRepository.findById(request.getUserId())
+        User user = userRepository.findByIdentity(request.getUserIdentity())
                 .orElseThrow(IllegalArgumentException::new);
         Project project = projectRepository.findById(request.getProjectId())
                 .orElseThrow(IllegalArgumentException::new);

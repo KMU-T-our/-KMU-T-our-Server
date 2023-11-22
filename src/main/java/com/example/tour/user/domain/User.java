@@ -35,6 +35,9 @@ public class User {
     @Nullable
     private String email;
 
+    @Column
+    private String identity;
+
     public User(String name, String email) {
         this.name = name;
         this.email = email;
