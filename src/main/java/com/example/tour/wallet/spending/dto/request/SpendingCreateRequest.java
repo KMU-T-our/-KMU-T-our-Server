@@ -13,7 +13,6 @@ public class SpendingCreateRequest {
     private String title;
     private Spending.SpendingTag tag;
     private Long amount;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    private String date;
     private Long projectUserId;
 }

@@ -17,7 +17,6 @@ public class SpendingUpdateRequest {
     private String title;
     private Spending.SpendingTag tag;
     private long amount;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    private String date;
 
 }

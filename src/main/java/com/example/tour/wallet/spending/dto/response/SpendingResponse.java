@@ -14,8 +14,7 @@ public class SpendingResponse {
     private String title;
     private Spending.SpendingTag tag;
     private long amount;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    private LocalDate date;
+    private String date;
 
     public SpendingResponse(Spending spending) {
         this.id = spending.getWalletSpendingId();

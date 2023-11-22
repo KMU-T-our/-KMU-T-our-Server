@@ -33,9 +33,8 @@ public class Spending {
     @Column(name = "wallet_spending_amount", nullable = false)
     private Long walletSpendingAmount;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "wallet_spending_date", nullable = false)
-    private LocalDate walletSpendingDate;
+    private String walletSpendingDate;
 
     // ProjectUser와 단방향 매핑
     @ManyToOne
