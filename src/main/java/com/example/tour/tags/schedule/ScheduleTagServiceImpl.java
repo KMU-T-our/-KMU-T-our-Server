@@ -49,11 +49,12 @@ public class ScheduleTagServiceImpl {
     }
 
     @Transactional
-    public void updateScheduleTag(ScheduleTagUpdateRequest request){
+    public ScheduleTag updateScheduleTag(ScheduleTagUpdateRequest request){
         Tag tag = tagRepository.findById(request.getTagId())
                 .orElseThrow(IllegalAccessError::new);
         ScheduleTag scheduleTag = scheduleTagRepository.findByTag(tag);
         scheduleTag.updateScheduleTag(request);
+        return scheduleTag;
     }
 
     @Transactional
