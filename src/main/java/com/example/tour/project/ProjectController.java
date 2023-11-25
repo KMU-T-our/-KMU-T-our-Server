@@ -32,6 +32,11 @@ public class ProjectController {
         return ResponseEntity.ok().body(projectService.getTags(projectId));
     }
 
+    @GetMapping("/api/project/three/tags")
+    public ResponseEntity<List<Object>> getThreeTags(@RequestParam Long projectId) throws JsonProcessingException{
+        return ResponseEntity.ok().body(projectService.getThreeTags(projectId));
+    }
+
     @PatchMapping("/api/project")
     public ProjectUpdateDTO updateProject(@RequestBody ProjectUpdateDTO request) {
         return projectService.updateProject(request);

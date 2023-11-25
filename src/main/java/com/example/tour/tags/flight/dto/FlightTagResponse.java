@@ -9,8 +9,8 @@ import lombok.Setter;
 @Getter
 public class FlightTagResponse implements ResponseComparator {
     private Long tagId;
-    private String airline;
     private String tagType = "flight";
+    private String airline;
     private String startTakeoffTime;
     private String startLandingTime;
     private String startTakeoffAirport;

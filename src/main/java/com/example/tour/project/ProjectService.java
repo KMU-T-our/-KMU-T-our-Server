@@ -75,6 +75,25 @@ public class ProjectService {
     }
 
     @Transactional
+    public List<Object> getThreeTags(Long projectId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(IllegalArgumentException::new);
+
+        List<FlightTagResponse> flightTagResponseList = project.getFlightTags().stream()
+                .map(FlightTagResponse::new).toList();
+        List<HomeTagResponse> homeTagResponseList = project.getHomeTags().stream()
+                .map(HomeTagResponse::new).toList();
+        List<RestaurantTagResponse> restaurantTagResponseList = project.getRestaurantTags().stream()
+                .map(RestaurantTagResponse::new).toList();
+
+        List<Object> result = new ArrayList<>(flightTagResponseList);
+        result.addAll(homeTagResponseList);
+        result.addAll(restaurantTagResponseList);
+
+        return result;
+
+    }
+    @Transactional
     public ProjectUpdateDTO updateProject(ProjectUpdateDTO request) {
         Project project = projectRepository.findById(request.getProjectId())
                 .orElseThrow(IllegalArgumentException::new);
