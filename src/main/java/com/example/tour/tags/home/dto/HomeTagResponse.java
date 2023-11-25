@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 public class HomeTagResponse implements ResponseComparator {
     private Long tagId;
+    private String tagType = "home";
     private String name;
     private String address;
     private String checkInDay;

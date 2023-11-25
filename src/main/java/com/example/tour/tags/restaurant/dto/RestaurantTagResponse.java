@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class RestaurantTagResponse implements ResponseComparator {
     private Long tagId;
+    private String tagType = "restaurant";
     private String name;
     private String address;
     private String visitDay;

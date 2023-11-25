@@ -10,7 +10,7 @@ import lombok.Setter;
 public class FlightTagResponse implements ResponseComparator {
     private Long tagId;
     private String airline;
-
+    private String tagType = "flight";
     private String startTakeoffTime;
     private String startLandingTime;
     private String startTakeoffAirport;
@@ -33,5 +33,6 @@ public class FlightTagResponse implements ResponseComparator {
         this.endTakeoffAirport = tag.getEndTakeoffAirport();
         this.endLandingAirport = tag.getEndLandingAirport();
     }
+
 
 }

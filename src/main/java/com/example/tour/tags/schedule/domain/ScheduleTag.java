@@ -43,7 +43,6 @@ public class ScheduleTag {
 
     public ScheduleTag(Project project, Tag tag, ScheduleTagCreateRequest request){
         this.name = request.getName();
-        this.name = request.getName();
         this.date = request.getDate();
         this.content = request.getContent();
 

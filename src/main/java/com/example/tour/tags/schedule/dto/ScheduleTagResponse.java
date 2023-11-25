@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 public class ScheduleTagResponse implements ResponseComparator {
     private Long tagId;
+    private String tagType = "schedule";
     private String name;
     private String date;
     private String content;
