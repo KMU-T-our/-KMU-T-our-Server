@@ -2,6 +2,7 @@ package com.example.tour.user;
 
 import com.example.tour.user.domain.User;
 import com.example.tour.user.dto.UserCreateRequest;
+import com.example.tour.user.dto.UserResponse;
 import com.example.tour.user.dto.UserUpdateRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,5 +35,11 @@ public class UserController {
     @DeleteMapping("/api/user")
     public void deleteUsers(@RequestParam String email) {
         userService.deleteUser(email);
+    }
+
+    // 프로젝트에 포함되어 있는 유저들 표시
+    @GetMapping("/api/users")
+    public List<UserResponse> getUsersInProject(@RequestParam Long projectId) {
+        return userService.getUsersInProject(projectId);
     }
 }

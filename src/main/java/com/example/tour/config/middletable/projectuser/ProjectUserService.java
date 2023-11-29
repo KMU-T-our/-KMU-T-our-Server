@@ -21,13 +21,14 @@ public class ProjectUserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public ProjectUserResponse save(ProjectUserSaveRequest request) {
-        User user = userRepository.findByIdentity(request.getUserIdentity())
-                .orElseThrow(IllegalArgumentException::new);
+    public String save(ProjectUserSaveRequest request) {
+        List<User> users = request.getUserIdentity().stream()
+                .map(ret -> userRepository.findByIdentity(ret).orElseThrow(IllegalArgumentException::new))
+                .toList();
         Project project = projectRepository.findById(request.getProjectId())
                 .orElseThrow(IllegalArgumentException::new);
-        ProjectUser projectUser = projectUserRepository.save(new ProjectUser(project, user));
-        return new ProjectUserResponse(projectUser.getProjectUserId());
+        users.forEach(user -> projectUserRepository.save(new ProjectUser(project, user)));
+        return "OK";
     }
 
     @Transactional

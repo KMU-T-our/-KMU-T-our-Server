@@ -7,10 +7,7 @@ import com.example.tour.config.middletable.projectuser.ProjectUser;
 import com.example.tour.config.middletable.projectuser.ProjectUserRepository;
 import com.example.tour.token.jwt.JwtProperties;
 import com.example.tour.user.domain.User;
-import com.example.tour.user.dto.KakaoProfile;
-import com.example.tour.user.dto.NaverProfile;
-import com.example.tour.user.dto.UserCreateRequest;
-import com.example.tour.user.dto.UserUpdateRequest;
+import com.example.tour.user.dto.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -198,5 +195,11 @@ public class UserServiceImpl {
 
     public String newNanoID() {
         return NanoIdUtils.randomNanoId(random, numbers, 4);
+    }
+
+    public List<UserResponse> getUsersInProject(Long projectId) {
+        return projectUserRepository.findAllByProjectId(projectId).stream()
+                .map(UserResponse::new)
+                .toList();
     }
 }
