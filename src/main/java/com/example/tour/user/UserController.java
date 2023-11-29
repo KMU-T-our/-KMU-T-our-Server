@@ -38,7 +38,7 @@ public class UserController {
     }
 
     // 프로젝트에 포함되어 있는 유저들 표시
-    @GetMapping("/api/users")
+    @GetMapping("/api/usersByProjectId")
     public List<UserResponse> getUsersInProject(@RequestParam Long projectId) {
         return userService.getUsersInProject(projectId);
     }
