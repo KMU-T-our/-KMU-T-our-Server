@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -13,7 +14,7 @@ public class ProjectUserController {
     private final ProjectUserService projectUserService;
 
     @PostMapping("/api/projectuser")
-    public String saveProjectUser(@RequestBody ProjectUserSaveRequest request) {
+    public Map<String, String> saveProjectUser(@RequestBody ProjectUserSaveRequest request) {
         return projectUserService.save(request);
     }
 

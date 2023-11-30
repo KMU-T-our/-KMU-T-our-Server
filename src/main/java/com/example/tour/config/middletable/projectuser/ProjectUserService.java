@@ -11,7 +11,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -21,14 +23,17 @@ public class ProjectUserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public String save(ProjectUserSaveRequest request) {
+    public Map<String, String> save(ProjectUserSaveRequest request) {
         List<User> users = request.getUserIdentity().stream()
                 .map(ret -> userRepository.findByIdentity(ret).orElseThrow(IllegalArgumentException::new))
                 .toList();
         Project project = projectRepository.findById(request.getProjectId())
                 .orElseThrow(IllegalArgumentException::new);
         users.forEach(user -> projectUserRepository.save(new ProjectUser(project, user)));
-        return "OK";
+
+        Map<String, String> result = new HashMap<>();
+        result.put("code", "OK");
+        return result;
     }
 
     @Transactional
