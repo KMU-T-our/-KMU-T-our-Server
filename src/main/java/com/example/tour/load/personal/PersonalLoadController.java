@@ -24,9 +24,9 @@ public class PersonalLoadController {
     }
 
     @GetMapping("/api/load/personals")
-    public ResponseEntity<List<PersonalLoadResponse>> getAllPersonalLoad(@RequestParam Long projectuserId){
+    public ResponseEntity<List<PersonalLoadResponse>> getAllPersonalLoad(@RequestParam Long projectUserId){
         return ResponseEntity.ok()
-                .body(personalLoadService.getAllPersonalLoad(projectuserId));
+                .body(personalLoadService.getAllPersonalLoad(projectUserId));
     }
 
     @GetMapping("/api/load/personal")

@@ -28,8 +28,8 @@ public class PersonalLoadServiceImpl {
     }
 
     @Transactional
-    public List<PersonalLoadResponse> getAllPersonalLoad(Long projectuserId) {
-        ProjectUser projectUser = projectUserRepository.findByProjectUserId(projectuserId);
+    public List<PersonalLoadResponse> getAllPersonalLoad(Long projectUserId) {
+        ProjectUser projectUser = projectUserRepository.findByProjectUserId(projectUserId);
         return personalLoadRepository.findAllByProjectUser(projectUser).stream()
                 .map(PersonalLoadResponse::new).toList();
     }
