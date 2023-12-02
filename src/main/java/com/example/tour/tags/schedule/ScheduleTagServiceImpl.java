@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -41,10 +42,10 @@ public class ScheduleTagServiceImpl {
     }
 
     @Transactional
-    public ScheduleTagResponse findByDateAndProjectId(ScheduleTagCreateRequest request){
-        Project project = projectRepository.findProjectById(request.getProjectId());
-        ScheduleTag scheduleTag = scheduleTagRepository.findByDateAndProject(request.getDate(), project);
-        return new ScheduleTagResponse(scheduleTag);
+    public List<ScheduleTagResponse> findByDateAndProjectId(String date, Long projectId){
+        Project project = projectRepository.findProjectById(projectId);
+        return scheduleTagRepository.findByDateAndProject(date, project).stream()
+                .map(ScheduleTagResponse::new).collect(Collectors.toList());
     }
 
     @Transactional
@@ -69,10 +70,5 @@ public class ScheduleTagServiceImpl {
         return scheduleTagRepository.findByProject(project).stream()
                 .map(ScheduleTagResponse::new)
                 .toList();
-    }
-
-    public ScheduleTagResponse findByDate(String date) {
-        ScheduleTag scheduleTag = scheduleTagRepository.findByDate(date);
-        return new ScheduleTagResponse(scheduleTag);
     }
 }
