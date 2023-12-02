@@ -10,12 +10,12 @@ public class PersonalLoadResponse {
     private Long id;
     private String name;
     private boolean checkbox;
-    private Long project_user_id;
+    private Long projectUserId;
 
     public PersonalLoadResponse(PersonalLoad personalLoad){
         this.id = personalLoad.getId();
         this.name = personalLoad.getName();
-        this.project_user_id = personalLoad.getProjectUser().getProjectUserId();
+        this.projectUserId = personalLoad.getProjectUser().getProjectUserId();
         this.checkbox = isCheckbox();
     }
 }
