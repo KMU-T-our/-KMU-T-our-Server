@@ -1,6 +1,7 @@
 package com.example.tour.load.personal;
 
 
+import com.example.tour.config.middletable.projectuser.ProjectUser;
 import com.example.tour.load.personal.domain.PersonalLoad;
 import com.example.tour.load.personal.dto.PersonalLoadRequest;
 import com.example.tour.load.personal.dto.PersonalLoadResponse;
@@ -18,14 +19,14 @@ public class PersonalLoadController {
     private final PersonalLoadServiceImpl personalLoadService;
 
     @PostMapping("/api/load/personal")
-    public void savePersonalLoad(@RequestBody PersonalLoadRequest request){
-        personalLoadService.savePersonalLoad(request);
+    public PersonalLoadResponse savePersonalLoad(@RequestBody PersonalLoadRequest request){
+        return personalLoadService.savePersonalLoad(request);
     }
 
     @GetMapping("/api/load/personals")
-    public ResponseEntity<List<PersonalLoad>> getAllPersonalLoad(@RequestBody PersonalLoadRequest request){
+    public ResponseEntity<List<PersonalLoadResponse>> getAllPersonalLoad(@RequestParam Long projectuserId){
         return ResponseEntity.ok()
-                .body(personalLoadService.getAllPersonalLoad(request));
+                .body(personalLoadService.getAllPersonalLoad(projectuserId));
     }
 
     @GetMapping("/api/load/personal")

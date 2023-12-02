@@ -20,16 +20,18 @@ public class PersonalLoadServiceImpl {
     private final ProjectUserRepository projectUserRepository;
 
     @Transactional
-    public void savePersonalLoad(PersonalLoadRequest request){
+    public PersonalLoadResponse savePersonalLoad(PersonalLoadRequest request){
         ProjectUser projectUser = projectUserRepository.findByProjectUserId(request.getProject_user_id());
         PersonalLoad personalLoad = new PersonalLoad(request, projectUser);
         personalLoadRepository.save(personalLoad);
+        return new PersonalLoadResponse(personalLoad);
     }
 
     @Transactional
-    public List<PersonalLoad> getAllPersonalLoad(PersonalLoadRequest request) {
-        ProjectUser projectUser = projectUserRepository.findByProjectUserId(request.getProject_user_id());
-        return personalLoadRepository.findAllByProjectUser(projectUser);
+    public List<PersonalLoadResponse> getAllPersonalLoad(Long projectuserId) {
+        ProjectUser projectUser = projectUserRepository.findByProjectUserId(projectuserId);
+        return personalLoadRepository.findAllByProjectUser(projectUser).stream()
+                .map(PersonalLoadResponse::new).toList();
     }
 
     @Transactional
