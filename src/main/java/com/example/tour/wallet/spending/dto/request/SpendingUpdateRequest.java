@@ -12,10 +12,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class SpendingUpdateRequest {
 
-    private Long id;
+    private Long spendingId;
     private String title;
     private Spending.SpendingTag tag;
-    private Long amount;
+    private Long amount = 0L;
     private String date;
 
 }

@@ -49,7 +49,7 @@ public class SpendingService {
 
     @Transactional
     public SpendingResponse updateSpending(SpendingUpdateRequest request){
-        Spending spending = spendingRepository.findById(request.getId())
+        Spending spending = spendingRepository.findById(request.getSpendingId())
                 .orElseThrow(IllegalArgumentException::new);
         spending.updateSpending(request);
         return new SpendingResponse(spending);
