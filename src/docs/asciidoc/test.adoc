@@ -1,0 +1,3 @@
+== TestController
+
+operation::test-controller-test/test[snippets="http-request,http-response"]

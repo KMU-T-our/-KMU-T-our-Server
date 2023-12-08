@@ -1,6 +1,7 @@
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.3'
+    id 'org.asciidoctor.jvm.convert' version '3.3.2'
 	id 'io.spring.dependency-management' version '1.1.3'
 }
 
@@ -12,6 +13,7 @@ java {
 }
 
 configurations {
+    asciidoctorExt
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
@@ -27,6 +29,9 @@ repositories {
 }
 
 dependencies {
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    // adoc 파일에서 사용할 snippets 속성이 자동으로 build/generated-snippets를 가리키도록 해줌
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.json:json:20230227'
@@ -44,8 +49,50 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation 'mysql:mysql-connector-java:8.0.27'
 	runtimeOnly 'mysql:mysql-connector-java'
+
+    testAnnotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
+
+// *******************************************************spring rests docs asciidoctor 관련 설정들
+
+ext {
+    set('snippetsDir', file("build/generated-snippets")) // snippets 파일이 저장될 경로 snippetsDir로 변수 설정
+}
+
+test {
+    outputs.dir snippetsDir // 출력할 디렉토리를 snippetsDir로
+    useJUnitPlatform()
+}
+
+asciidoctor {
+    configurations 'asciidoctorExt' // Asciidoctor 에서 asciidoctorExt 설정 사용
+    baseDirFollowsSourceFile() // .adoc 파일에서 다른 .adoc를 include하여 사용하는 경우 경로를 동일한 경로를 baseDir로 동일하게 사용
+    inputs.dir snippetsDir // inpute 디렉토리를 snippetsDir로 설정
+    dependsOn test // Grale build 시 test -> asciidoctor 순으로 진행된다.
+}
+
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs') // asciidoctor가 실행될 떄 처음으로 해당 경로에 있는 파일들을 지운다.
+}
+
+task createDocument(type: Copy) { // 실행 task를 정의하고 type을 복사로 정의. from에 위치한 파일들을 into로 복사
+    dependsOn asciidoctor // build시 asciidoctor -> createDocument 순으로 진행된다.
+    from file("build/docs/asciidoc")
+    into file("src/main/resources/static")
+}
+
+bootJar {
+    dependsOn createDocument // createDocument -> bootJar 순으로 진행된다.
+    from("${asciidoctor.outputDir}") {
+        // build 시 asciidoctor.outputDir에 HTML 파일이 생기고 이것을 jar 안에 /resources/static 폴더에 복사
+        into 'static/docs'
+    }
+}
+
+//******************************************************************************************
+
 
 tasks.named('test') {
 	useJUnitPlatform()

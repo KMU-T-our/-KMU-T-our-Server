@@ -64,7 +64,7 @@ public class HomeTag {
         if (request.getAddress() != null) this.address = request.getAddress();
         if (request.getCheckInDay() != null) this.checkInDay = request.getCheckInDay();
         if (request.getCheckInTime() != null) this.checkInTime = request.getCheckInTime();
-        if (request.getCheckOutDay() != null) this.checkInDay = request.getCheckOutDay();
+        if (request.getCheckOutDay() != null) this.checkOutDay = request.getCheckOutDay();
         if (request.getCheckOutTime() != null) this.checkOutTime = request.getCheckOutTime();
         if (request.getNumberOfPeople() != null) this.numberOfPeople = request.getNumberOfPeople();
         if (request.getNumberOfRooms() != null) this.numberOfRooms = request.getNumberOfRooms();
